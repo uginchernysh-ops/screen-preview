@@ -23,13 +23,15 @@
       transition: background 0.5s ease;
     }
     
-    .container {
+    .interface-container {
       width: 100%;
       max-width: 100%;
       display: flex;
       flex-direction: column;
       gap: 20px;
       flex: 1;
+      transform-origin: top center;
+      transition: transform 0.3s ease;
     }
     
     header {
@@ -345,7 +347,7 @@
         padding: 10px;
       }
       
-      .container {
+      .interface-container {
         gap: 15px;
       }
       
@@ -393,7 +395,7 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="interface-container">
     <header>
       <h1>Screen Preview с масштабированием</h1>
       <p class="subtitle">Просмотр контента на различных экранах с сохранением оригинальных пропорций</p>
@@ -528,6 +530,7 @@
     const opacityValue = document.getElementById('opacityValue');
     const bgColorPicker = document.getElementById('bgColor');
     const colorPreview = document.getElementById('colorPreview');
+    const interfaceContainer = document.querySelector('.interface-container');
     
     // Info panel elements
     const currentScreen = document.getElementById('currentScreen');
@@ -618,6 +621,23 @@
       updateScale();
     }
 
+    // Новая функция для масштабирования интерфейса
+    function scaleInterface() {
+      const scr = screens[sel.value];
+      const screenHeight = scr.fitH || scr.h;
+      const screenAspectRatio = screenHeight / (scr.fitW || scr.w);
+      
+      // Определяем доступную высоту области просмотра
+      const previewContainer = document.querySelector('.preview-container');
+      const availableHeight = previewContainer.clientHeight;
+      
+      // Вычисляем масштаб на основе высоты экрана и доступного пространства
+      let interfaceScale = Math.min(1, availableHeight / screenHeight * 0.8);
+      
+      // Применяем масштабирование к интерфейсу
+      interfaceContainer.style.transform = `scale(${interfaceScale})`;
+    }
+
     function updateScreen(){
       const scr = screens[sel.value];
       maskImg.src = scr.src;
@@ -637,6 +657,9 @@
       currentScreen.textContent = sel.options[sel.selectedIndex].text;
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
+      
+      // Масштабируем интерфейс под выбранный экран
+      scaleInterface();
       
       setTimeout(autoFit, 50);
     }
@@ -664,7 +687,10 @@
     autoFitBtn.addEventListener('click', autoFit);
     opacitySlider.addEventListener('input', updateOpacity);
     bgColorPicker.addEventListener('input', updateBackground);
-    window.addEventListener('resize', autoFit);
+    window.addEventListener('resize', function() {
+      if (scaleSlider.value == 100) autoFit();
+      scaleInterface();
+    });
 
     inFile.addEventListener('change', e => {
       const file = e.target.files[0];
@@ -712,7 +738,10 @@
     colorPreview.style.backgroundColor = bgColorPicker.value;
     
     // Adjust layout on load
-    window.addEventListener('load', autoFit);
+    window.addEventListener('load', function() {
+      autoFit();
+      scaleInterface();
+    });
   </script>
 </body>
 </html>
