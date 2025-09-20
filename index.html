@@ -305,6 +305,12 @@
       cursor: pointer;
       z-index: 10;
       font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+      transition: all 0.3s;
+    }
+    
+    .fullscreen-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
     
     .color-control {
@@ -319,6 +325,7 @@
       height: 30px;
       border-radius: 5px;
       border: 2px solid #fff;
+      transition: background-color 0.3s ease;
     }
 
     /* Responsive adjustments */
@@ -487,17 +494,23 @@
   </div>
 
   <script>
+    // Автоматическое определение базового URL для GitHub Pages
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const baseUrl = isGitHubPages 
+        ? window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/')
+        : '';
+
     const screens = {
-      Bolshoi:       { w:6528, h:1472, src:'images/Bolshoi-ekran-6528kh1472.jpg' },
-      Poloski:       { w:640,  h:1920, src:'images/Ekran-poloski-640x1920.jpg' },
-      Nav:           { w:316,  h:384,  src:'images/Navigation-316x384.jpg' },
-      Bar1:          { w:384,  h:64,   src:'images/Bar 1 384x64.jpg' },
-      Bar2:          { w:256,  h:64,   src:'images/Bar-2-256Kh64.jpg' },
-      Recepshen:     { w:2176, h:1280, src:'images/Recepshen-2176x1280.jpg' },
-      TualetM:       { w:284,  h:256,  src:'images/Tualet-men-284x256.jpg' },
-      TualetW:       { w:284,  h:256,  src:'images/Tualet-women-284x256.jpg' },
-      TualetPotolok: { w:383,  h:384,  src:'images/Tualet-potolok-383x384.jpg' },
-      Lestnitsa:     { w:200,  h:120,  src:'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg', fitW:1920, fitH:1080 }
+      Bolshoi:       { w:6528, h:1472, src: `${baseUrl}/images/Bolshoi-ekran-6528kh1472.jpg` },
+      Poloski:       { w:640,  h:1920, src: `${baseUrl}/images/Ekran-poloski-640x1920.jpg` },
+      Nav:           { w:316,  h:384,  src: `${baseUrl}/images/Navigation-316x384.jpg` },
+      Bar1:          { w:384,  h:64,   src: `${baseUrl}/images/Bar 1 384x64.jpg` },
+      Bar2:          { w:256,  h:64,   src: `${baseUrl}/images/Bar-2-256Kh64.jpg` },
+      Recepshen:     { w:2176, h:1280, src: `${baseUrl}/images/Recepshen-2176x1280.jpg` },
+      TualetM:       { w:284,  h:256,  src: `${baseUrl}/images/Tualet-men-284x256.jpg` },
+      TualetW:       { w:284,  h:256,  src: `${baseUrl}/images/Tualet-women-284x256.jpg` },
+      TualetPotolok: { w:383,  h:384,  src: `${baseUrl}/images/Tualet-potolok-383x384.jpg` },
+      Lestnitsa:     { w:200,  h:120,  src: `${baseUrl}/images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg`, fitW:1920, fitH:1080 }
     };
 
     const sel = document.getElementById('screenSelect');
@@ -703,4 +716,3 @@
   </script>
 </body>
 </html>
-
