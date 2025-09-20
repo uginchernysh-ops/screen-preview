@@ -621,21 +621,35 @@
       updateScale();
     }
 
-    // Новая функция для масштабирования интерфейса
+    // Новая улучшенная функция для масштабирования интерфейса
     function scaleInterface() {
       const scr = screens[sel.value];
       const screenHeight = scr.fitH || scr.h;
-      const screenAspectRatio = screenHeight / (scr.fitW || scr.w);
       
       // Определяем доступную высоту области просмотра
       const previewContainer = document.querySelector('.preview-container');
       const availableHeight = previewContainer.clientHeight;
       
       // Вычисляем масштаб на основе высоты экрана и доступного пространства
-      let interfaceScale = Math.min(1, availableHeight / screenHeight * 0.8);
+      // Ограничиваем масштаб, чтобы интерфейс не становился слишком маленьким
+      let interfaceScale = Math.min(1, availableHeight / screenHeight * 0.7);
+      
+      // Добавляем дополнительные ограничения для мобильных устройств
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        // На мобильных устройствах ограничиваем минимальный масштаб
+        interfaceScale = Math.max(0.5, interfaceScale);
+      } else {
+        // На десктопах ограничиваем минимальный масштаб
+        interfaceScale = Math.max(0.6, interfaceScale);
+      }
       
       // Применяем масштабирование к интерфейсу
       interfaceContainer.style.transform = `scale(${interfaceScale})`;
+      
+      // Центрируем интерфейс после масштабирования
+      interfaceContainer.style.margin = '0 auto';
+      interfaceContainer.style.width = 'fit-content';
     }
 
     function updateScreen(){
@@ -659,7 +673,7 @@
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
       
       // Масштабируем интерфейс под выбранный экран
-      scaleInterface();
+      setTimeout(scaleInterface, 100);
       
       setTimeout(autoFit, 50);
     }
@@ -689,7 +703,7 @@
     bgColorPicker.addEventListener('input', updateBackground);
     window.addEventListener('resize', function() {
       if (scaleSlider.value == 100) autoFit();
-      scaleInterface();
+      setTimeout(scaleInterface, 100);
     });
 
     inFile.addEventListener('change', e => {
@@ -740,7 +754,7 @@
     // Adjust layout on load
     window.addEventListener('load', function() {
       autoFit();
-      scaleInterface();
+      setTimeout(scaleInterface, 100);
     });
   </script>
 </body>
