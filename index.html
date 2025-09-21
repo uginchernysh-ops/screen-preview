@@ -5,356 +5,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Screen Preview с масштабированием</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: url('https://raw.githubusercontent.com/username/repo/main/images/Back.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #ecf0f1;
-      min-height: 100vh;
-      padding: 20px;
-      line-height: 1.6;
-      position: relative;
+      color: #ecf0f1; min-height: 100vh; padding: 20px; line-height: 1.6; position: relative;
     }
-    
     body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(44, 62, 80, 0.85);
-      z-index: -1;
+      content: ''; position: absolute; inset: 0;
+      background: rgba(44,62,80,0.85); z-index: -1;
     }
-    
-    .logo-container {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    
-    .logo {
-      max-width: 200px;
-      height: auto;
-      margin-bottom: 10px;
-    }
-    
+    .logo-container { text-align: center; margin-bottom: 15px; }
+    .logo { max-width: 200px; height: auto; margin-bottom: 10px; }
     .interface-container {
-      max-width: 1600px;
-      margin: 0 auto;
-      background: rgba(44, 62, 80, 0.7);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      max-width: 1600px; margin: 0 auto; background: rgba(44,62,80,0.7);
+      border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
-    
-    header {
-      text-align: center;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 8px;
-      color: #3498db;
-    }
-    
-    .subtitle {
-      font-size: 1.1rem;
-      opacity: 0.8;
-    }
-    
-    .main-content {
-      display: flex;
-      gap: 25px;
-      flex-wrap: wrap;
-    }
-    
+    header { text-align: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    h1 { font-size: 2.2rem; margin-bottom: 8px; color: #3498db; }
+    .subtitle { font-size: 1.1rem; opacity: 0.8; }
+    .main-content { display: flex; gap: 25px; flex-wrap: wrap; }
     .control-panel {
-      flex: 0 0 300px;
-      background: rgba(52, 73, 94, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      flex: 0 0 300px; background: rgba(52,73,94,0.8); padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
-    
-    .control-group {
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .control-group:last-child {
-      border-bottom: none;
-    }
-    
-    h2 {
-      font-size: 1.3rem;
-      margin-bottom: 15px;
-      color: #3498db;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-    
+    .control-group { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .control-group:last-child { border-bottom: none; }
+    h2 { font-size: 1.3rem; margin-bottom: 15px; color: #3498db; }
+    label { display: block; margin-bottom: 8px; font-weight: 500; }
     select, input[type="file"], input[type="range"], input[type="color"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 5px;
-      background: #2c3e50;
-      color: #ecf0f1;
-      font-size: 1rem;
+      width: 100%; padding: 10px; margin-bottom: 15px; border: none; border-radius: 5px; background: #2c3e50; color: #ecf0f1; font-size: 1rem;
     }
-    
-    input[type="range"] {
-      padding: 0;
-      height: 8px;
-      -webkit-appearance: none;
-      background: #34495e;
-      border-radius: 4px;
-    }
-    
+    input[type="range"] { padding: 0; height: 8px; -webkit-appearance: none; background: #34495e; border-radius: 4px; }
     input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #3498db;
-      cursor: pointer;
+      -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #3498db; cursor: pointer;
     }
-    
     button {
-      width: 100%;
-      padding: 12px;
-      background: #3498db;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-      margin-bottom: 10px;
+      width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 5px;
+      font-size: 1rem; cursor: pointer; transition: background 0.3s; margin-bottom: 10px;
     }
-    
-    button:hover {
-      background: #2980b9;
-    }
-    
-    .value-display {
-      display: flex;
-      justify-content: space-between;
-      margin-top: -10px;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-    
-    .color-preview {
-      width: 30px;
-      height: 30px;
-      border-radius: 5px;
-      border: 2px solid #ecf0f1;
-      margin-top: 5px;
-    }
-    
-    .preview-section {
-      flex: 1;
-      min-width: 300px;
-    }
-    
+    button:hover { background: #2980b9; }
+    .value-display { display: flex; justify-content: space-between; margin-top: -10px; margin-bottom: 15px; font-size: 0.9rem; opacity: 0.8; }
+    .color-preview { width: 30px; height: 30px; border-radius: 5px; border: 2px solid #ecf0f1; margin-top: 5px; }
+    .preview-section { flex: 1; min-width: 300px; }
     .preview-container {
-      position: relative;
-      width: 100%;
-      height: 60vh; /* Уменьшил высоту области просмотра */
-      min-height: 350px; /* Уменьшил минимальную высоту */
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 15px; /* Уменьшил отступ */
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+      position: relative; width: 100%; height: 60vh; min-height: 350px; background: rgba(0,0,0,0.3);
+      border-radius: 10px; overflow: hidden; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
     }
-    
+    /* Контейнер экрана в реальном размере, масштабируем трансформом */
     #screenContainer {
-      position: relative;
-      transform-origin: center center;
-      transition: transform 0.2s ease;
+      position: relative; transform-origin: center center; transition: transform 0.2s ease;
+      width: 0; height: 0;
     }
-    
-    #maskImage {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-      pointer-events: none;
-    }
-    
-    #videoPlayer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      z-index: 1;
-    }
-    
-    #previewCanvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-    
+    /* Порядок слоёв: маска снизу (z:1), контент сверху (z:2), опционально можно переключить */
+    #maskImage, #fallbackCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+    #videoPlayer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; }
+    #previewCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; }
     .loading-indicator {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 15px 25px;
-      border-radius: 8px;
-      z-index: 5;
-      display: none;
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      background: rgba(0,0,0,0.7); color: white; padding: 15px 25px; border-radius: 8px; z-index: 5; display: none;
     }
-    
     .placeholder-message {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: rgba(255, 255, 255, 0.6);
-      z-index: 0;
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      text-align: center; color: rgba(255,255,255,0.6); z-index: 0;
     }
-    
     .screen-info {
-      background: rgba(52, 73, 94, 0.8);
-      padding: 15px; /* Уменьшил отступы */
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      margin-bottom: 15px; /* Добавил отступ снизу */
+      background: rgba(52,73,94,0.8); padding: 15px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); margin-bottom: 15px;
     }
-    
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px; /* Уменьшил промежутки */
-    }
-    
-    .info-item {
-      background: rgba(44, 62, 80, 0.5);
-      padding: 10px; /* Уменьшил отступы */
-      border-radius: 8px;
-    }
-    
-    .info-label {
-      font-size: 0.9rem;
-      opacity: 0.7;
-      margin-bottom: 5px;
-    }
-    
-    .info-value {
-      font-size: 1rem; /* Уменьшил размер шрифта */
-      font-weight: 500;
-    }
-    
-    .error-message {
-      color: #e74c3c;
-      margin-top: 10px;
-      display: none;
-    }
-    
-    .control-panel-toggle {
-      display: none;
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      z-index: 1000;
-      width: auto;
-      padding: 10px 15px;
-      background: #3498db;
-      border-radius: 5px;
-    }
-    
-    .fullscreen-btn-container {
-      text-align: center;
-      margin-top: 10px;
-    }
-    
-    #fullscreenBtn {
-      width: auto;
-      padding: 8px 15px;
-      font-size: 0.9rem;
-    }
-    
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 12px; }
+    .info-item { background: rgba(44,62,80,0.5); padding: 10px; border-radius: 8px; }
+    .info-label { font-size: 0.9rem; opacity: 0.7; margin-bottom: 5px; }
+    .info-value { font-size: 1rem; font-weight: 500; }
+    .error-message { color: #e74c3c; margin-top: 10px; display: none; }
+    .control-panel-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1000; width: auto; padding: 10px 15px; background: #3498db; border-radius: 5px; }
+    .fullscreen-btn-container { text-align: center; margin-top: 10px; }
+    #fullscreenBtn { width: auto; padding: 8px 15px; font-size: 0.9rem; }
     @media (max-width: 768px) {
-      .main-content {
-        flex-direction: column;
-      }
-      
-      .control-panel {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        max-width: 300px;
-        height: 100vh;
-        z-index: 999;
-        overflow-y: auto;
-        transition: left 0.3s ease;
-      }
-      
-      .control-panel.active {
-        left: 0;
-      }
-      
-      .control-panel-toggle {
-        display: block;
-      }
-      
-      .preview-container {
-        height: 45vh; /* Уменьшил высоту на мобильных */
-      }
-      
-      .logo {
-        max-width: 150px;
-      }
+      .main-content { flex-direction: column; }
+      .control-panel { position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh; z-index: 999; overflow-y: auto; transition: left 0.3s ease; }
+      .control-panel.active { left: 0; }
+      .control-panel-toggle { display: block; }
+      .preview-container { height: 45vh; }
+      .logo { max-width: 150px; }
     }
+    /* Переключатель слоя маски */
+    .mask-on-top #maskImage, .mask-on-top #fallbackCanvas { z-index: 3; pointer-events: none; }
   </style>
 </head>
 <body>
   <button class="control-panel-toggle" id="panelToggle">☰ Панель управления</button>
-  
-  <div class="interface-container">
+
+  <div class="interface-container" id="appRoot">
     <div class="logo-container">
-      <img src="https://raw.githubusercontent.com/username/repo/main/images/connect_logo-1.png" alt="Connect Logo" class="logo">
+      <img src="https://raw.githubusercontent.com/username/repo/main/images/connect_logo-1.jpg" alt="Connect Logo" class="logo"
+           onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/username/repo/main/images/connect_logo-1.png';">
     </div>
-    
+
     <header>
       <h1>Screen Preview с масштабированием</h1>
       <p class="subtitle">Просмотр контента на различных экранах с сохранением оригинальных пропорций</p>
     </header>
-    
+
     <div class="main-content">
       <div class="control-panel" id="controlPanel">
         <div class="control-group">
@@ -372,32 +123,37 @@
             <option value="TualetPotolok">Туалет потолок (383×384)</option>
             <option value="Lestnitsa">Экран на лестнице (200×120)</option>
           </select>
-          
+
           <label for="uploadInput">Загрузить контент:</label>
           <input type="file" id="uploadInput" accept="image/*,video/*">
           <div class="error-message" id="uploadError"></div>
+
+          <label for="maskOrder">Порядок слоёв маски:</label>
+          <select id="maskOrder">
+            <option value="under">Маска под контентом</option>
+            <option value="over">Маска над контентом</option>
+          </select>
         </div>
-        
+
         <div class="control-group">
           <h2>Масштаб</h2>
           <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
           <input type="range" id="scaleSlider" min="10" max="400" value="100">
           <button id="autoFitBtn">Автоподгон</button>
         </div>
-        
+
         <div class="control-group">
           <h2>Внешний вид</h2>
           <label for="contentOpacity">Прозрачность контента: <span id="opacityValue">100%</span></label>
           <input type="range" id="contentOpacity" min="0" max="100" value="100">
-          
           <label for="bgColor">Цвет фона:</label>
           <input type="color" id="bgColor" value="#2c3e50">
           <div class="color-preview" id="colorPreview"></div>
         </div>
       </div>
-      
+
       <div class="preview-section">
-        <div class="preview-container">
+        <div class="preview-container" id="previewContainer">
           <div id="screenContainer">
             <div class="loading-indicator" id="loadingIndicator">Загрузка маски экрана...</div>
             <img id="maskImage" src="" alt="Mask" onerror="handleImageError()">
@@ -409,7 +165,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="screen-info">
           <div class="info-grid">
             <div class="info-item">
@@ -430,7 +186,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="fullscreen-btn-container">
           <button id="fullscreenBtn">Полный экран</button>
         </div>
@@ -439,19 +195,16 @@
   </div>
 
   <script>
-    // Автоматическое определение базового URL для GitHub Pages
+    // База URL (GitHub Pages / локально)
     const isGitHubPages = window.location.hostname.includes('github.io');
-    const repoName = window.location.pathname.split('/')[1] || 'screen-preview'; // Имя репозитория
-    const baseUrl = isGitHubPages 
-        ? `${window.location.origin}${window.location.pathname.split('/').slice(0, 2).join('/')}`
-        : '';
+    const baseUrl = isGitHubPages
+      ? `${window.location.origin}${window.location.pathname.split('/').slice(0, 2).join('/')}`
+      : '';
 
-    // Кэш для уже загруженных масок
     const maskCache = {};
-    
-    // Определяем мелкие экраны, которые нужно увеличивать в 2 раза
-    const smallScreens = ['Nav', 'Bar1', 'Bar2', 'TualetM', 'TualetW', 'TualetPotolok', 'Lestnitsa'];
+    const smallScreens = ['Nav','Bar1','Bar2','TualetM','TualetW','TualetPotolok','Lestnitsa'];
 
+    // ВАЖНО: для Лестницы убираем fitW/H 1920×1080 — держим реальные 200×120
     const screens = {
       Bolshoi:       { w:6528, h:1472, src: `${baseUrl}/images/Bolshoi-ekran-6528kh1472.jpg` },
       Poloski:       { w:640,  h:1920, src: `${baseUrl}/images/Ekran-poloski-640x1920.jpg` },
@@ -462,11 +215,8 @@
       TualetM:       { w:284,  h:256,  src: `${baseUrl}/images/Tualet-men-284x256.jpg` },
       TualetW:       { w:284,  h:256,  src: `${baseUrl}/images/Tualet-women-284x256.jpg` },
       TualetPotolok: { w:383,  h:384,  src: `${baseUrl}/images/Tualet-potolok-383x384.jpg` },
-      Lestnitsa:     { w:200,  h:120,  src: `${baseUrl}/images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg`, fitW:1920, fitH:1080 }
+      Lestnitsa:     { w:200,  h:120,  src: `${baseUrl}/images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg` }
     };
-
-    console.log("Base URL:", baseUrl);
-    console.log("Screen paths:", screens);
 
     const sel = document.getElementById('screenSelect');
     const inFile = document.getElementById('uploadInput');
@@ -483,190 +233,113 @@
     const opacityValue = document.getElementById('opacityValue');
     const bgColorPicker = document.getElementById('bgColor');
     const colorPreview = document.getElementById('colorPreview');
-    const interfaceContainer = document.querySelector('.interface-container');
     const loadingIndicator = document.getElementById('loadingIndicator');
     const placeholderMessage = document.getElementById('placeholderMessage');
     const uploadError = document.getElementById('uploadError');
     const panelToggle = document.getElementById('panelToggle');
     const controlPanel = document.getElementById('controlPanel');
-    
-    // Info panel elements
     const currentScreen = document.getElementById('currentScreen');
     const screenResolution = document.getElementById('screenResolution');
     const aspectRatio = document.getElementById('aspectRatio');
     const scalePercent = document.getElementById('scalePercent');
+    const previewContainer = document.getElementById('previewContainer');
+    const maskOrder = document.getElementById('maskOrder');
+    const appRoot = document.getElementById('appRoot');
 
-    // Переменная для отслеживания ориентации устройства
     let isPortrait = window.innerHeight > window.innerWidth;
     let resizeTimeout;
     let currentScreenType = sel.value;
 
-    // Toggle control panel on mobile
-    panelToggle.addEventListener('click', function() {
-      controlPanel.classList.toggle('active');
-    });
-
-    // Close panel when clicking outside on mobile
-    document.addEventListener('click', function(e) {
-      if (window.innerWidth <= 768 && 
-          !controlPanel.contains(e.target) && 
+    panelToggle.addEventListener('click', () => controlPanel.classList.toggle('active'));
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768 &&
+          !controlPanel.contains(e.target) &&
           e.target !== panelToggle &&
           controlPanel.classList.contains('active')) {
         controlPanel.classList.remove('active');
       }
     });
 
-    // Calculate aspect ratio
-    function calculateAspectRatio(width, height) {
-      // Function to find greatest common divisor
-      function gcd(a, b) {
-        return b === 0 ? a : gcd(b, a % b);
-      }
-      
-      const divisor = gcd(width, height);
-      const ratioW = width / divisor;
-      const ratioH = height / divisor;
-      
-      // For very large ratios, approximate to one decimal place
-      if (ratioW > 10 || ratioH > 10) {
-        return (width / height).toFixed(2) + ':1';
-      }
-      
-      return `${ratioW}:${ratioH}`;
+    function gcd(a,b){ return b===0 ? a : gcd(b, a%b); }
+    function calculateAspectRatio(width, height){
+      const d = gcd(width, height);
+      const rw = width/d, rh = height/d;
+      if (rw > 10 || rh > 10) return (width/height).toFixed(2)+':1';
+      return `${rw}:${rh}`;
     }
 
-    function updateScale() {
+    function applyContainerSize(scr){
+      const cw = scr.w, ch = scr.h;
+      cont.style.width = cw + 'px';
+      cont.style.height = ch + 'px';
+    }
+
+    function updateScale(){
       const s = scaleSlider.value / 100;
       cont.style.transform = `scale(${s})`;
       scaleValue.textContent = `${scaleSlider.value}%`;
       scalePercent.textContent = `${scaleSlider.value}%`;
     }
 
-    function updateOpacity() {
-      const opacity = opacitySlider.value / 100;
-      if (vid.style.display !== 'none') {
-        vid.style.opacity = opacity;
-      }
-      if (canvas.style.display !== 'none') {
-        canvas.style.opacity = opacity;
-      }
-      opacityValue.textContent = `${opacitySlider.value}%`;
-    }
-
-    function updateBackground() {
-      const color = bgColorPicker.value;
-      document.body.style.background = `url('https://raw.githubusercontent.com/username/repo/main/images/Back.jpg') no-repeat center center fixed, linear-gradient(to bottom, ${color}, ${darkenColor(color, 0.3)})`;
-      document.body.style.backgroundSize = 'cover';
-      colorPreview.style.backgroundColor = color;
-    }
-
-    function darkenColor(color, amount) {
-      // Convert hex to RGB
-      let r = parseInt(color.substring(1, 3), 16);
-      let g = parseInt(color.substring(3, 5), 16);
-      let b = parseInt(color.substring(5, 7), 16);
-
-      // Darken the color
-      r = Math.max(0, Math.floor(r * (1 - amount)));
-      g = Math.max(0, Math.floor(g * (1 - amount)));
-      b = Math.max(0, Math.floor(b * (1 - amount)));
-
-      // Convert back to hex
-      return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-    }
-
-    function autoFit() {
+    function autoFit(){
       const scr = screens[sel.value];
-      const refW = scr.fitW || scr.w;
-      const refH = scr.fitH || scr.h;
-      
-      // Calculate available space considering the control panel
-      const controlPanelWidth = window.innerWidth <= 768 ? 0 : 320;
-      
-      const availW = window.innerWidth - controlPanelWidth - 40; // account for margins
-      const availH = window.innerHeight - 250; // account for header and other elements
-      
-      // Для мелких экранов увеличиваем базовый масштаб в 2 раза
-      let baseScale = 1;
-      if (smallScreens.includes(sel.value)) {
-        baseScale = 2;
-      }
-      
-      // For Lestnitsa, use a different scaling approach to make it more visible
-      let scale;
-      if (sel.value === 'Lestnitsa') {
-        // For Lestnitsa, we want to make it more visible despite its small original size
-        scale = Math.min(availW / refW, availH / refH, 2) * 100 * baseScale;
-      } else {
-        scale = Math.min(availW / refW, availH / refH, 1) * 100 * baseScale;
-      }
-      
+      const screenW = scr.w, screenH = scr.h;
+
+      const availW = previewContainer.clientWidth - 20;
+      const availH = previewContainer.clientHeight - 20;
+
+      let baseScale = smallScreens.includes(sel.value) ? 2 : 1;
+      const scale = Math.min(availW / screenW, availH / screenH) * 100 * baseScale;
+
       scaleSlider.value = Math.max(10, Math.min(400, Math.floor(scale)));
       updateScale();
     }
 
-    // Функция для масштабирования маски под высоту окна браузера
-    function scaleMaskToWindow() {
-      const scr = screens[sel.value];
-      const screenHeight = scr.fitH || scr.h;
-      const screenWidth = scr.fitW || scr.w;
-      
-      // Определяем доступную высоту области просмотра
-      const previewContainer = document.querySelector('.preview-container');
-      const availableHeight = previewContainer.clientHeight;
-      const availableWidth = previewContainer.clientWidth;
-      
-      // Вычисляем масштаб на основе высоты экрана и доступного пространства
-      let maskScale = Math.min(availableWidth / screenWidth, availableHeight / screenHeight);
-      
-      // Для мелких экранов увеличиваем базовый масштаб в 2 раза
-      if (smallScreens.includes(sel.value)) {
-        maskScale *= 2;
-      }
-      
-      // Ограничиваем масштаб для мобильных устройств
-      if (window.innerWidth <= 768) {
-        maskScale = Math.min(maskScale, 1);
-      }
-      
-      // Применяем масштабирование к контейнеру маски
-      cont.style.transform = `scale(${maskScale})`;
-      
-      // Обновляем значение в слайдере
-      scaleSlider.value = Math.max(10, Math.min(400, Math.floor(maskScale * 100)));
-      scaleValue.textContent = `${scaleSlider.value}%`;
-      scalePercent.textContent = `${scaleSlider.value}%`;
+    function updateOpacity(){
+      const o = opacitySlider.value / 100;
+      vid.style.opacity = o;
+      canvas.style.opacity = o;
+      opacityValue.textContent = `${opacitySlider.value}%`;
     }
 
-    function handleImageError() {
-      console.error("Ошибка загрузки изображения маски экрана:", maskImg.src);
+    function updateBackground(){
+      const color = bgColorPicker.value;
+      document.body.style.background = `url('https://raw.githubusercontent.com/username/repo/main/images/Back.jpg') no-repeat center center fixed, linear-gradient(to bottom, ${color}, ${darkenColor(color,0.3)})`;
+      document.body.style.backgroundSize = 'cover';
+      colorPreview.style.backgroundColor = color;
+    }
+    function darkenColor(color, amt){
+      let r = parseInt(color.substring(1,3),16);
+      let g = parseInt(color.substring(3,5),16);
+      let b = parseInt(color.substring(5,7),16);
+      r = Math.max(0, Math.floor(r*(1-amt)));
+      g = Math.max(0, Math.floor(g*(1-amt)));
+      b = Math.max(0, Math.floor(b*(1-amt)));
+      return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+    }
+
+    function handleImageError(){
       loadingIndicator.style.display = 'none';
-      
-      // Создаем fallback - простой контур экрана
       const scr = screens[sel.value];
-      const cw = scr.fitW || scr.w;
-      const ch = scr.fitH || scr.h;
-      
-      // Создаем canvas с контуром экрана
+      const cw = scr.w, ch = scr.h;
+
+      maskImg.style.display = 'none';
+      let fb = document.getElementById('fallbackCanvas');
+      if (fb) fb.remove();
+
       const fallbackCanvas = document.createElement('canvas');
       fallbackCanvas.width = cw;
       fallbackCanvas.height = ch;
-      const fallbackCtx = fallbackCanvas.getContext('2d');
-      
-      // Рисуем контур экрана
-      fallbackCtx.strokeStyle = '#3498db';
-      fallbackCtx.lineWidth = 2;
-      fallbackCtx.strokeRect(0, 0, cw, ch);
-      
-      // Добавляем текст с информацией
-      fallbackCtx.fillStyle = '#3498db';
-      fallbackCtx.font = '16px Arial';
-      fallbackCtx.textAlign = 'center';
-      fallbackCtx.fillText(`Экран: ${sel.value}`, cw/2, ch/2 - 10);
-      fallbackCtx.fillText(`${cw} × ${ch} пикселей`, cw/2, ch/2 + 10);
-      
-      // Заменяем изображение на canvas
-      maskImg.style.display = 'none';
+      const fctx = fallbackCanvas.getContext('2d');
+      fctx.strokeStyle = '#3498db';
+      fctx.lineWidth = 2;
+      fctx.strokeRect(0, 0, cw, ch);
+      fctx.fillStyle = '#3498db';
+      fctx.font = '16px Arial';
+      fctx.textAlign = 'center';
+      fctx.fillText(`Экран: ${sel.value}`, cw/2, ch/2 - 10);
+      fctx.fillText(`${cw} × ${ch} пикселей`, cw/2, ch/2 + 10);
+
       fallbackCanvas.style.position = 'absolute';
       fallbackCanvas.style.top = '0';
       fallbackCanvas.style.left = '0';
@@ -680,153 +353,125 @@
     function updateScreen(){
       const scr = screens[sel.value];
       currentScreenType = sel.value;
-      
-      // Удаляем fallback canvas, если он есть
-      const fallbackCanvas = document.getElementById('fallbackCanvas');
-      if (fallbackCanvas) {
-        fallbackCanvas.remove();
-      }
-      
-      // Показываем индикатор загрузки
+
+      const fb = document.getElementById('fallbackCanvas');
+      if (fb) fb.remove();
+
       loadingIndicator.style.display = 'block';
       maskImg.style.display = 'block';
-      
-      // Use original screen dimensions
-      const cw = scr.fitW || scr.w;
-      const ch = scr.fitH || scr.h;
-      
-      cont.style.width = cw + 'px';
-      cont.style.height = ch + 'px';
-      
+
+      applyContainerSize(scr);
+
       vid.style.display = 'none';
       canvas.style.display = 'none';
       inFile.value = '';
-      
-      // Update info panel
+
       currentScreen.textContent = sel.options[sel.selectedIndex].text;
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
-      
-      // Проверяем, есть ли изображение в кэше
-      if (maskCache[sel.value]) {
-        // Используем кэшированное изображение
+
+      if (maskCache[sel.value]){
         maskImg.src = maskCache[sel.value];
         loadingIndicator.style.display = 'none';
-        
-        // Масштабируем маску под высоту окна браузера
-        scaleMaskToWindow();
+        autoFit();
       } else {
-        // Пытаемся загрузить изображение
         const testImage = new Image();
-        testImage.onload = function() {
-          // Проверяем, не изменился ли экран во время загрузки
-          if (sel.value === currentScreenType) {
+        testImage.onload = function(){
+          if (sel.value === currentScreenType){
             maskImg.src = scr.src;
             maskCache[sel.value] = scr.src;
             loadingIndicator.style.display = 'none';
-            
-            // Масштабируем маску под высоту окна браузера
-            scaleMaskToWindow();
+            autoFit();
           }
         };
-        
-        testImage.onerror = function() {
-          // Проверяем, не изменился ли экран во время загрузки
-          if (sel.value === currentScreenType) {
-            console.error("Не удалось загрузить маску:", scr.src);
+        testImage.onerror = function(){
+          if (sel.value === currentScreenType){
             handleImageError();
+            autoFit();
           }
         };
-        
         testImage.src = scr.src;
       }
-      
-      setTimeout(autoFit, 50);
     }
 
-    // Fullscreen functionality
     fullscreenBtn.addEventListener('click', toggleFullscreen);
-    
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
-          console.error(`Error attempting to enable full-screen mode: ${err.message}`);
-        });
+    function toggleFullscreen(){
+      if (!document.fullscreenElement){
+        document.documentElement.requestFullscreen().catch(()=>{});
         fullscreenBtn.textContent = 'Выйти из полноэкранного режима';
       } else {
-        if (document.exitFullscreen) {
+        if (document.exitFullscreen){
           document.exitFullscreen();
           fullscreenBtn.textContent = 'Полный экран';
         }
       }
     }
 
-    // Event listeners
     sel.addEventListener('change', updateScreen);
     scaleSlider.addEventListener('input', updateScale);
     autoFitBtn.addEventListener('click', autoFit);
     opacitySlider.addEventListener('input', updateOpacity);
     bgColorPicker.addEventListener('input', updateBackground);
-    
-    // Оптимизированная обработка ресайза
-    window.addEventListener('resize', function() {
-      // Проверяем изменение ориентации
-      const newIsPortrait = window.innerHeight > window.innerWidth;
-      if (newIsPortrait !== isPortrait) {
-        isPortrait = newIsPortrait;
-        // При изменении ориентации полностью перезагружаем экран
-        updateScreen();
+
+    // Переключение порядка слоёв маски
+    maskOrder.addEventListener('change', () => {
+      if (maskOrder.value === 'over') {
+        appRoot.classList.add('mask-on-top');
       } else {
-        // При обычном ресайзе используем debounce
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(function() {
-          if (scaleSlider.value == 100) autoFit();
-          scaleMaskToWindow();
-        }, 250);
+        appRoot.classList.remove('mask-on-top');
       }
     });
 
-    // Обработчик изменения ориентации устройства
-    window.addEventListener('orientationchange', function() {
-      // Ждем завершения изменения ориентации
-      setTimeout(function() {
+    window.addEventListener('resize', function(){
+      const newIsPortrait = window.innerHeight > window.innerWidth;
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function(){
+        if (newIsPortrait !== isPortrait){
+          isPortrait = newIsPortrait;
+          updateScreen();
+        } else {
+          autoFit();
+        }
+      }, 200);
+    });
+
+    window.addEventListener('orientationchange', function(){
+      setTimeout(function(){
         isPortrait = window.innerHeight > window.innerWidth;
         updateScreen();
-        autoFit();
       }, 300);
     });
 
     inFile.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
-      
-      // Скрываем сообщение-заполнитель
+
       placeholderMessage.style.display = 'none';
       uploadError.style.display = 'none';
-      
-      // Проверяем тип файла
-      if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+
+      if (!file.type.startsWith('image/') && !file.type.startsWith('video/')){
         uploadError.textContent = 'Неподдерживаемый формат файла. Используйте изображение или видео.';
         uploadError.style.display = 'block';
         return;
       }
-      
+
       const scr = screens[sel.value];
-      const cw = scr.fitW || scr.w;
-      const ch = scr.fitH || scr.h;
-      
-      if (file.type.startsWith('image/')) {
+      const cw = scr.w, ch = scr.h;
+
+      if (file.type.startsWith('image/')){
         vid.style.display = 'none';
         canvas.style.display = 'block';
+        // ВАЖНО: внутренние размеры canvas = реальные размеры экрана
         canvas.width = cw;
         canvas.height = ch;
+
         const img = new Image();
         img.onload = () => {
           ctx.clearRect(0, 0, cw, ch);
           const sc = Math.min(cw / img.width, ch / img.height);
           const w = img.width * sc;
           const h = img.height * sc;
-          ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+          ctx.drawImage(img, (cw - w)/2, (ch - h)/2, w, h);
         };
         img.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки изображения';
@@ -834,40 +479,26 @@
           placeholderMessage.style.display = 'block';
         };
         img.src = URL.createObjectURL(file);
-        // Apply current opacity
-        setTimeout(() => {
-          canvas.style.opacity = opacitySlider.value / 100;
-        }, 100);
-      } else if (file.type.startsWith('video/')) {
+        canvas.style.opacity = opacitySlider.value / 100;
+      } else {
         canvas.style.display = 'none';
         vid.style.display = 'block';
-        vid.width = cw;
-        vid.height = ch;
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
           uploadError.style.display = 'block';
           placeholderMessage.style.display = 'block';
         };
         vid.src = URL.createObjectURL(file);
-        vid.play();
-        // Apply current opacity
+        vid.play().catch(()=>{});
         vid.style.opacity = opacitySlider.value / 100;
       }
     });
 
-    // Initialize
+    // Init
     updateScreen();
     updateScale();
     updateBackground();
-    
-    // Set color preview
-    colorPreview.style.backgroundColor = bgColorPicker.value;
-    
-    // Adjust layout on load
-    window.addEventListener('load', function() {
-      autoFit();
-      scaleMaskToWindow();
-    });
+    document.getElementById('colorPreview').style.backgroundColor = bgColorPicker.value;
   </script>
 </body>
 </html>
