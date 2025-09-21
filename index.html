@@ -744,9 +744,14 @@
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
 
-      // Для всех экранов по умолчанию содержимое вписывается с сохранением пропорций
-      vid.style.objectFit = 'contain';
-      vid.style.objectPosition = 'center';
+      // переключаем поведение видео: для Poloski заполняем ширину маски
+      if (scrKey === 'Poloski') {
+        vid.style.objectFit = 'fill';
+        vid.style.objectPosition = 'center';
+      } else {
+        vid.style.objectFit = 'contain';
+        vid.style.objectPosition = 'center';
+      }
 
       // Проверяем кэш
       if (maskCache[scrKey]) {
@@ -827,7 +832,7 @@
           ctx2.clearRect(0, 0, cw, ch);
 
           if (scrKey === 'Poloski'){
-            // Масштаб по ширине маски, центр по вертикали (без искажения пропорций)
+            // Масштаб по ширине маски, центр по вертикали
             const scaleW = cw / img.width;
             const w = cw;
             const h = img.height * scaleW;
@@ -856,18 +861,13 @@
         canvas.style.display = 'none';
         vid.style.display = 'block';
 
-        // Для Poloski — ширина маски, сохранение пропорций: width:100% + height:auto через contain
+        // Для «Poloski» — заполнение ширины маски (растягивание допускается)
         if (scrKey === 'Poloski') {
-          vid.style.objectFit = 'contain'; // сохраняет пропорции во вьюбоксе видео
+          vid.style.objectFit = 'fill';
           vid.style.objectPosition = 'center';
-          // гарантируем растяжение по ширине контейнера маски
-          vid.style.width = '100%';
-          vid.style.height = 'auto';
         } else {
           vid.style.objectFit = 'contain';
           vid.style.objectPosition = 'center';
-          vid.style.width = '100%';
-          vid.style.height = '100%';
         }
 
         vid.onerror = () => {
