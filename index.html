@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Screen Preview с масштабированием</title>
   <style>
     * {
@@ -21,6 +21,7 @@
       display: flex;
       flex-direction: column;
       transition: background 0.5s ease;
+      overflow-x: hidden;
     }
     
     .interface-container {
@@ -249,6 +250,7 @@
       transition: transform 0.2s ease;
       max-width: 100%;
       max-height: 100%;
+      will-change: transform;
     }
     
     #maskImage {
@@ -463,6 +465,17 @@
         top: 5%;
       }
     }
+
+    /* Orientation specific styles */
+    @media (max-width: 768px) and (orientation: landscape) {
+      .preview-section {
+        min-height: 200px;
+      }
+      
+      .preview-container {
+        min-height: 180px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -623,6 +636,10 @@
     const aspectRatio = document.getElementById('aspectRatio');
     const scalePercent = document.getElementById('scalePercent');
 
+    // Переменная для отслеживания ориентации устройства
+    let isPortrait = window.innerHeight > window.innerWidth;
+    let resizeTimeout;
+
     // Toggle control panel on mobile
     panelToggle.addEventListener('click', function() {
       controlPanel.classList.toggle('active');
@@ -729,9 +746,15 @@
       // Определяем доступную высоту области просмотра
       const previewContainer = document.querySelector('.preview-container');
       const availableHeight = previewContainer.clientHeight;
+      const availableWidth = previewContainer.clientWidth;
       
       // Вычисляем масштаб на основе высоты экрана и доступного пространства
-      let maskScale = availableHeight / screenHeight;
+      let maskScale = Math.min(availableWidth / screenWidth, availableHeight / screenHeight);
+      
+      // Ограничиваем масштаб для мобильных устройств
+      if (window.innerWidth <= 768) {
+        maskScale = Math.min(maskScale, 1);
+      }
       
       // Применяем масштабирование к контейнеру маски
       cont.style.transform = `scale(${maskScale})`;
@@ -850,9 +873,23 @@
     autoFitBtn.addEventListener('click', autoFit);
     opacitySlider.addEventListener('input', updateOpacity);
     bgColorPicker.addEventListener('input', updateBackground);
+    
+    // Оптимизированная обработка ресайза
     window.addEventListener('resize', function() {
-      if (scaleSlider.value == 100) autoFit();
-      scaleMaskToWindow();
+      // Проверяем изменение ориентации
+      const newIsPortrait = window.innerHeight > window.innerWidth;
+      if (newIsPortrait !== isPortrait) {
+        isPortrait = newIsPortrait;
+        // При изменении ориентации полностью перезагружаем экран
+        updateScreen();
+      } else {
+        // При обычном ресайзе используем debounce
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+          if (scaleSlider.value == 100) autoFit();
+          scaleMaskToWindow();
+        }, 250);
+      }
     });
 
     inFile.addEventListener('change', e => {
@@ -926,6 +963,14 @@
     window.addEventListener('load', function() {
       autoFit();
       scaleMaskToWindow();
+    });
+
+    // Добавляем обработчик изменения ориентации
+    window.addEventListener('orientationchange', function() {
+      // Даем время на завершение анимации поворота
+      setTimeout(function() {
+        updateScreen();
+      }, 500);
     });
   </script>
 </body>
