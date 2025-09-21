@@ -19,121 +19,174 @@
     body::before { content: ''; position: absolute; inset: 0; background: rgba(44,62,80,0.85); z-index: -1; }
 
     .logo-container { text-align: center; margin-bottom: 15px; }
-    .logo { max-width: 220px; height: auto; margin-bottom: 10px; }
+    .logo { max-width: 200px; height: auto; margin-bottom: 10px; }
 
     .interface-container {
-      max-width: 1800px; /* Больше ширина контейнера интерфейса */
-      margin: 0 auto;
+      max-width: 1800px; /* Увеличена максимальная ширина */
+      margin: 0 auto; 
       background: rgba(44,62,80,0.7);
-      border-radius: 15px;
-      padding: 20px;
+      border-radius: 15px; 
+      padding: 20px; 
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
-    header { text-align: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    h1 { font-size: 2.1rem; margin-bottom: 6px; color: #3498db; }
-    .subtitle { font-size: 1.05rem; opacity: 0.85; }
+    header { text-align: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    h1 { font-size: 2.2rem; margin-bottom: 8px; color: #3498db; }
+    .subtitle { font-size: 1.1rem; opacity: 0.8; }
 
-    /* На широких экранах ставим столбцом: панель сверху, предпросмотр на всю ширину ниже */
-    .main-content {
-      display: flex;
-      flex-direction: column;   /* ключ: одна колонка, предпросмотр получает всю ширину */
-      gap: 16px;
-      flex-wrap: nowrap;
-    } /* flexbox основы [MDN/CSSTricks] */ 
+    .main-content { 
+      display: flex; 
+      gap: 25px; 
+      flex-wrap: wrap; 
+    }
 
     .control-panel {
-      width: 100%;
-      background: rgba(52,73,94,0.8);
-      padding: 16px;
+      flex: 0 0 300px; 
+      background: rgba(52,73,94,0.8); 
+      padding: 20px; 
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
     }
-    .control-group {
-      min-width: 260px;
-      flex: 1 1 320px; /* блоки адаптивно переносятся, но строка всё ещё одна над предпросмотром */
-      border-right: 1px solid rgba(255,255,255,0.08);
-      padding-right: 16px;
-      margin-right: 8px;
-    }
-    .control-group:last-child { border-right: none; padding-right: 0; margin-right: 0; }
-
-    h2 { font-size: 1.2rem; margin-bottom: 10px; color: #3498db; }
+    .control-group { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .control-group:last-child { border-bottom: none; }
+    h2 { font-size: 1.3rem; margin-bottom: 15px; color: #3498db; }
     label { display: block; margin-bottom: 8px; font-weight: 500; }
 
     select, input[type="file"], input[type="range"], input[type="color"] {
-      width: 100%; padding: 10px; margin-bottom: 12px; border: none; border-radius: 5px;
+      width: 100%; padding: 10px; margin-bottom: 15px; border: none; border-radius: 5px;
       background: #2c3e50; color: #ecf0f1; font-size: 1rem;
     }
     input[type="range"] { padding: 0; height: 8px; -webkit-appearance: none; background: #34495e; border-radius: 4px; }
-    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #3498db; cursor: pointer; }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #3498db; cursor: pointer;
+    }
     button {
       width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 5px;
-      font-size: 1rem; cursor: pointer; transition: background 0.3s; margin-bottom: 8px;
+      font-size: 1rem; cursor: pointer; transition: background 0.3s; margin-bottom: 10px;
     }
     button:hover { background: #2980b9; }
 
-    .preview-section { width: 100%; }
+    .color-preview { width: 30px; height: 30px; border-radius: 5px; border: 2px solid #ecf0f1; margin-top: 5px; }
+
+    .preview-section { 
+      flex: 1; 
+      min-width: 300px; 
+    }
     .preview-container {
-      position: relative;
-      width: 100%;
-      height: 70vh;          /* выше область предпросмотра */
-      min-height: 420px;     /* минимум выше, чтобы узкие маски были заметны */
-      background: rgba(0,0,0,0.35);
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
+      position: relative; 
+      width: 100%; 
+      height: 70vh; /* Увеличена высота контейнера */
+      min-height: 450px; /* Увеличена минимальная высота */
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px; 
+      overflow: auto; /* Добавлена прокрутка если нужно */
+      display: flex; 
+      justify-content: center; 
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 15px; 
       box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
     }
 
     #screenContainer {
-      position: relative;
-      transform-origin: center center;
+      position: relative; 
+      transform-origin: center center; 
       transition: transform 0.2s ease;
+      max-width: 100%; /* Ограничение максимальной ширины */
+      max-height: 100%; /* Ограничение максимальной высоты */
     }
 
-    /* Маска ниже контента по умолчанию, чтобы фото/видео были видимы */
-    #maskImage, #fallbackCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-    #videoPlayer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; }
-    #previewCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
+    /* Порядок слоёв: маска под контентом, чтобы контент был виден */
+    #maskImage, #fallbackCanvas { 
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      z-index: 1; 
+      pointer-events: none; 
+      object-fit: contain; /* Добавлено для правильного отображения */
+    }
+    #videoPlayer { 
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      object-fit: contain; 
+      z-index: 2; 
+    }
+    #previewCanvas { 
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      z-index: 2; 
+    }
 
     .loading-indicator {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-      background: rgba(0,0,0,0.7); color: white; padding: 12px 20px; border-radius: 8px; z-index: 5; display: none;
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%,-50%);
+      background: rgba(0,0,0,0.7); 
+      color: white; 
+      padding: 15px 25px; 
+      border-radius: 8px; 
+      z-index: 5; 
+      display: none;
     }
     .placeholder-message {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-      text-align: center; color: rgba(255,255,255,0.6); z-index: 0;
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%,-50%);
+      text-align: center; 
+      color: rgba(255,255,255,0.6); 
+      z-index: 0;
     }
 
     .screen-info {
-      background: rgba(52,73,94,0.8); padding: 12px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); margin-bottom: 10px;
+      background: rgba(52,73,94,0.8); 
+      padding: 15px; 
+      border-radius: 10px; 
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+      margin-bottom: 15px;
     }
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
-    .info-item { background: rgba(44,62,80,0.5); padding: 8px; border-radius: 8px; }
-    .info-label { font-size: 0.9rem; opacity: 0.7; margin-bottom: 4px; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .info-item { background: rgba(44,62,80,0.5); padding: 10px; border-radius: 8px; }
+    .info-label { font-size: 0.9rem; opacity: 0.7; margin-bottom: 5px; }
     .info-value { font-size: 1rem; font-weight: 500; }
 
-    .error-message { color: #e74c3c; margin-top: 8px; display: none; }
+    .error-message { color: #e74c3c; margin-top: 10px; display: none; }
 
-    .control-panel-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1000; width: auto; padding: 8px 12px; background: #3498db; border-radius: 5px; }
-    .fullscreen-btn-container { text-align: center; margin-top: 8px; }
-    #fullscreenBtn { width: auto; padding: 8px 14px; font-size: 0.9rem; }
+    .control-panel-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1000; width: auto; padding: 10px 15px; background: #3498db; border-radius: 5px; }
+    .fullscreen-btn-container { text-align: center; margin-top: 10px; }
+    #fullscreenBtn { width: auto; padding: 8px 15px; font-size: 0.9rem; }
 
     @media (max-width: 1024px) {
-      .preview-container { height: 62vh; min-height: 380px; }
+      .interface-container {
+        max-width: 95%;
+      }
+      .preview-container {
+        height: 60vh;
+      }
     }
+
     @media (max-width: 768px) {
-      .control-panel { position: static; }
-      .control-panel-toggle { display: block; position: fixed; }
-      .preview-container { height: 50vh; min-height: 320px; }
-      .logo { max-width: 160px; }
+      .main-content { flex-direction: column; }
+      .control-panel { 
+        position: fixed; 
+        top: 0; 
+        left: -100%; 
+        width: 80%; 
+        max-width: 300px; 
+        height: 100vh; 
+        z-index: 999; 
+        overflow-y: auto; 
+        transition: left 0.3s ease; 
+      }
+      .control-panel.active { left: 0; }
+      .control-panel-toggle { display: block; }
+      .preview-container { height: 50vh; }
+      .logo { max-width: 150px; }
     }
   </style>
 </head>
@@ -195,7 +248,7 @@
         <div class="preview-container" id="previewContainer">
           <div id="screenContainer">
             <div class="loading-indicator" id="loadingIndicator">Загрузка маски экрана...</div>
-            <img id="maskImage" src="" alt="Mask" onerror="handleImageError()">
+            <img id="maskImage" src="" alt="Mask" onerror="handleImageError()" style="object-fit: contain;">
             <video id="videoPlayer" controls></video>
             <canvas id="previewCanvas"></canvas>
             <div class="placeholder-message" id="placeholderMessage">
@@ -234,22 +287,21 @@
   </div>
 
   <script>
-    // Кэш масок и список маленьких экранов
+    // База: локальные относительные пути к папке images
     const maskCache = {};
     const smallScreens = ['Nav','Bar1','Bar2','TualetM','TualetW','TualetPotolok','Lestnitsa'];
 
-    // Пути проверьте в папке images (учтите пробел в "Bar 1 384x64.jpg")
     const screens = {
-      Bolshoi:       { w:6528, h:1472, src: 'images/Bolshoi-ekran-6528kh1472.jpg' },   // 102:23
-      Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg' },
-      Nav:           { w:316,  h:384,  src: 'images/Navigation-316x384.jpg' },
-      Bar1:          { w:384,  h:64,   src: 'images/Bar 1 384x64.jpg' },
-      Bar2:          { w:256,  h:64,   src: 'images/Bar-2-256Kh64.jpg' },
-      Recepshen:     { w:2176, h:1280, src: 'images/Recepshen-2176x1280.jpg' },       // 17:10
-      TualetM:       { w:284,  h:256,  src: 'images/Tualet-men-284x256.jpg' },
-      TualetW:       { w:284,  h:256,  src: 'images/Tualet-women-284x256.jpg' },
-      TualetPotolok: { w:383,  h:384,  src: 'images/Tualet-potolok-383x384.jpg' },
-      Lestnitsa:     { w:200,  h:120,  src: 'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg' }
+      Bolshoi:       { w:6528, h:1472, src: 'images/Bolshoi-ekran-6528kh1472.jpg', ratio: "102:23" },
+      Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg', ratio: "1:3" },
+      Nav:           { w:316,  h:384,  src: 'images/Navigation-316x384.jpg', ratio: "79:96" },
+      Bar1:          { w:384,  h:64,   src: 'images/Bar 1 384x64.jpg', ratio: "6:1" },
+      Bar2:          { w:256,  h:64,   src: 'images/Bar-2-256Kh64.jpg', ratio: "4:1" },
+      Recepshen:     { w:2176, h:1280, src: 'images/Recepshen-2176x1280.jpg', ratio: "17:10" },
+      TualetM:       { w:284,  h:256,  src: 'images/Tualet-men-284x256.jpg', ratio: "71:64" },
+      TualetW:       { w:284,  h:256,  src: 'images/Tualet-women-284x256.jpg', ratio: "71:64" },
+      TualetPotolok: { w:383,  h:384,  src: 'images/Tualet-potolok-383x384.jpg', ratio: "383:384" },
+      Lestnitsa:     { w:200,  h:120,  src: 'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg', ratio: "5:3" }
     };
 
     const sel = document.getElementById('screenSelect');
@@ -295,12 +347,23 @@
     function gcd(a,b){ return b===0 ? a : gcd(b, a%b); }
     function calculateAspectRatio(width, height){
       const d = gcd(width, height);
-      return `${width/d}:${height/d}`;
+      const rw = width/d, rh = height/d;
+      return `${rw}:${rh}`;
     }
 
     function applyContainerSize(scr){
-      cont.style.width = scr.w + 'px';
-      cont.style.height = scr.h + 'px';
+      // Для больших экранов устанавливаем максимальные размеры
+      if (scr.w > 2000 || scr.h > 2000) {
+        const maxWidth = previewContainer.clientWidth * 0.9;
+        const maxHeight = previewContainer.clientHeight * 0.9;
+        const scale = Math.min(maxWidth / scr.w, maxHeight / scr.h);
+        
+        cont.style.width = (scr.w * scale) + 'px';
+        cont.style.height = (scr.h * scale) + 'px';
+      } else {
+        cont.style.width = scr.w + 'px';
+        cont.style.height = scr.h + 'px';
+      }
     }
 
     function updateScale(){
@@ -312,14 +375,20 @@
 
     function autoFit(){
       const scr = screens[sel.value];
-      // Берём реальную ширину/высоту области предпросмотра
-      const availW = previewContainer.clientWidth - 24;
-      const availH = previewContainer.clientHeight - 24;
+      const availW = previewContainer.clientWidth - 40;
+      const availH = previewContainer.clientHeight - 40;
+      
       let baseScale = smallScreens.includes(sel.value) ? 2 : 1;
+      
+      // Для больших экранов используем более агрессивное масштабирование
+      if (scr.w > 2000 || scr.h > 2000) {
+        baseScale = 0.8;
+      }
+      
       const scale = Math.min(availW / scr.w, availH / scr.h) * 100 * baseScale;
       scaleSlider.value = Math.max(10, Math.min(400, Math.floor(scale)));
       updateScale();
-    } // корректный flex/авто‑масштаб для широкой области [MDN/CSSTricks] 
+    }
 
     function updateOpacity(){
       const o = opacitySlider.value / 100;
@@ -363,6 +432,7 @@
       fctx.textAlign = 'center';
       fctx.fillText(`Экран: ${sel.value}`, scr.w/2, scr.h/2 - 10);
       fctx.fillText(`${scr.w} × ${scr.h} пикселей`, scr.w/2, scr.h/2 + 10);
+      fctx.fillText(`Соотношение: ${scr.ratio}`, scr.w/2, scr.h/2 + 30);
 
       fallbackCanvas.style.position = 'absolute';
       fallbackCanvas.style.inset = '0';
@@ -391,7 +461,7 @@
 
       currentScreen.textContent = sel.options[sel.selectedIndex].text;
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
-      aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
+      aspectRatio.textContent = scr.ratio;
 
       if (maskCache[sel.value]){
         maskImg.src = maskCache[sel.value];
@@ -420,7 +490,7 @@
     fullscreenBtn.addEventListener('click', toggleFullscreen);
     function toggleFullscreen(){
       if (!document.fullscreenElement){
-        document.documentElement.requestFullscreen().catch(()=>{});
+        previewContainer.requestFullscreen().catch(()=>{});
         fullscreenBtn.textContent = 'Выйти из полноэкранного режима';
       } else {
         if (document.exitFullscreen){
@@ -430,7 +500,7 @@
       }
     }
 
-    document.getElementById('screenSelect').addEventListener('change', updateScreen);
+    sel.addEventListener('change', updateScreen);
     scaleSlider.addEventListener('input', updateScale);
     autoFitBtn.addEventListener('click', autoFit);
     opacitySlider.addEventListener('input', updateOpacity);
@@ -446,7 +516,7 @@
         } else {
           autoFit();
         }
-      }, 180);
+      }, 200);
     });
 
     window.addEventListener('orientationchange', function(){
@@ -456,7 +526,7 @@
       }, 300);
     });
 
-    // Загрузка контента: изображение через drawImage contain, видео через object-fit: contain
+    // Масштабирование изображения в canvas по принципу "contain" с центрированием
     inFile.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
@@ -481,14 +551,14 @@
 
         const img = new Image();
         img.onload = () => {
-          const ctx2 = canvas.getContext('2d');
-          ctx2.clearRect(0, 0, cw, ch);
+          ctx.clearRect(0, 0, cw, ch);
+          // contain
           const scale = Math.min(cw / img.width, ch / img.height);
           const w = img.width * scale;
           const h = img.height * scale;
           const x = (cw - w) / 2;
           const y = (ch - h) / 2;
-          ctx2.drawImage(img, x, y, w, h);
+          ctx.drawImage(img, x, y, w, h);
         };
         img.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки изображения';
@@ -500,6 +570,7 @@
       } else {
         canvas.style.display = 'none';
         vid.style.display = 'block';
+        // Видео заполняет через CSS object-fit: contain и центрируется
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
           uploadError.style.display = 'block';
