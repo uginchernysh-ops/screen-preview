@@ -68,7 +68,7 @@
       position: relative; transform-origin: center center; transition: transform 0.2s ease;
     }
 
-    /* Порядок слоёв: маска под контентом, чтобы контент был виден */
+    /* Маска под контентом, чтобы видео/фото были видны всегда */
     #maskImage, #fallbackCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
     #videoPlayer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; }
     #previewCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
@@ -203,10 +203,11 @@
   </div>
 
   <script>
-    // База: локальные относительные пути к папке images
+    // Кэш масок
     const maskCache = {};
     const smallScreens = ['Nav','Bar1','Bar2','TualetM','TualetW','TualetPotolok','Lestnitsa'];
 
+    // ВНИМАНИЕ: проверьте наличие файлов в images/
     const screens = {
       Bolshoi:       { w:6528, h:1472, src: 'images/Bolshoi-ekran-6528kh1472.jpg' },   // 102:23
       Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg' },
@@ -264,8 +265,8 @@
     function calculateAspectRatio(width, height){
       const d = gcd(width, height);
       const rw = width/d, rh = height/d;
-      return `${rw}:${rh}`;
-    }
+      return `${rw}:${rh}`; // 6528×1472 -> 102:23, 2176×1280 -> 17:10
+    } // подтверждается калькуляторами соотношений [web:22][web:27]
 
     function applyContainerSize(scr){
       cont.style.width = scr.w + 'px';
@@ -361,6 +362,7 @@
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
 
+      // Пробуем загрузить маску (с кэшем)
       if (maskCache[sel.value]){
         maskImg.src = maskCache[sel.value];
         loadingIndicator.style.display = 'none';
@@ -369,15 +371,15 @@
         const testImage = new Image();
         testImage.onload = function(){
           if (sel.value === currentScreenType){
-            maskImg.src = scr.src;
-            maskCache[sel.value] = scr.src;
+            maskImg.src = scr.src;            // корректный путь
+            maskCache[sel.value] = scr.src;   // сохранить в кэш
             loadingIndicator.style.display = 'none';
             autoFit();
           }
         };
         testImage.onerror = function(){
           if (sel.value === currentScreenType){
-            handleImageError();
+            handleImageError();               // fallback-контур, если файла нет
             autoFit();
           }
         };
@@ -424,7 +426,7 @@
       }, 300);
     });
 
-    // Масштабирование изображения в canvas по принципу "contain" с центрированием
+    // Загрузка контента: изображение через drawImage contain, видео через object-fit: contain
     inFile.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
@@ -450,7 +452,6 @@
         const img = new Image();
         img.onload = () => {
           ctx.clearRect(0, 0, cw, ch);
-          // contain
           const scale = Math.min(cw / img.width, ch / img.height);
           const w = img.width * scale;
           const h = img.height * scale;
@@ -468,7 +469,6 @@
       } else {
         canvas.style.display = 'none';
         vid.style.display = 'block';
-        // Видео заполняет через CSS object-fit: contain и центрируется
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
           uploadError.style.display = 'block';
