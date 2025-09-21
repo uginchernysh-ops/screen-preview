@@ -16,97 +16,77 @@
       line-height: 1.6;
       position: relative;
       overflow-x: hidden;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      grid-template-rows: auto 1fr;
+      gap: 20px;
     }
     body::before { content: ''; position: absolute; inset: 0; background: rgba(44,62,80,0.85); z-index: -1; }
 
-    .logo-container { text-align: center; margin-bottom: 15px; }
+    .logo-container { text-align: center; margin-bottom: 15px; grid-column: 1 / -1; }
     .logo { max-width: 220px; height: auto; margin-bottom: 10px; }
 
     .interface-container {
-      width: 100%;
-      max-width: 2048px;
-      margin: 0 auto;
       background: rgba(44,62,80,0.7);
       border-radius: 15px;
       padding: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      grid-column: 1;
+      grid-row: 2;
     }
 
-    header { text-align: center; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    h1 { font-size: 2.1rem; margin-bottom: 6px; color: #3498db; }
-    .subtitle { font-size: 1.05rem; opacity: 0.85; }
+    header { text-align: center; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); grid-column: 1 / -1; }
+    h1 { font-size: 10.5rem; margin-bottom: 30px; color: #3498db; }
+    .subtitle { font-size: 5.25rem; opacity: 0.85; }
 
-    .main-content { display: flex; flex-direction: column; gap: 16px; }
-
-    /* Липкая шапка на всю ширину окна */
-    .ui-top {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    } /* sticky для закрепления сверху */ /* [web:169][web:166] */
-    .ui-top.row-full {
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      margin-right: calc(50% - 50vw);
-    } /* full-bleed для ширины экрана */ /* [web:163] */
-
-    /* Масштабированный UI x5, включая шрифт */
-    .control-panel-wrapper {
-      position: relative;
-      width: calc(100% / 5);
-      transform-origin: top left;
-    }
-    .control-panel-scale {
-      transform: scale(5);
-      transform-origin: top left;
-    }
+    .main-content { display: flex; flex-direction: column; gap: 80px; }
 
     .control-panel {
       width: 100%;
       background: rgba(52,73,94,0.8);
-      padding: 16px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      padding: 80px;
+      border-radius: 50px;
+      box-shadow: 0 25px 75px rgba(0,0,0,0.2);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
+      grid-template-columns: 1fr;
+      gap: 80px;
     }
-    .control-group { min-width: 260px; }
-    h2 { font-size: 1.2rem; margin-bottom: 10px; color: #3498db; }
-    label { display: block; margin-bottom: 8px; font-weight: 500; }
+    .control-group { min-width: 1300px; }
+    h2 { font-size: 6rem; margin-bottom: 50px; color: #3498db; }
+    label { display: block; margin-bottom: 40px; font-weight: 500; font-size: 5rem; }
 
     select, input[type="file"], input[type="range"], input[type="color"] {
-      width: 100%; padding: 10px; margin-bottom: 12px; border: none; border-radius: 5px;
-      background: #2c3e50; color: #ecf0f1; font-size: 1rem;
+      width: 100%; padding: 50px; margin-bottom: 60px; border: none; border-radius: 25px;
+      background: #2c3e50; color: #ecf0f1; font-size: 5rem;
     }
-    input[type="range"] { padding: 0; height: 8px; -webkit-appearance: none; background: #34495e; border-radius: 4px; }
-    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #3498db; cursor: pointer; }
+    input[type="range"] { padding: 0; height: 40px; -webkit-appearance: none; background: #34495e; border-radius: 20px; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 90px; height: 90px; border-radius: 50%; background: #3498db; cursor: pointer; }
     button {
-      width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 5px;
-      font-size: 1rem; cursor: pointer; transition: background 0.3s; margin-bottom: 8px;
+      width: 100%; padding: 60px; background: #3498db; color: white; border: none; border-radius: 25px;
+      font-size: 5rem; cursor: pointer; transition: background 0.3s; margin-bottom: 40px;
     }
     button:hover { background: #2980b9; }
 
-    /* Полоса предпросмотра на всю ширину окна */
-    .row-full {
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      margin-right: calc(50% - 50vw);
-    } /* full-bleed разметка */ /* [web:163] */
+    .preview-section { 
+      width: 100%; 
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-    .preview-section { width: 100%; }
     .preview-container {
       position: relative;
       width: 100%;
-      height: 78vh;
-      min-height: 520px;
+      height: 70vh;
       background: rgba(0,0,0,0.35);
-      border-radius: 10px;
+      border-radius: 50px;
       overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+      box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
     }
 
     #screenContainer { position: relative; transform-origin: center center; transition: transform 0.2s ease; }
@@ -121,129 +101,135 @@
 
     .loading-indicator {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-      background: rgba(0,0,0,0.7); color: white; padding: 12px 20px; border-radius: 8px; z-index: 5; display: none;
+      background: rgba(0,0,0,0.7); color: white; padding: 60px 100px; border-radius: 40px; z-index: 5; display: none;
+      font-size: 5rem;
     }
     .placeholder-message {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
       text-align: center; color: rgba(255,255,255,0.6); z-index: 0;
+      font-size: 5rem;
     }
 
     .screen-info {
-      background: rgba(52,73,94,0.8); padding: 12px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); margin-top: 12px;
+      background: rgba(52,73,94,0.8); padding: 60px; border-radius: 50px; box-shadow: 0 25px 75px rgba(0,0,0,0.2);
     }
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
-    .info-item { background: rgba(44,62,80,0.5); padding: 8px; border-radius: 8px; }
-    .info-label { font-size: 0.9rem; opacity: 0.7; margin-bottom: 4px; }
-    .info-value { font-size: 1rem; font-weight: 500; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(1100px, 1fr)); gap: 50px; }
+    .info-item { background: rgba(44,62,80,0.5); padding: 40px; border-radius: 40px; }
+    .info-label { font-size: 4.5rem; opacity: 0.7; margin-bottom: 20px; }
+    .info-value { font-size: 5rem; font-weight: 500; }
 
-    .error-message { color: #e74c3c; margin-top: 8px; display: none; }
+    .error-message { color: #e74c3c; margin-top: 40px; display: none; font-size: 5rem; }
 
-    @media (max-width: 1024px) { .preview-container { height: 68vh; min-height: 440px; } }
-    @media (max-width: 768px)  { .preview-container { height: 54vh; min-height: 340px; } .logo { max-width: 160px; } }
+    @media (max-width: 1024px) { 
+      body {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+      }
+      .interface-container {
+        grid-column: 1;
+        grid-row: 2;
+      }
+      .preview-section {
+        grid-column: 1;
+        grid-row: 3;
+      }
+      .preview-container { height: 50vh; }
+    }
+    @media (max-width: 768px)  { 
+      .preview-container { height: 40vh; } 
+      .logo { max-width: 160px; } 
+    }
   </style>
 </head>
 <body>
-  <!-- ВЕРХНЯЯ ЛИПКАЯ ПАНЕЛЬ НА ВСЮ ШИРИНУ -->
-  <div class="ui-top row-full">
-    <div class="interface-container">
-      <div class="logo-container">
-        <img src="images/connect_logo-1.jpg" alt="Connect Logo" class="logo"
-             onerror="this.onerror=null;this.src='images/connect_logo-1.png'">
-      </div>
+  <div class="logo-container">
+    <img src="images/connect_logo-1.jpg" alt="Connect Logo" class="logo"
+         onerror="this.onerror=null;this.src='images/connect_logo-1.png'">
+  </div>
 
-      <header>
-        <h1>Screen Preview с масштабированием</h1>
-        <p class="subtitle">Просмотр контента на различных экранах с сохранением оригинальных пропорций</p>
-      </header>
+  <header>
+    <h1>Screen Preview с масштабированием</h1>
+    <p class="subtitle">Просмотр контента на различных экранах с сохранением оригинальных пропорций</p>
+  </header>
 
-      <div class="main-content">
-        <!-- Масштаб UI x5 -->
-        <div class="control-panel-wrapper">
-          <div class="control-panel control-panel-scale" id="controlPanel">
-            <div class="control-group">
-              <h2>Экран</h2>
-              <label for="screenSelect">Выберите экран:</label>
-              <select id="screenSelect">
-                <option value="Bolshoi">Большой экран (6528×1472)</option>
-                <option value="Poloski">Экран полоски (640×1920)</option>
-                <option value="Nav">Навигация (316×384)</option>
-                <option value="Bar1">Бар 1 (384×64)</option>
-                <option value="Bar2">Бар 2 (256×64)</option>
-                <option value="Recepshen">Рецепшен (2176×1280)</option>
-                <option value="TualetM">Туалет мужской (284×256)</option>
-                <option value="TualetW">Туалет женский (284×256)</option>
-                <option value="TualetPotolok">Туалет потолок (383×384)</option>
-                <option value="Lestnitsa">Экран на лестнице (200×120)</option>
-              </select>
+  <div class="interface-container">
+    <div class="main-content">
+      <div class="control-panel" id="controlPanel">
+        <div class="control-group">
+          <h2>Экран</h2>
+          <label for="screenSelect">Выберите экран:</label>
+          <select id="screenSelect">
+            <option value="Bolshoi">Большой экран (6528×1472)</option>
+            <option value="Poloski">Экран полоски (640×1920)</option>
+            <option value="Nav">Навигация (316×384)</option>
+            <option value="Bar1">Бар 1 (384×64)</option>
+            <option value="Bar2">Бар 2 (256×64)</option>
+            <option value="Recepshen">Рецепшен (2176×1280)</option>
+            <option value="TualetM">Туалет мужской (284×256)</option>
+            <option value="TualetW">Туалет женский (284×256)</option>
+            <option value="TualetPotolok">Туалет потолок (383×384)</option>
+            <option value="Lestnitsa">Экран на лестнице (200×120)</option>
+          </select>
 
-              <label for="uploadInput">Загрузить контент:</label>
-              <input type="file" id="uploadInput" accept="image/*,video/*">
-              <div class="error-message" id="uploadError"></div>
-            </div>
-
-            <div class="control-group">
-              <h2>Масштаб</h2>
-              <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
-              <input type="range" id="scaleSlider" min="5" max="600" value="100">
-              <button id="autoFitBtn">Автоподгон</button>
-            </div>
-
-            <div class="control-group">
-              <h2>Внешний вид</h2>
-              <label for="contentOpacity">Прозрачность контента: <span id="opacityValue">100%</span></label>
-              <input type="range" id="contentOpacity" min="0" max="100" value="100">
-              <label for="bgColor">Цвет фона:</label>
-              <input type="color" id="bgColor" value="#2c3e50">
-              <div class="color-preview" id="colorPreview" style="width:30px;height:30px;border-radius:5px;border:2px solid #ecf0f1;"></div>
-            </div>
-          </div>
+          <label for="uploadInput">Загрузить контент:</label>
+          <input type="file" id="uploadInput" accept="image/*,video/*">
+          <div class="error-message" id="uploadError"></div>
         </div>
-        <!-- /Масштаб UI x5 -->
+
+        <div class="control-group">
+          <h2>Масштаб</h2>
+          <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
+          <input type="range" id="scaleSlider" min="5" max="600" value="100">
+          <button id="autoFitBtn">Автоподгон</button>
+        </div>
+
+        <div class="control-group">
+          <h2>Внешний вид</h2>
+          <label for="contentOpacity">Прозрачность контента: <span id="opacityValue">100%</span></label>
+          <input type="range" id="contentOpacity" min="0" max="100" value="100">
+          <label for="bgColor">Цвет фона:</label>
+          <input type="color" id="bgColor" value="#2c3e50">
+          <div class="color-preview" id="colorPreview" style="width:150px;height:150px;border-radius:25px;border:10px solid #ecf0f1;"></div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- /ВЕРХНЯЯ ЛИПКАЯ ПАНЕЛЬ -->
 
-  <!-- ПРЕДПРОСМОТР НИЖЕ, НА ВСЮ ШИРИНУ ОКНА -->
-  <div class="row-full">
-    <div class="preview-section">
-      <div class="preview-container" id="previewContainer">
-        <div id="screenContainer">
-          <div class="loading-indicator" id="loadingIndicator">Загрузка маски экрана...</div>
-          <img id="maskImage" src="" alt="Mask" onerror="handleImageError()">
-          <video id="videoPlayer" controls></video>
-          <canvas id="previewCanvas"></canvas>
-          <div class="placeholder-message" id="placeholderMessage">
-            <h3>Загрузите контент для предпросмотра</h3>
-            <p>Выберите файл изображения или видео для отображения на выбранном экране</p>
-          </div>
+  <div class="preview-section">
+    <div class="preview-container" id="previewContainer">
+      <div id="screenContainer">
+        <div class="loading-indicator" id="loadingIndicator">Загрузка маски экрана...</div>
+        <img id="maskImage" src="" alt="Mask" onerror="handleImageError()">
+        <video id="videoPlayer" controls></video>
+        <canvas id="previewCanvas"></canvas>
+        <div class="placeholder-message" id="placeholderMessage">
+          <h3>Загрузите контент для предпросмотра</h3>
+          <p>Выберите файл изображения или видео для отображения на выбранном экране</p>
         </div>
       </div>
+    </div>
 
-      <div class="interface-container" style="margin-top:16px;">
-        <div class="screen-info">
-          <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">Текущий экран</div>
-              <div class="info-value" id="currentScreen">Большой экран</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Разрешение</div>
-              <div class="info-value" id="screenResolution">6528 × 1472</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Соотношение сторон</div>
-              <div class="info-value" id="aspectRatio">102:23</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Масштаб</div>
-              <div class="info-value" id="scalePercent">100%</div>
-            </div>
-          </div>
-          <div class="fullscreen-btn-container" style="text-align:center;margin-top:10px;">
-            <button id="fullscreenBtn">Полный экран</button>
-          </div>
+    <div class="screen-info">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">Текущий экран</div>
+          <div class="info-value" id="currentScreen">Большой экран</div>
         </div>
+        <div class="info-item">
+          <div class="info-label">Разрешение</div>
+          <div class="info-value" id="screenResolution">6528 × 1472</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Соотношение сторон</div>
+          <div class="info-value" id="aspectRatio">102:23</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Масштаб</div>
+          <div class="info-value" id="scalePercent">100%</div>
+        </div>
+      </div>
+      <div class="fullscreen-btn-container" style="text-align:center;margin-top:50px;">
+        <button id="fullscreenBtn">Полный экран</button>
       </div>
     </div>
   </div>
@@ -278,7 +264,7 @@
     const autoFitBtn = document.getElementById('autoFitBtn');
     const fullscreenBtn = document.getElementById('fullscreenBtn');
     const opacitySlider = document.getElementById('contentOpacity');
-    const opacityValue = document.getElementById('opacityValue'];
+    const opacityValue = document.getElementById('opacityValue');
     const bgColorPicker = document.getElementById('bgColor');
     const colorPreview = document.getElementById('colorPreview');
     const loadingIndicator = document.getElementById('loadingIndicator');
@@ -358,13 +344,13 @@
       fb.width = scr.w; fb.height = scr.h;
       const c = fb.getContext('2d');
       c.strokeStyle = '#3498db';
-      c.lineWidth = 2;
+      c.lineWidth = 10;
       c.strokeRect(0, 0, scr.w, scr.h);
       c.fillStyle = '#3498db';
-      c.font = '16px Arial';
+      c.font = '80px Arial';
       c.textAlign = 'center';
-      c.fillText(`Экран: ${sel.value}`, scr.w/2, scr.h/2 - 10);
-      c.fillText(`${scr.w} × ${scr.h} пикселей`, scr.w/2, scr.h/2 + 10);
+      c.fillText(`Экран: ${sel.value}`, scr.w/2, scr.h/2 - 50);
+      c.fillText(`${scr.w} × ${scr.h} пикселей`, scr.w/2, scr.h/2 + 50);
 
       fb.style.position = 'absolute';
       fb.style.inset = '0';
@@ -430,13 +416,10 @@
 
     window.addEventListener('resize', () => {
       clearTimeout(window.__rsz);
-      window.__rsz = setTimeout(() => {/* сохраняем выбранный масштаб — без автоподгона на resize */}, 120);
+      window.__rsz = setTimeout(() => {}, 120);
     });
 
-    const inFile = document.getElementById('uploadInput');
-    const uploadError = document.getElementById('uploadError');
-    const placeholderMessage = document.getElementById('placeholderMessage');
-
+    // Загрузка контента: для Poloski — вписывание по ширине маски (без искажений)
     inFile.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
@@ -465,12 +448,14 @@
           ctx2.clearRect(0, 0, cw, ch);
 
           if (scrKey === 'Poloski'){
+            // Вписать по ширине маски (fill по ширине), центрировать по высоте без искажения
             const scaleW = cw / img.width;
             const w = cw;
             const h = img.height * scaleW;
             const y = (ch - h) / 2;
             ctx2.drawImage(img, 0, y, w, h);
           } else {
+            // Стандартный contain
             const scale = Math.min(cw / img.width, ch / img.height);
             const w = img.width * scale;
             const h = img.height * scale;
@@ -489,6 +474,7 @@
       } else {
         canvas.style.display = 'none';
         vid.style.display = 'block';
+        // Для Poloski object-fit: contain и центрирование обеспечивают корректную ширину
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
           uploadError.style.display = 'block';
