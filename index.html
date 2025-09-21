@@ -329,6 +329,34 @@
       border: 2px solid #fff;
       transition: background-color 0.3s ease;
     }
+    
+    .placeholder-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #7f8c8d;
+      z-index: 0;
+      width: 80%;
+    }
+    
+    .error-message {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+    
+    .loading-indicator {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      color: #3498db;
+    }
 
     /* Responsive adjustments */
     @media (max-width: 1200px) {
@@ -426,6 +454,7 @@
             <p><small>(Поддерживаются изображения и видео)</small></p>
             <input type="file" id="uploadInput" class="file-input" accept="image/*,video/*" />
           </div>
+          <p class="error-message" id="uploadError"></p>
         </div>
         
         <div class="scale-controls">
@@ -465,9 +494,14 @@
       <div class="preview-section">
         <div class="preview-container">
           <div id="screenContainer">
-            <img id="maskImage" src="" alt="Mask">
+            <div class="loading-indicator" id="loadingIndicator">Загрузка маски экрана...</div>
+            <img id="maskImage" src="" alt="Mask" onerror="handleImageError()">
             <video id="videoPlayer" controls></video>
             <canvas id="previewCanvas"></canvas>
+            <div class="placeholder-message" id="placeholderMessage">
+              <h3>Загрузите контент для предпросмотра</h3>
+              <p>Выберите файл изображения или видео для отображения на выбранном экране</p>
+            </div>
           </div>
         </div>
         
@@ -498,8 +532,9 @@
   <script>
     // Автоматическое определение базового URL для GitHub Pages
     const isGitHubPages = window.location.hostname.includes('github.io');
+    const repoName = 'screen-preview'; // Имя репозитория
     const baseUrl = isGitHubPages 
-        ? window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/')
+        ? `${window.location.origin}/${repoName}`
         : '';
 
     const screens = {
@@ -531,6 +566,9 @@
     const bgColorPicker = document.getElementById('bgColor');
     const colorPreview = document.getElementById('colorPreview');
     const interfaceContainer = document.querySelector('.interface-container');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const placeholderMessage = document.getElementById('placeholderMessage');
+    const uploadError = document.getElementById('uploadError');
     
     // Info panel elements
     const currentScreen = document.getElementById('currentScreen');
@@ -643,8 +681,67 @@
       scalePercent.textContent = `${scaleSlider.value}%`;
     }
 
+    function handleImageError() {
+      console.error("Ошибка загрузки изображения маски экрана");
+      loadingIndicator.style.display = 'none';
+      
+      // Создаем fallback - простой контур экрана
+      const scr = screens[sel.value];
+      const cw = scr.fitW || scr.w;
+      const ch = scr.fitH || scr.h;
+      
+      // Создаем canvas с контуром экрана
+      const fallbackCanvas = document.createElement('canvas');
+      fallbackCanvas.width = cw;
+      fallbackCanvas.height = ch;
+      const fallbackCtx = fallbackCanvas.getContext('2d');
+      
+      // Рисуем контур экрана
+      fallbackCtx.strokeStyle = '#3498db';
+      fallbackCtx.lineWidth = 2;
+      fallbackCtx.strokeRect(0, 0, cw, ch);
+      
+      // Добавляем текст с информацией
+      fallbackCtx.fillStyle = '#3498db';
+      fallbackCtx.font = '16px Arial';
+      fallbackCtx.textAlign = 'center';
+      fallbackCtx.fillText(`Экран: ${sel.value}`, cw/2, ch/2 - 10);
+      fallbackCtx.fillText(`${cw} × ${ch} пикселей`, cw/2, ch/2 + 10);
+      
+      // Заменяем изображение на canvas
+      maskImg.style.display = 'none';
+      fallbackCanvas.style.position = 'absolute';
+      fallbackCanvas.style.top = '0';
+      fallbackCanvas.style.left = '0';
+      fallbackCanvas.style.width = '100%';
+      fallbackCanvas.style.height = '100%';
+      fallbackCanvas.style.zIndex = '1';
+      fallbackCanvas.id = 'fallbackCanvas';
+      cont.appendChild(fallbackCanvas);
+    }
+
     function updateScreen(){
       const scr = screens[sel.value];
+      
+      // Удаляем fallback canvas, если он есть
+      const fallbackCanvas = document.getElementById('fallbackCanvas');
+      if (fallbackCanvas) {
+        fallbackCanvas.remove();
+      }
+      
+      // Показываем индикатор загрузки
+      loadingIndicator.style.display = 'block';
+      maskImg.style.display = 'block';
+      
+      // Пытаемся загрузить изображение
+      maskImg.onload = function() {
+        loadingIndicator.style.display = 'none';
+      };
+      
+      maskImg.onerror = function() {
+        handleImageError();
+      };
+      
       maskImg.src = scr.src;
       
       // Use original screen dimensions
@@ -700,6 +797,18 @@
     inFile.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
+      
+      // Скрываем сообщение-заполнитель
+      placeholderMessage.style.display = 'none';
+      uploadError.style.display = 'none';
+      
+      // Проверяем тип файла
+      if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+        uploadError.textContent = 'Неподдерживаемый формат файла. Используйте изображение или видео.';
+        uploadError.style.display = 'block';
+        return;
+      }
+      
       const scr = screens[sel.value];
       const cw = scr.fitW || scr.w;
       const ch = scr.fitH || scr.h;
@@ -717,16 +826,26 @@
           const h = img.height * sc;
           ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
         };
+        img.onerror = () => {
+          uploadError.textContent = 'Ошибка загрузки изображения';
+          uploadError.style.display = 'block';
+          placeholderMessage.style.display = 'block';
+        };
         img.src = URL.createObjectURL(file);
         // Apply current opacity
         setTimeout(() => {
           canvas.style.opacity = opacitySlider.value / 100;
         }, 100);
-      } else {
+      } else if (file.type.startsWith('video/')) {
         canvas.style.display = 'none';
         vid.style.display = 'block';
         vid.width = cw;
         vid.height = ch;
+        vid.onerror = () => {
+          uploadError.textContent = 'Ошибка загрузки видео';
+          uploadError.style.display = 'block';
+          placeholderMessage.style.display = 'block';
+        };
         vid.src = URL.createObjectURL(file);
         vid.play();
         // Apply current opacity
