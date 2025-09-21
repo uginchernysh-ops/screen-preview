@@ -998,4 +998,12 @@
 
     // Добавляем обработчик изменения ориентации
     window.addEventListener('orientationchange', function() {
-      // Да
+      // Даем время на завершение анимации поворота
+      setTimeout(function() {
+        updateScreen();
+      }, 500);
+    });
+  </script>
+</body>
+</html>
+
