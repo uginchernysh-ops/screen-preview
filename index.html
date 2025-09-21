@@ -13,366 +13,204 @@
     
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #000 url('Back.jpg') center/cover no-repeat fixed;
+      background: linear-gradient(to bottom, #2c3e50, #1a2530);
       color: #ecf0f1;
-      line-height: 1.6;
-      padding: 20px;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      transition: background 0.5s ease;
-      overflow-x: hidden;
+      padding: 20px;
+      line-height: 1.6;
     }
     
     .interface-container {
-      width: 100%;
-      max-width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      flex: 1;
-      transform-origin: top center;
-      transition: transform 0.3s ease;
+      max-width: 1600px;
+      margin: 0 auto;
+      background: rgba(44, 62, 80, 0.7);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
     
     header {
       text-align: center;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-      margin-bottom: 10px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     h1 {
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      margin-bottom: 10px;
+      font-size: 2.2rem;
+      margin-bottom: 8px;
       color: #3498db;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     
     .subtitle {
-      font-size: clamp(0.9rem, 2vw, 1.1rem);
-      color: #bdc3c7;
+      font-size: 1.1rem;
+      opacity: 0.8;
     }
     
     .main-content {
       display: flex;
-      gap: 20px;
-      flex: 1;
-      min-height: 0;
-    }
-    
-    @media (max-width: 900px) {
-      .main-content {
-        flex-direction: column;
-      }
+      gap: 25px;
+      flex-wrap: wrap;
     }
     
     .control-panel {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 300px;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 15px;
+      flex: 0 0 300px;
+      background: rgba(52, 73, 94, 0.8);
+      padding: 20px;
       border-radius: 10px;
-      backdrop-filter: blur(10px);
-      display: flex;
-      flex-direction: column;
-      z-index: 100;
-      max-height: 95vh;
-      overflow-y: auto;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
-    .control-panel-toggle {
-      display: none;
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      z-index: 101;
-      background: #3498db;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 10px;
-      cursor: pointer;
-      font-weight: bold;
+    .control-group {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    @media (max-width: 768px) {
-      .control-panel {
-        width: 280px;
-        left: 10px;
-        top: 10px;
-        max-height: 90vh;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-      }
-      
-      .control-panel.active {
-        transform: translateX(0);
-      }
-      
-      .control-panel-toggle {
-        display: block;
-      }
+    .control-group:last-child {
+      border-bottom: none;
     }
     
-    .form-group {
+    h2 {
+      font-size: 1.3rem;
       margin-bottom: 15px;
+      color: #3498db;
     }
     
     label {
       display: block;
       margin-bottom: 8px;
-      font-weight: 600;
-      color: #3498db;
-      font-size: clamp(0.9rem, 2vw, 1rem);
+      font-weight: 500;
     }
     
-    select, input[type="range"], button, input[type="color"] {
+    select, input[type="file"], input[type="range"], input[type="color"] {
       width: 100%;
       padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: clamp(0.9rem, 2vw, 1rem);
-      background: #34495e;
-      color: #ecf0f1;
-      margin-bottom: 8px;
-    }
-    
-    select:focus, input[type="range"]:focus {
-      outline: 2px solid #3498db;
-    }
-    
-    .file-upload {
-      border: 2px dashed #7f8c8d;
-      border-radius: 8px;
-      padding: 15px;
-      text-align: center;
       margin-bottom: 15px;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    
-    .file-upload:hover {
-      border-color: #3498db;
-      background: rgba(52, 152, 219, 0.1);
-    }
-    
-    .file-input {
-      display: none;
-    }
-    
-    .scale-controls {
-      background: rgba(52, 73, 94, 0.6);
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-    
-    .additional-controls {
-      background: rgba(52, 73, 94, 0.6);
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 15px;
-    }
-    
-    .scale-display {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5px;
-      color: #bdc3c7;
-      font-size: clamp(0.8rem, 1.5vw, 0.9rem);
-    }
-    
-    button {
-      background: #3498db;
-      color: white;
       border: none;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-weight: 600;
-      margin-top: 8px;
-      padding: 10px;
       border-radius: 5px;
-      font-size: clamp(0.9rem, 2vw, 1rem);
-    }
-    
-    button:hover {
-      background: #2980b9;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-    
-    #autoFitBtn {
-      background: #2ecc71;
-    }
-    
-    #autoFitBtn:hover {
-      background: #27ae60;
-    }
-    
-    .preview-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 400px;
-      margin-left: 320px; /* Отступ для панели управления */
-    }
-    
-    @media (max-width: 768px) {
-      .preview-section {
-        margin-left: 0;
-        padding-top: 50px;
-      }
-    }
-    
-    .preview-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000;
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
-      width: 100%;
-      min-height: 300px;
-    }
-    
-    #screenContainer {
-      position: relative;
-      display: inline-block;
-      transform-origin: top left;
-      transition: transform 0.2s ease;
-      max-width: 100%;
-      max-height: 100%;
-      will-change: transform;
-    }
-    
-    #maskImage {
-      position: absolute; 
-      top: 0; 
-      left: 0;
-      width: 100%; 
-      height: 100%; 
-      z-index: 1;
-      opacity: 0.8;
-    }
-    
-    #videoPlayer, #previewCanvas {
-      position: absolute; 
-      top: 0; 
-      left: 0;
-      width: 100%; 
-      height: 100%; 
-      z-index: 2;
-      object-fit: contain;
-    }
-    
-    #videoPlayer { 
-      display: none; 
-    }
-    
-    #previewCanvas { 
-      display: none; 
-    }
-    
-    .screen-info {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 15px;
-      backdrop-filter: blur(10px);
-    }
-    
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    
-    .info-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: clamp(0.8rem, 1.5vw, 0.9rem);
-    }
-    
-    .info-item:last-child {
-      border-bottom: none;
-    }
-    
-    .info-label {
-      font-weight: 600;
-      color: #3498db;
-    }
-    
-    .info-value {
+      background: #2c3e50;
       color: #ecf0f1;
+      font-size: 1rem;
     }
     
     input[type="range"] {
-      -webkit-appearance: none;
+      padding: 0;
       height: 8px;
-      background: #7f8c8d;
+      -webkit-appearance: none;
+      background: #34495e;
       border-radius: 4px;
-      outline: none;
-      width: 100%;
     }
     
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      background: #3498db;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
+      background: #3498db;
       cursor: pointer;
-      transition: all 0.2s;
     }
     
-    input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-      background: #2980b9;
-    }
-    
-    .fullscreen-toggle {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      background: rgba(0, 0, 0, 0.6);
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
       color: white;
       border: none;
       border-radius: 5px;
-      padding: 8px 15px;
+      font-size: 1rem;
       cursor: pointer;
-      z-index: 10;
-      font-size: clamp(0.8rem, 1.5vw, 0.9rem);
-      transition: all 0.3s;
+      transition: background 0.3s;
+      margin-bottom: 10px;
     }
     
-    .fullscreen-toggle:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    button:hover {
+      background: #2980b9;
     }
     
-    .color-control {
+    .value-display {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
+      justify-content: space-between;
+      margin-top: -10px;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
     
     .color-preview {
       width: 30px;
       height: 30px;
       border-radius: 5px;
-      border: 2px solid #fff;
-      transition: background-color 0.3s ease;
+      border: 2px solid #ecf0f1;
+      margin-top: 5px;
+    }
+    
+    .preview-section {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .preview-container {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 400px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    #screenContainer {
+      position: relative;
+      transform-origin: center center;
+      transition: transform 0.2s ease;
+    }
+    
+    #maskImage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    #videoPlayer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: 1;
+    }
+    
+    #previewCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    .loading-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      z-index: 5;
+      display: none;
     }
     
     .placeholder-message {
@@ -381,99 +219,85 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      color: #7f8c8d;
+      color: rgba(255, 255, 255, 0.6);
       z-index: 0;
-      width: 80%;
+    }
+    
+    .screen-info {
+      background: rgba(52, 73, 94, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .info-item {
+      background: rgba(44, 62, 80, 0.5);
+      padding: 12px;
+      border-radius: 8px;
+    }
+    
+    .info-label {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-bottom: 5px;
+    }
+    
+    .info-value {
+      font-size: 1.1rem;
+      font-weight: 500;
     }
     
     .error-message {
       color: #e74c3c;
-      font-size: 14px;
       margin-top: 10px;
       display: none;
     }
     
-    .loading-indicator {
+    .control-panel-toggle {
       display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 5;
-      color: #3498db;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 1200px) {
-      .main-content {
-        gap: 15px;
-      }
-      
-      .preview-section {
-        margin-left: 310px;
-      }
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1000;
+      width: auto;
+      padding: 10px 15px;
+      background: #3498db;
+      border-radius: 5px;
     }
     
     @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-      
-      .interface-container {
-        gap: 15px;
-      }
-      
-      header {
-        padding: 10px;
-      }
-      
       .main-content {
         flex-direction: column;
-        gap: 15px;
-      }
-      
-      .preview-section {
-        min-height: 300px;
-        padding-top: 0;
-      }
-      
-      .preview-container {
-        min-height: 250px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .file-upload {
-        padding: 12px;
-      }
-      
-      .scale-controls {
-        padding: 10px;
-      }
-      
-      .additional-controls {
-        padding: 10px;
       }
       
       .control-panel {
-        width: 90%;
-        left: 5%;
-        top: 5%;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        z-index: 999;
+        overflow-y: auto;
+        transition: left 0.3s ease;
       }
-    }
-
-    /* Orientation specific styles */
-    @media (max-width: 768px) and (orientation: landscape) {
-      .preview-section {
-        min-height: 200px;
+      
+      .control-panel.active {
+        left: 0;
+      }
+      
+      .control-panel-toggle {
+        display: block;
       }
       
       .preview-container {
-        min-height: 180px;
+        height: 50vh;
       }
     }
   </style>
@@ -483,70 +307,49 @@
   
   <div class="interface-container">
     <header>
-      <img src="connect_logo-1.jpg" alt="Logo" style="height:48px; vertical-align:middle; margin-right:10px;">
-      <h1 style="display:inline-block; vertical-align:middle;">Screen Preview с масштабированием</h1>
+      <h1>Screen Preview с масштабированием</h1>
       <p class="subtitle">Просмотр контента на различных экранах с сохранением оригинальных пропорций</p>
     </header>
     
     <div class="main-content">
       <div class="control-panel" id="controlPanel">
-        <div class="form-group">
+        <div class="control-group">
+          <h2>Экран</h2>
           <label for="screenSelect">Выберите экран:</label>
           <select id="screenSelect">
-            <option value="Bolshoi">Bolshoi 6528×1472</option>
-            <option value="Poloski">Poloski 640×1920</option>
-            <option value="Nav">Navigation 316×384</option>
-            <option value="Bar1">Bar 1 384×64</option>
-            <option value="Bar2">Bar 2 256×64</option>
-            <option value="Recepshen">Recepshen 2176×1280</option>
-            <option value="TualetM">Tualet Men 284×256</option>
-            <option value="TualetW">Tualet Women 284×256</option>
-            <option value="TualetPotolok">Tualet Potolok 383×384</option>
-            <option value="Lestnitsa">Lestnitsa 200×120 → 1920×1080</option>
+            <option value="Bolshoi">Большой экран (6528×1472)</option>
+            <option value="Poloski">Экран полоски (640×1920)</option>
+            <option value="Nav">Навигация (316×384)</option>
+            <option value="Bar1">Бар 1 (384×64)</option>
+            <option value="Bar2">Бар 2 (256×64)</option>
+            <option value="Recepshen">Рецепшен (2176×1280)</option>
+            <option value="TualetM">Туалет мужской (284×256)</option>
+            <option value="TualetW">Туалет женский (284×256)</option>
+            <option value="TualetPotolok">Туалет потолок (383×384)</option>
+            <option value="Lestnitsa">Экран на лестнице (200×120)</option>
           </select>
-        </div>
-        
-        <div class="form-group">
-          <label>Загрузите контент:</label>
-          <div class="file-upload" onclick="document.getElementById('uploadInput').click()">
-            <p>Нажмите для загрузки файла</p>
-            <p><small>(Поддерживаются изображения и видео)</small></p>
-            <input type="file" id="uploadInput" class="file-input" accept="image/*,video/*" />
-          </div>
-          <p class="error-message" id="uploadError"></p>
-        </div>
-        
-        <div class="scale-controls">
-          <div class="form-group">
-            <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
-            <input type="range" id="scaleSlider" min="10" max="400" value="100">
-            <div class="scale-display">
-              <span>10%</span>
-              <span>400%</span>
-            </div>
-          </div>
           
-          <button id="autoFitBtn">Автоподгонка</button>
-          <button id="fullscreenBtn" class="fullscreen-toggle">Полный экран</button>
+          <label for="uploadInput">Загрузить контент:</label>
+          <input type="file" id="uploadInput" accept="image/*,video/*">
+          <div class="error-message" id="uploadError"></div>
         </div>
         
-        <div class="additional-controls">
-          <div class="form-group">
-            <label for="contentOpacity">Прозрачность контента: <span id="opacityValue">100%</span></label>
-            <input type="range" id="contentOpacity" min="0" max="100" value="100">
-            <div class="scale-display">
-              <span>0%</span>
-              <span>100%</span>
-            </div>
-          </div>
+        <div class="control-group">
+          <h2>Масштаб</h2>
+          <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
+          <input type="range" id="scaleSlider" min="10" max="400" value="100">
+          <button id="autoFitBtn">Автоподгон</button>
+          <button id="fullscreenBtn">Полный экран</button>
+        </div>
+        
+        <div class="control-group">
+          <h2>Внешний вид</h2>
+          <label for="contentOpacity">Прозрачность контента: <span id="opacityValue">100%</span></label>
+          <input type="range" id="contentOpacity" min="0" max="100" value="100">
           
-          <div class="form-group">
-            <label for="bgColor">Цвет фона интерфейса:</label>
-            <div class="color-control">
-              <input type="color" id="bgColor" value="#2c3e50">
-              <div class="color-preview" id="colorPreview"></div>
-            </div>
-          </div>
+          <label for="bgColor">Цвет фона:</label>
+          <input type="color" id="bgColor" value="#2c3e50">
+          <div class="color-preview" id="colorPreview"></div>
         </div>
       </div>
       
@@ -567,20 +370,20 @@
         <div class="screen-info">
           <div class="info-grid">
             <div class="info-item">
-              <span class="info-label">Текущий экран:</span>
-              <span id="currentScreen" class="info-value">Bolshoi</span>
+              <div class="info-label">Текущий экран</div>
+              <div class="info-value" id="currentScreen">Большой экран</div>
             </div>
             <div class="info-item">
-              <span class="info-label">Оригинальное разрешение:</span>
-              <span id="screenResolution" class="info-value">6528 × 1472</span>
+              <div class="info-label">Разрешение</div>
+              <div class="info-value" id="screenResolution">6528 × 1472</div>
             </div>
             <div class="info-item">
-              <span class="info-label">Соотношение сторон:</span>
-              <span id="aspectRatio" class="info-value">4.43:1</span>
+              <div class="info-label">Соотношение сторон</div>
+              <div class="info-value" id="aspectRatio">102:23</div>
             </div>
             <div class="info-item">
-              <span class="info-label">Масштаб:</span>
-              <span id="scalePercent" class="info-value">100%</span>
+              <div class="info-label">Масштаб</div>
+              <div class="info-value" id="scalePercent">100%</div>
             </div>
           </div>
         </div>
@@ -649,6 +452,7 @@
     // Переменная для отслеживания ориентации устройства
     let isPortrait = window.innerHeight > window.innerWidth;
     let resizeTimeout;
+    let currentScreenType = sel.value;
 
     // Toggle control panel on mobile
     panelToggle.addEventListener('click', function() {
@@ -827,6 +631,7 @@
 
     function updateScreen(){
       const scr = screens[sel.value];
+      currentScreenType = sel.value;
       
       // Удаляем fallback canvas, если он есть
       const fallbackCanvas = document.getElementById('fallbackCanvas');
@@ -837,28 +642,6 @@
       // Показываем индикатор загрузки
       loadingIndicator.style.display = 'block';
       maskImg.style.display = 'block';
-      
-      // Проверяем, есть ли изображение в кэше
-      if (maskCache[sel.value]) {
-        // Используем кэшированное изображение
-        maskImg.src = maskCache[sel.value];
-        loadingIndicator.style.display = 'none';
-      } else {
-        // Пытаемся загрузить изображение
-        const testImage = new Image();
-        testImage.onload = function() {
-          maskImg.src = scr.src;
-          maskCache[sel.value] = scr.src;
-          loadingIndicator.style.display = 'none';
-        };
-        
-        testImage.onerror = function() {
-          console.error("Не удалось загрузить маску:", scr.src);
-          handleImageError();
-        };
-        
-        testImage.src = scr.src;
-      }
       
       // Use original screen dimensions
       const cw = scr.fitW || scr.w;
@@ -876,8 +659,39 @@
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
       
-      // Масштабируем маску под высоту окна браузера
-      scaleMaskToWindow();
+      // Проверяем, есть ли изображение в кэше
+      if (maskCache[sel.value]) {
+        // Используем кэшированное изображение
+        maskImg.src = maskCache[sel.value];
+        loadingIndicator.style.display = 'none';
+        
+        // Масштабируем маску под высоту окна браузера
+        scaleMaskToWindow();
+      } else {
+        // Пытаемся загрузить изображение
+        const testImage = new Image();
+        testImage.onload = function() {
+          // Проверяем, не изменился ли экран во время загрузки
+          if (sel.value === currentScreenType) {
+            maskImg.src = scr.src;
+            maskCache[sel.value] = scr.src;
+            loadingIndicator.style.display = 'none';
+            
+            // Масштабируем маску под высоту окна браузера
+            scaleMaskToWindow();
+          }
+        };
+        
+        testImage.onerror = function() {
+          // Проверяем, не изменился ли экран во время загрузки
+          if (sel.value === currentScreenType) {
+            console.error("Не удалось загрузить маску:", scr.src);
+            handleImageError();
+          }
+        };
+        
+        testImage.src = scr.src;
+      }
       
       setTimeout(autoFit, 50);
     }
@@ -922,6 +736,16 @@
           scaleMaskToWindow();
         }, 250);
       }
+    });
+
+    // Обработчик изменения ориентации устройства
+    window.addEventListener('orientationchange', function() {
+      // Ждем завершения изменения ориентации
+      setTimeout(function() {
+        isPortrait = window.innerHeight > window.innerWidth;
+        updateScreen();
+        autoFit();
+      }, 300);
     });
 
     inFile.addEventListener('change', e => {
@@ -995,14 +819,6 @@
     window.addEventListener('load', function() {
       autoFit();
       scaleMaskToWindow();
-    });
-
-    // Добавляем обработчик изменения ориентации
-    window.addEventListener('orientationchange', function() {
-      // Даем время на завершение анимации поворота
-      setTimeout(function() {
-        updateScreen();
-      }, 500);
     });
   </script>
 </body>
