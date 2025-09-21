@@ -157,7 +157,7 @@
 
     .error-message { color: #e74c3c; margin-top: 10px; display: none; }
 
-    .control-panel-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1000; width: auto; padding: 10px 15px; background: #3498db; border-radius: 5px; }
+    .control-panel-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1000; width: auto; padding: 10px; background: #3498db; border-radius: 5px; }
     .fullscreen-btn-container { text-align: center; margin-top: 10px; }
     #fullscreenBtn { width: auto; padding: 8px 15px; font-size: 0.9rem; }
 
@@ -253,7 +253,7 @@
             <canvas id="previewCanvas"></canvas>
             <div class="placeholder-message" id="placeholderMessage">
               <h3>Загрузите контент для предпросмотра</h3>
-              <p>Выберите файл изображения или видео для отображения на выбранном экране</p>
+              <p>Выберите файл изображения или видео для отображения на выбранном экranе</p>
             </div>
           </div>
         </div>
@@ -352,8 +352,13 @@
     }
 
     function applyContainerSize(scr){
-      // Для больших экранов устанавливаем максимальные размеры
-      if (scr.w > 2000 || scr.h > 2000) {
+      // Для экрана Poloski устанавливаем точные размеры 640x1920
+      if (sel.value === 'Poloski') {
+        cont.style.width = '640px';
+        cont.style.height = '1920px';
+      } 
+      // Для остальных экранов используем стандартную логику
+      else if (scr.w > 2000 || scr.h > 2000) {
         const maxWidth = previewContainer.clientWidth * 0.9;
         const maxHeight = previewContainer.clientHeight * 0.9;
         const scale = Math.min(maxWidth / scr.w, maxHeight / scr.h);
@@ -554,14 +559,14 @@
           ctx.clearRect(0, 0, cw, ch);
 
           if (sel.value === 'Poloski') {
-            // ТОЛЬКО Poloski: масштаб строго по ширине маски, сохранить пропорции, центрирование по вертикали
+            // ТОЛЬКО ДЛЯ Poloski: масштаб по ширине маски, сохранить пропорции, центр по вертикали
             const scaleW = cw / img.width;
             const w = cw;
             const h = img.height * scaleW;
             const y = (ch - h) / 2;
             ctx.drawImage(img, 0, y, w, h);
           } else {
-            // Остальные — прежний contain
+            // Для остальных — прежняя логика contain
             const scale = Math.min(cw / img.width, ch / img.height);
             const w = img.width * scale;
             const h = img.height * scale;
@@ -580,7 +585,14 @@
       } else {
         canvas.style.display = 'none';
         vid.style.display = 'block';
-        // Видео оставляем с object-fit: contain (CSS), пропорции сохраняются без дополнительных изменений
+        
+        // Для экрана Poloski устанавливаем object-fit: fill для заполнения ширины
+        if (sel.value === 'Poloski') {
+          vid.style.objectFit = 'fill';
+        } else {
+          vid.style.objectFit = 'contain';
+        }
+        
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
           uploadError.style.display = 'block';
