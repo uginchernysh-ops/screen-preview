@@ -590,9 +590,9 @@
   <script>
     // Автоматическое определение базового URL для GitHub Pages
     const isGitHubPages = window.location.hostname.includes('github.io');
-    const repoName = 'screen-preview'; // Имя репозитория
+    const repoName = window.location.pathname.split('/')[1] || 'screen-preview'; // Имя репозитория
     const baseUrl = isGitHubPages 
-        ? `${window.location.origin}/${repoName}`
+        ? `${window.location.origin}${window.location.pathname.split('/').slice(0, 2).join('/')}`
         : '';
 
     // Кэш для уже загруженных масок
@@ -613,6 +613,9 @@
       TualetPotolok: { w:383,  h:384,  src: `${baseUrl}/images/Tualet-potolok-383x384.jpg` },
       Lestnitsa:     { w:200,  h:120,  src: `${baseUrl}/images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg`, fitW:1920, fitH:1080 }
     };
+
+    console.log("Base URL:", baseUrl);
+    console.log("Screen paths:", screens);
 
     const sel = document.getElementById('screenSelect');
     const inFile = document.getElementById('uploadInput');
@@ -783,7 +786,7 @@
     }
 
     function handleImageError() {
-      console.error("Ошибка загрузки изображения маски экрана");
+      console.error("Ошибка загрузки изображения маски экрана:", maskImg.src);
       loadingIndicator.style.display = 'none';
       
       // Создаем fallback - простой контур экрана
@@ -830,29 +833,30 @@
         fallbackCanvas.remove();
       }
       
+      // Показываем индикатор загрузки
+      loadingIndicator.style.display = 'block';
+      maskImg.style.display = 'block';
+      
       // Проверяем, есть ли изображение в кэше
       if (maskCache[sel.value]) {
         // Используем кэшированное изображение
         maskImg.src = maskCache[sel.value];
-        maskImg.style.display = 'block';
         loadingIndicator.style.display = 'none';
       } else {
-        // Показываем индикатор загрузки
-        loadingIndicator.style.display = 'block';
-        maskImg.style.display = 'block';
-        
         // Пытаемся загрузить изображение
-        maskImg.onload = function() {
-          loadingIndicator.style.display = 'none';
-          // Сохраняем в кэш
+        const testImage = new Image();
+        testImage.onload = function() {
+          maskImg.src = scr.src;
           maskCache[sel.value] = scr.src;
+          loadingIndicator.style.display = 'none';
         };
         
-        maskImg.onerror = function() {
+        testImage.onerror = function() {
+          console.error("Не удалось загрузить маску:", scr.src);
           handleImageError();
         };
         
-        maskImg.src = scr.src;
+        testImage.src = scr.src;
       }
       
       // Use original screen dimensions
@@ -992,6 +996,7 @@
       scaleMaskToWindow();
     });
 
+   
     // Добавляем обработчик изменения ориентации
     window.addEventListener('orientationchange', function() {
       // Даем время на завершение анимации поворота
@@ -1002,3 +1007,4 @@
   </script>
 </body>
 </html>
+
