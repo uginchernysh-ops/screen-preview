@@ -38,6 +38,17 @@
 
     .main-content { display: flex; flex-direction: column; gap: 16px; }
 
+    /* ОБЁРТКА ПАНЕЛИ: визуально увеличиваем весь UI в 5 раз, включая шрифт */
+    .control-panel-wrapper {
+      position: relative;
+      width: calc(100% / 5);          /* компенсируем реальный размер, чтобы вёрстка не "поехала" */
+      transform-origin: top left;     /* масштаб от левого верхнего края */
+    }
+    .control-panel-scale {
+      transform: scale(5);            /* увеличение x5 */
+      transform-origin: top left;
+    } /* Используем transform/scale для увеличения UI [MDN] */ /* [web:143][web:69] */
+
     .control-panel {
       width: 100%;
       background: rgba(52,73,94,0.8);
@@ -92,7 +103,7 @@
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: contain; object-position: center;
       z-index: 2;
-    } /* вписывание видео */ /* [web:73][web:66] */
+    } /* вписывание видео без искажения */ /* [web:138] */
     #previewCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
 
     .loading-indicator {
@@ -131,42 +142,45 @@
     </header>
 
     <div class="main-content">
-      <div class="control-panel" id="controlPanel">
-        <div class="control-group">
-          <h2>Экран</h2>
-          <label for="screenSelect">Выберите экран:</label>
-          <select id="screenSelect">
-            <option value="Bolshoi">Большой экран (6528×1472)</option>
-            <option value="Poloski">Экран полоски (640×1920)</option>
-            <option value="Nav">Навигация (316×384)</option>
-            <option value="Bar1">Бар 1 (384×64)</option>
-            <option value="Bar2">Бар 2 (256×64)</option>
-            <option value="Recepshen">Рецепшен (2176×1280)</option>
-            <option value="TualetM">Туалет мужской (284×256)</option>
-            <option value="TualetW">Туалет женский (284×256)</option>
-            <option value="TualetPotolok">Туалет потолок (383×384)</option>
-            <option value="Lestnitsa">Экран на лестнице (200×120)</option>
-          </select>
+      <!-- Обёртка с компенсацией ширины -->
+      <div class="control-panel-wrapper">
+        <div class="control-panel control-panel-scale" id="controlPanel">
+          <div class="control-group">
+            <h2>Экран</h2>
+            <label for="screenSelect">Выберите экран:</label>
+            <select id="screenSelect">
+              <option value="Bolshoi">Большой экран (6528×1472)</option>
+              <option value="Poloski">Экран полоски (640×1920)</option>
+              <option value="Nav">Навигация (316×384)</option>
+              <option value="Bar1">Бар 1 (384×64)</option>
+              <option value="Bar2">Бар 2 (256×64)</option>
+              <option value="Recepshen">Рецепшен (2176×1280)</option>
+              <option value="TualetM">Туалет мужской (284×256)</option>
+              <option value="TualetW">Туалет женский (284×256)</option>
+              <option value="TualetPotolok">Туалет потолок (383×384)</option>
+              <option value="Lestnitsa">Экран на лестнице (200×120)</option>
+            </select>
 
-          <label for="uploadInput">Загрузить контент:</label>
-          <input type="file" id="uploadInput" accept="image/*,video/*">
-          <div class="error-message" id="uploadError"></div>
-        </div>
+            <label for="uploadInput">Загрузить контент:</label>
+            <input type="file" id="uploadInput" accept="image/*,video/*">
+            <div class="error-message" id="uploadError"></div>
+          </div>
 
-        <div class="control-group">
-          <h2>Масштаб</h2>
-          <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
-          <input type="range" id="scaleSlider" min="5" max="600" value="100">
-          <button id="autoFitBtn">Автоподгон</button>
-        </div>
+          <div class="control-group">
+            <h2>Масштаб</h2>
+            <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
+            <input type="range" id="scaleSlider" min="5" max="600" value="100">
+            <button id="autoFitBtn">Автоподгон</button>
+          </div>
 
-        <div class="control-group">
-          <h2>Внешний вид</h2>
-          <label for="contentOpacity">Прозрачность контента: <span id="opacityValue">100%</span></label>
-          <input type="range" id="contentOpacity" min="0" max="100" value="100">
-          <label for="bgColor">Цвет фона:</label>
-          <input type="color" id="bgColor" value="#2c3e50">
-          <div class="color-preview" id="colorPreview" style="width:30px;height:30px;border-radius:5px;border:2px solid #ecf0f1;"></div>
+          <div class="control-group">
+            <h2>Внешний вид</h2>
+            <label for="contentOpacity">Прозрачность контента: <span id="opacityValue">100%</span></label>
+            <input type="range" id="contentOpacity" min="0" max="100" value="100">
+            <label for="bgColor">Цвет фона:</label>
+            <input type="color" id="bgColor" value="#2c3e50">
+            <div class="color-preview" id="colorPreview" style="width:30px;height:30px;border-radius:5px;border:2px solid #ecf0f1;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -219,7 +233,6 @@
     const maskCache = {};
     const smallScreens = ['Nav','Bar1','Bar2','TualetM','TualetW','TualetPotolok','Lestnitsa'];
 
-    // Индивидуальные масштабы по умолчанию
     const screens = {
       Bolshoi:       { w:6528, h:1472, src: 'images/Bolshoi-ekran-6528kh1472.jpg', defaultScale: 109 },
       Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg',  defaultScale: 95  },
@@ -288,7 +301,7 @@
       const boost = smallScreens.includes(sel.value) ? 2 : 1;
       const scale = Math.min(availW / scr.w, availH / scr.h) * 100 * boost;
       setScaleValue(scale);
-    } /* вписывание по контейнеру */ /* [web:73][web:66] */
+    }
 
     function updateOpacity(){
       const o = opacitySlider.value / 100;
@@ -344,7 +357,7 @@
     function applyDefaultScale(scrKey){
       const scr = screens[scrKey];
       if (scr && typeof scr.defaultScale === 'number') setScaleValue(scr.defaultScale);
-    } /* применение масштаба по умолчанию из option */ /* [web:101] */
+    } /* масштаб UI не затрагивается, увеличен только сам UI-панель трансформом [MDN] */ /* [web:143] */
 
     function updateScreen(){
       const scrKey = sel.value;
@@ -372,7 +385,7 @@
         maskImg.src = url;
         maskCache[scrKey] = url;
         loadingIndicator.style.display = 'none';
-        applyDefaultScale(scrKey); // применяем масштаб по умолчанию
+        applyDefaultScale(scrKey);
       };
       img.onerror = () => {
         handleImageError();
@@ -398,9 +411,12 @@
     window.addEventListener('resize', () => {
       clearTimeout(window.__rsz);
       window.__rsz = setTimeout(() => {/* сохраняем выбранный масштаб — без автоподгона на resize */}, 120);
-    }); /* debounce */ /* [web:117][web:120] */
+    });
 
-    // Загрузка контента: для Poloski — вписывание по ширине маски (без искажений)
+    const inFile = document.getElementById('uploadInput');
+    const uploadError = document.getElementById('uploadError');
+    const placeholderMessage = document.getElementById('placeholderMessage');
+
     inFile.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
@@ -429,14 +445,12 @@
           ctx2.clearRect(0, 0, cw, ch);
 
           if (scrKey === 'Poloski'){
-            // Вписать по ширине маски (fill по ширине), центрировать по высоте без искажения
             const scaleW = cw / img.width;
             const w = cw;
             const h = img.height * scaleW;
             const y = (ch - h) / 2;
             ctx2.drawImage(img, 0, y, w, h);
           } else {
-            // Стандартный contain
             const scale = Math.min(cw / img.width, ch / img.height);
             const w = img.width * scale;
             const h = img.height * scale;
@@ -455,7 +469,6 @@
       } else {
         canvas.style.display = 'none';
         vid.style.display = 'block';
-        // Для Poloski object-fit: contain и центрирование обеспечивают корректную ширину
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
           uploadError.style.display = 'block';
