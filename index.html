@@ -41,7 +41,7 @@
       background: url('images/Back.jpg') no-repeat center center fixed;
       background-size: cover;
       color: var(--text-color);
-      min-height: 100vh;
+      min-height: vh;
       line-height: 1.6;
       position: relative;
       overflow-x: hidden;
@@ -412,7 +412,7 @@
       z-index: 1000;
       background: var(--primary-color);
       color: white;
-      border: none;
+      border: null;
       border-radius: 50%;
       width: 3rem;
       height: 3rem;
@@ -744,9 +744,14 @@
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
 
-      // Для всех экранов видео без искажений
-      vid.style.objectFit = 'contain';
-      vid.style.objectPosition = 'center';
+      // Для экрана Poloski устанавливаем точные размеры 640x1920
+      if (scrKey === 'Poloski') {
+        cont.style.width = '640px';
+        cont.style.height = '1920px';
+      } else {
+        cont.style.width = scr.w + 'px';
+        cont.style.height = scr.h + 'px';
+      }
 
       // Проверяем кэш
       if (maskCache[scrKey]) {
@@ -827,7 +832,7 @@
           ctx2.clearRect(0, 0, cw, ch);
 
           if (scrKey === 'Poloski'){
-            // Масштаб по ширине маски, центр по вертикали, пропорции сохранены
+            // Масштаб по ширине маски, центр по вертикали
             const scaleW = cw / img.width;
             const w = cw;
             const h = img.height * scaleW;
@@ -856,9 +861,16 @@
         canvas.style.display = 'none';
         vid.style.display = 'block';
 
-        // Видео без искажений (contain) для всех экранов
-        vid.style.objectFit = 'contain';
-        vid.style.objectPosition = 'center';
+        // Для экрана Poloski - специальная обработка видео
+        if (scrKey === 'Poloski') {
+          vid.style.objectFit = 'cover';
+          vid.style.width = '100%';
+          vid.style.height = 'auto';
+        } else {
+          vid.style.objectFit = 'contain';
+          vid.style.width = '100%';
+          vid.style.height = '100%';
+        }
 
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
