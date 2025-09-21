@@ -518,10 +518,10 @@
         <div class="scale-controls">
           <div class="form-group">
             <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
-            <input type="range" id="scaleSlider" min="10" max="200" value="100">
+            <input type="range" id="scaleSlider" min="10" max="400" value="100">
             <div class="scale-display">
               <span>10%</span>
-              <span>200%</span>
+              <span>400%</span>
             </div>
           </div>
           
@@ -594,6 +594,12 @@
     const baseUrl = isGitHubPages 
         ? `${window.location.origin}/${repoName}`
         : '';
+
+    // Кэш для уже загруженных масок
+    const maskCache = {};
+    
+    // Определяем мелкие экраны, которые нужно увеличивать в 2 раза
+    const smallScreens = ['Nav', 'Bar1', 'Bar2', 'TualetM', 'TualetW', 'TualetPotolok', 'Lestnitsa'];
 
     const screens = {
       Bolshoi:       { w:6528, h:1472, src: `${baseUrl}/images/Bolshoi-ekran-6528kh1472.jpg` },
@@ -724,16 +730,22 @@
       const availW = window.innerWidth - controlPanelWidth - 40; // account for margins
       const availH = window.innerHeight - 250; // account for header and other elements
       
+      // Для мелких экранов увеличиваем базовый масштаб в 2 раза
+      let baseScale = 1;
+      if (smallScreens.includes(sel.value)) {
+        baseScale = 2;
+      }
+      
       // For Lestnitsa, use a different scaling approach to make it more visible
       let scale;
       if (sel.value === 'Lestnitsa') {
         // For Lestnitsa, we want to make it more visible despite its small original size
-        scale = Math.min(availW / refW, availH / refH, 2) * 100; // Allow up to 200% scale
+        scale = Math.min(availW / refW, availH / refH, 2) * 100 * baseScale;
       } else {
-        scale = Math.min(availW / refW, availH / refH, 1) * 100;
+        scale = Math.min(availW / refW, availH / refH, 1) * 100 * baseScale;
       }
       
-      scaleSlider.value = Math.max(10, Math.min(200, Math.floor(scale)));
+      scaleSlider.value = Math.max(10, Math.min(400, Math.floor(scale)));
       updateScale();
     }
 
@@ -751,6 +763,11 @@
       // Вычисляем масштаб на основе высоты экрана и доступного пространства
       let maskScale = Math.min(availableWidth / screenWidth, availableHeight / screenHeight);
       
+      // Для мелких экранов увеличиваем базовый масштаб в 2 раза
+      if (smallScreens.includes(sel.value)) {
+        maskScale *= 2;
+      }
+      
       // Ограничиваем масштаб для мобильных устройств
       if (window.innerWidth <= 768) {
         maskScale = Math.min(maskScale, 1);
@@ -760,7 +777,7 @@
       cont.style.transform = `scale(${maskScale})`;
       
       // Обновляем значение в слайдере
-      scaleSlider.value = Math.max(10, Math.min(200, Math.floor(maskScale * 100)));
+      scaleSlider.value = Math.max(10, Math.min(400, Math.floor(maskScale * 100)));
       scaleValue.textContent = `${scaleSlider.value}%`;
       scalePercent.textContent = `${scaleSlider.value}%`;
     }
@@ -813,20 +830,30 @@
         fallbackCanvas.remove();
       }
       
-      // Показываем индикатор загрузки
-      loadingIndicator.style.display = 'block';
-      maskImg.style.display = 'block';
-      
-      // Пытаемся загрузить изображение
-      maskImg.onload = function() {
+      // Проверяем, есть ли изображение в кэше
+      if (maskCache[sel.value]) {
+        // Используем кэшированное изображение
+        maskImg.src = maskCache[sel.value];
+        maskImg.style.display = 'block';
         loadingIndicator.style.display = 'none';
-      };
-      
-      maskImg.onerror = function() {
-        handleImageError();
-      };
-      
-      maskImg.src = scr.src;
+      } else {
+        // Показываем индикатор загрузки
+        loadingIndicator.style.display = 'block';
+        maskImg.style.display = 'block';
+        
+        // Пытаемся загрузить изображение
+        maskImg.onload = function() {
+          loadingIndicator.style.display = 'none';
+          // Сохраняем в кэш
+          maskCache[sel.value] = scr.src;
+        };
+        
+        maskImg.onerror = function() {
+          handleImageError();
+        };
+        
+        maskImg.src = scr.src;
+      }
       
       // Use original screen dimensions
       const cw = scr.fitW || scr.w;
