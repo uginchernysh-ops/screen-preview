@@ -41,7 +41,7 @@
       background: url('images/Back.jpg') no-repeat center center fixed;
       background-size: cover;
       color: var(--text-color);
-      min-height: vh;
+      min-height: 100vh;
       line-height: 1.6;
       position: relative;
       overflow-x: hidden;
@@ -56,7 +56,6 @@
       z-index: -1; 
     }
 
-    /* Каркас приложения */
     .app-shell {
       display: flex;
       flex-direction: column;
@@ -65,7 +64,6 @@
       margin: 0 auto;
     }
 
-    /* Левая панель */
     .sidebar {
       background: var(--container-bg);
       border-radius: var(--border-radius);
@@ -97,7 +95,6 @@
       text-align: center; 
     }
 
-    /* Правая область */
     .main {
       display: flex;
       flex-direction: column;
@@ -338,142 +335,41 @@
       margin: 0 auto;
     }
 
-    /* Планшеты и небольшие ноутбуки */
     @media (min-width: 768px) {
-      :root {
-        --base-size: 17px;
-      }
-      
-      .app-shell {
-        flex-direction: row;
-        max-width: 95vw;
-      }
-      
-      .sidebar {
-        width: 22rem;
-        position: sticky;
-        top: var(--spacing-md);
-        max-height: calc(100vh - 2 * var(--spacing-md));
-        overflow: auto;
-        order: 1;
-      }
-      
-      .main {
-        flex: 1;
-        order: 2;
-      }
-      
-      .control-panel {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .preview-container {
-        height: 60vh;
-      }
+      :root { --base-size: 17px; }
+      .app-shell { flex-direction: row; max-width: 95vw; }
+      .sidebar { width: 22rem; position: sticky; top: var(--spacing-md); max-height: calc(100vh - 2 * var(--spacing-md)); overflow: auto; order: 1; }
+      .main { flex: 1; order: 2; }
+      .control-panel { grid-template-columns: repeat(2, 1fr); }
+      .preview-container { height: 60vh; }
     }
 
-    /* Десктопы */
     @media (min-width: 1024px) {
-      :root {
-        --base-size: 18px;
-      }
-      
-      .app-shell {
-        max-width: 90rem;
-        padding: var(--spacing-md);
-      }
-      
-      .control-panel {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .preview-container {
-        height: 65vh;
-      }
+      :root { --base-size: 18px; }
+      .app-shell { max-width: 90rem; padding: var(--spacing-md); }
+      .control-panel { grid-template-columns: repeat(3, 1fr); }
+      .preview-container { height: 65vh; }
     }
 
-    /* Большие экраны */
     @media (min-width: 1440px) {
-      :root {
-        --base-size: 20px;
-      }
-      
-      .preview-container {
-        height: 70vh;
-      }
+      :root { --base-size: 20px; }
+      .preview-container { height: 70vh; }
     }
 
-    /* Улучшения для мобильной навигации */
-    .mobile-menu-toggle {
-      display: none;
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      z-index: 1000;
-      background: var(--primary-color);
-      color: white;
-      border: null;
-      border-radius: 50%;
-      width: 3rem;
-      height: 3rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
+    .mobile-menu-toggle { display: none; position: fixed; top: 1rem; right: 1rem; z-index: 1000; background: var(--primary-color); color: white; border: none; border-radius: 50%; width: 3rem; height: 3rem; font-size: 1.5rem; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 
     @media (max-width: 767px) {
-      .mobile-menu-toggle {
-        display: block;
-      }
-      
-      .sidebar {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        max-width: 20rem;
-        height: 100vh;
-        z-index: 900;
-        transition: left 0.3s ease;
-        overflow-y: auto;
-      }
-      
-      .sidebar.active {
-        left: 0;
-      }
-      
-      .overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.7);
-        z-index: 800;
-      }
-      
-      .overlay.active {
-        display: block;
-      }
+      .mobile-menu-toggle { display: block; }
+      .sidebar { position: fixed; top: 0; left: -100%; width: 80%; max-width: 20rem; height: 100vh; z-index: 900; transition: left 0.3s ease; overflow-y: auto; }
+      .sidebar.active { left: 0; }
+      .overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 800; }
+      .overlay.active { display: block; }
     }
 
-    /* Улучшения доступности */
-    button:focus,
-    select:focus,
-    input:focus {
-      outline: 2px solid var(--primary-color);
-      outline-offset: 2px;
-    }
+    button:focus, select:focus, input:focus { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 
-    /* Анимации для плавности */
-    .control-group {
-      transition: transform 0.2s ease;
-    }
-    
-    .control-group:active {
-      transform: scale(0.98);
-    }
+    .control-group { transition: transform 0.2s ease; }
+    .control-group:active { transform: scale(0.98); }
   </style>
 </head>
 <body>
@@ -481,15 +377,12 @@
   <div class="overlay" id="overlay"></div>
 
   <div class="app-shell">
-    <!-- Левая колонка -->
     <aside class="sidebar">
-      <img src="images/connect_logo-1.jpg" alt="Connect Logo" class="logo"
-           onerror="this.onerror=null;this.src='images/connect_logo-1.png'">
+      <img src="images/connect_logo-1.jpg" alt="Connect Logo" class="logo" onerror="this.onerror=null;this.src='images/connect_logo-1.png'">
       <div class="app-title">Screen Preview</div>
       <div class="app-subtitle">Маски, видео и изображения</div>
     </aside>
 
-    <!-- Правая колонка -->
     <main class="main">
       <div class="interface-container">
         <header>
@@ -581,15 +474,14 @@
           </div>
         </div>
 
-      </div> <!-- /interface-container (верхний) -->
+      </div>
     </main>
-  </div> <!-- /app-shell -->
+  </div>
 
   <script>
     const maskCache = {};
     const smallScreens = ['Nav','Bar1','Bar2','TualetM','TualetW','TualetPotolok','Lestnitsa'];
 
-    // Индивидуальные масштабы по умолчанию
     const screens = {
       Bolshoi:       { w:6528, h:1472, src: 'images/Bolshoi-ekran-6528kh1472.jpg', defaultScale: 109 },
       Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg',  defaultScale: 95  },
@@ -603,7 +495,6 @@
       Lestnitsa:     { w:200,  h:120,  src: 'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg', defaultScale: 410 }
     };
 
-    // Элементы DOM
     const sel = document.getElementById('screenSelect');
     const inFile = document.getElementById('uploadInput');
     const cont = document.getElementById('screenContainer');
@@ -631,31 +522,11 @@
     const overlay = document.getElementById('overlay');
     const sidebar = document.querySelector('.sidebar');
 
-    // Вспомогательные функции
     function gcd(a,b){ return b===0 ? a : gcd(b, a%b); }
-    
-    function calculateAspectRatio(width, height){
-      const d = gcd(width, height);
-      return `${width/d}:${height/d}`;
-    }
-
-    function applyContainerSize(scr){
-      cont.style.width = scr.w + 'px';
-      cont.style.height = scr.h + 'px';
-    }
-
-    function setScaleValue(percent){
-      const v = Math.max(5, Math.min(600, Math.floor(percent)));
-      scaleSlider.value = v;
-      const s = v / 100;
-      cont.style.transform = `scale(${s})`;
-      scaleValue.textContent = `${v}%`;
-      scalePercent.textContent = `${v}%`;
-    }
-
-    function updateScale(){
-      setScaleValue(scaleSlider.value);
-    }
+    function calculateAspectRatio(width, height){ const d = gcd(width, height); return `${width/d}:${height/d}`; }
+    function applyContainerSize(scr){ cont.style.width = scr.w + 'px'; cont.style.height = scr.h + 'px'; }
+    function setScaleValue(percent){ const v = Math.max(5, Math.min(600, Math.floor(percent))); scaleSlider.value = v; const s = v / 100; cont.style.transform = `scale(${s})`; scaleValue.textContent = `${v}%`; scalePercent.textContent = `${v}%`; }
+    function updateScale(){ setScaleValue(scaleSlider.value); }
 
     function autoFit(){
       const scr = screens[sel.value];
@@ -666,29 +537,9 @@
       setScaleValue(scale);
     }
 
-    function updateOpacity(){
-      const o = opacitySlider.value / 100;
-      vid.style.opacity = o;
-      canvas.style.opacity = o;
-      opacityValue.textContent = `${opacitySlider.value}%`;
-    }
-
-    function updateBackground(){
-      const color = bgColorPicker.value;
-      document.body.style.background = `url('images/Back.jpg') no-repeat center center fixed, linear-gradient(to bottom, ${color}, ${darkenColor(color,0.3)})`;
-      document.body.style.backgroundSize = 'cover';
-      colorPreview.style.backgroundColor = color;
-    }
-    
-    function darkenColor(color, amt){
-      let r = parseInt(color.substring(1,3),16);
-      let g = parseInt(color.substring(3,5),16);
-      let b = parseInt(color.substring(5,7),16);
-      r = Math.max(0, Math.floor(r*(1-amt)));
-      g = Math.max(0, Math.floor(g*(1-amt)));
-      b = Math.max(0, Math.floor(b*(1-amt)));
-      return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
-    }
+    function updateOpacity(){ const o = opacitySlider.value / 100; vid.style.opacity = o; canvas.style.opacity = o; opacityValue.textContent = `${opacitySlider.value}%`; }
+    function updateBackground(){ const color = bgColorPicker.value; document.body.style.background = `url('images/Back.jpg') no-repeat center center fixed, linear-gradient(to bottom, ${color}, ${darkenColor(color,0.3)})`; document.body.style.backgroundSize = 'cover'; colorPreview.style.backgroundColor = color; }
+    function darkenColor(color, amt){ let r = parseInt(color.substring(1,3),16); let g = parseInt(color.substring(3,5),16); let b = parseInt(color.substring(5,7),16); r = Math.max(0, Math.floor(r*(1-amt))); g = Math.max(0, Math.floor(g*(1-amt))); b = Math.max(0, Math.floor(b*(1-amt))); return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`; }
 
     function handleImageError(){
       loadingIndicator.style.display = 'none';
@@ -696,87 +547,41 @@
       maskImg.style.display = 'none';
       const old = document.getElementById('fallbackCanvas');
       if (old) old.remove();
-
       const fb = document.createElement('canvas');
       fb.id = 'fallbackCanvas';
-      fb.width = scr.w; 
-      fb.height = scr.h;
+      fb.width = scr.w; fb.height = scr.h;
       const c = fb.getContext('2d');
-      c.strokeStyle = '#3498db';
-      c.lineWidth = 10;
-      c.strokeRect(0, 0, scr.w, scr.h);
-      c.fillStyle = '#3498db';
-      c.font = '80px Arial';
-      c.textAlign = 'center';
+      c.strokeStyle = '#3498db'; c.lineWidth = 10; c.strokeRect(0, 0, scr.w, scr.h);
+      c.fillStyle = '#3498db'; c.font = '80px Arial'; c.textAlign = 'center';
       c.fillText(`Экран: ${sel.value}`, scr.w/2, scr.h/2 - 50);
       c.fillText(`${scr.w} × ${scr.h} пикселей`, scr.w/2, scr.h/2 + 50);
-
-      fb.style.position = 'absolute';
-      fb.style.inset = '0';
-      fb.style.width = '100%';
-      fb.style.height = '100%';
-      fb.style.zIndex = '1';
+      fb.style.position = 'absolute'; fb.style.inset = '0'; fb.style.width = '100%'; fb.style.height = '100%'; fb.style.zIndex = '1';
       cont.appendChild(fb);
     }
 
-    function applyDefaultScale(scrKey){
-      const scr = screens[scrKey];
-      if (scr && typeof scr.defaultScale === 'number') setScaleValue(scr.defaultScale);
-    }
+    function applyDefaultScale(scrKey){ const scr = screens[scrKey]; if (scr && typeof scr.defaultScale === 'number') setScaleValue(scr.defaultScale); }
 
     function updateScreen(){
       const scrKey = sel.value;
       const scr = screens[scrKey];
-
-      const old = document.getElementById('fallbackCanvas');
-      if (old) old.remove();
-
-      loadingIndicator.style.display = 'block';
-      maskImg.style.display = 'block';
-
+      const old = document.getElementById('fallbackCanvas'); if (old) old.remove();
+      loadingIndicator.style.display = 'block'; maskImg.style.display = 'block';
       applyContainerSize(scr);
-
-      vid.style.display = 'none';
-      canvas.style.display = 'none';
-      inFile.value = '';
-
+      vid.style.display = 'none'; canvas.style.display = 'none'; inFile.value = '';
       currentScreen.textContent = sel.options[sel.selectedIndex].text;
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
 
-      // Для экрана Poloski устанавливаем точные размеры 640x1920
-      if (scrKey === 'Poloski') {
-        cont.style.width = '640px';
-        cont.style.height = '1920px';
-      } else {
-        cont.style.width = scr.w + 'px';
-        cont.style.height = scr.h + 'px';
-      }
+      // Вернул исходный режим: видео без искажений
+      vid.style.objectFit = 'contain'; vid.style.objectPosition = 'center';
 
-      // Проверяем кэш
-      if (maskCache[scrKey]) {
-        maskImg.src = maskCache[scrKey];
-        loadingIndicator.style.display = 'none';
-        applyDefaultScale(scrKey);
-        return;
-      }
-
-      const url = scr.src;
-      const img = new Image();
-      img.onload = () => {
-        maskImg.src = url;
-        maskCache[scrKey] = url;
-        loadingIndicator.style.display = 'none';
-        applyDefaultScale(scrKey);
-      };
-      img.onerror = () => {
-        handleImageError();
-        applyDefaultScale(scrKey);
-      };
+      if (maskCache[scrKey]){ maskImg.src = maskCache[scrKey]; loadingIndicator.style.display = 'none'; applyDefaultScale(scrKey); return; }
+      const url = scr.src; const img = new Image();
+      img.onload = () => { maskImg.src = url; maskCache[scrKey] = url; loadingIndicator.style.display = 'none'; applyDefaultScale(scrKey); };
+      img.onerror = () => { handleImageError(); applyDefaultScale(scrKey); };
       img.src = url;
     }
 
-    // Обработчики событий
     document.getElementById('screenSelect').addEventListener('change', updateScreen);
     document.getElementById('autoFitBtn').addEventListener('click', autoFit);
     document.getElementById('scaleSlider').addEventListener('input', updateScale);
@@ -784,62 +589,34 @@
     document.getElementById('bgColor').addEventListener('input', updateBackground);
 
     document.getElementById('fullscreenBtn')?.addEventListener('click', () => {
-      if (!document.fullscreenElement){
-        if (previewContainer.requestFullscreen) {
-          previewContainer.requestFullscreen().catch(()=>{});
-        }
-      } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-      }
+      if (!document.fullscreenElement){ if (previewContainer.requestFullscreen) { previewContainer.requestFullscreen().catch(()=>{}); } }
+      else { if (document.exitFullscreen) document.exitFullscreen(); }
     });
 
-    // Оптимизированный обработчик изменения размера
     let resizeTimeout;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        // Сохраняем выбранный масштаб — без автоподгона на resize
-      }, 250);
-    });
+    window.addEventListener('resize', () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { /* keep scale */ }, 250); });
 
     // Загрузка контента
     inFile.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      placeholderMessage.style.display = 'none';
-      uploadError.style.display = 'none';
-
-      if (!file.type.startsWith('image/') && !file.type.startsWith('video/')){
-        uploadError.textContent = 'Неподдерживаемый формат файла. Используйте изображение или видео.';
-        uploadError.style.display = 'block';
-        return;
-      }
-
-      const scrKey = sel.value;
-      const scr = screens[scrKey];
-      const cw = scr.w, ch = scr.h;
+      const file = e.target.files[0]; if (!file) return;
+      placeholderMessage.style.display = 'none'; uploadError.style.display = 'none';
+      if (!file.type.startsWith('image/') && !file.type.startsWith('video/')){ uploadError.textContent = 'Неподдерживаемый формат файла. Используйте изображение или видео.'; uploadError.style.display = 'block'; return; }
+      const scrKey = sel.value; const scr = screens[scrKey]; const cw = scr.w, ch = scr.h;
 
       if (file.type.startsWith('image/')){
-        vid.style.display = 'none';
-        canvas.style.display = 'block';
-        canvas.width = cw; 
-        canvas.height = ch;
-
+        vid.style.display = 'none'; canvas.style.display = 'block'; canvas.width = cw; canvas.height = ch;
         const img = new Image();
         img.onload = () => {
-          const ctx2 = canvas.getContext('2d');
-          ctx2.clearRect(0, 0, cw, ch);
-
+          const ctx2 = canvas.getContext('2d'); ctx2.clearRect(0, 0, cw, ch);
           if (scrKey === 'Poloski'){
-            // Масштаб по ширине маски, центр по вертикали
+            // Только Poloski: по ширине маски, пропорции сохранены, центр по вертикали
             const scaleW = cw / img.width;
             const w = cw;
             const h = img.height * scaleW;
             const y = (ch - h) / 2;
             ctx2.drawImage(img, 0, y, w, h);
           } else {
-            // Обычное вписывание с сохранением пропорций
+            // Остальные экраны: исходное вписывание contain
             const scale = Math.min(cw / img.width, ch / img.height);
             const w = img.width * scale;
             const h = img.height * scale;
@@ -847,65 +624,25 @@
             const y = (ch - h) / 2;
             ctx2.drawImage(img, x, y, w, h);
           }
-          
           URL.revokeObjectURL(img.src);
         };
-        img.onerror = () => {
-          uploadError.textContent = 'Ошибка загрузки изображения';
-          uploadError.style.display = 'block';
-          placeholderMessage.style.display = 'block';
-        };
+        img.onerror = () => { uploadError.textContent = 'Ошибка загрузки изображения'; uploadError.style.display = 'block'; placeholderMessage.style.display = 'block'; };
         img.src = URL.createObjectURL(file);
         canvas.style.opacity = opacitySlider.value / 100;
       } else {
-        canvas.style.display = 'none';
-        vid.style.display = 'block';
-
-        // Для экрана Poloski - специальная обработка видео
-        if (scrKey === 'Poloski') {
-          vid.style.objectFit = 'cover';
-          vid.style.width = '100%';
-          vid.style.height = 'auto';
-        } else {
-          vid.style.objectFit = 'contain';
-          vid.style.width = '100%';
-          vid.style.height = '100%';
-        }
-
-        vid.onerror = () => {
-          uploadError.textContent = 'Ошибка загрузки видео';
-          uploadError.style.display = 'block';
-          placeholderMessage.style.display = 'block';
-        };
-        vid.src = URL.createObjectURL(file);
-        vid.play().catch(()=>{});
+        canvas.style.display = 'none'; vid.style.display = 'block';
+        // Видео оставлено как было: contain
+        vid.style.objectFit = 'contain'; vid.style.objectPosition = 'center';
+        vid.onerror = () => { uploadError.textContent = 'Ошибка загрузки видео'; uploadError.style.display = 'block'; placeholderMessage.style.display = 'block'; };
+        vid.src = URL.createObjectURL(file); vid.play().catch(()=>{});
         vid.style.opacity = opacitySlider.value / 100;
       }
     });
 
-    // Мобильное меню
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-      document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
-    });
+    menuToggle.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : ''; });
+    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; });
+    sidebar.addEventListener('click', (e) => { if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') { sidebar.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; } });
 
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-
-    // Закрытие меню при клике на пункт
-    sidebar.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    });
-
-    // Инициализация
     updateScreen();
     updateBackground();
     document.getElementById('colorPreview').style.backgroundColor = bgColorPicker.value;
