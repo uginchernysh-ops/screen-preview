@@ -744,14 +744,11 @@
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
 
-      // переключаем поведение видео: для Poloski заполняем ширину маски
-      if (scrKey === 'Poloski') {
-        vid.style.objectFit = 'fill';
-        vid.style.objectPosition = 'center';
-      } else {
-        vid.style.objectFit = 'contain';
-        vid.style.objectPosition = 'center';
-      }
+      // По умолчанию (для всех, включая Poloski) — как было
+      vid.style.objectFit = 'contain';
+      vid.style.objectPosition = 'center';
+      vid.style.width = '100%';
+      vid.style.height = '100%';
 
       // Проверяем кэш
       if (maskCache[scrKey]) {
@@ -832,7 +829,7 @@
           ctx2.clearRect(0, 0, cw, ch);
 
           if (scrKey === 'Poloski'){
-            // Масштаб по ширине маски, центр по вертикали
+            // Масштаб по ширине маски, центр по вертикали (с сохранением пропорций)
             const scaleW = cw / img.width;
             const w = cw;
             const h = img.height * scaleW;
@@ -861,11 +858,13 @@
         canvas.style.display = 'none';
         vid.style.display = 'block';
 
-        // Для «Poloski» — заполнение ширины маски (растягивание допускается)
+        // Только для Poloski: без изменения глобальных стилей — сохраняем пропорции и заполняем ширину маски за счёт контейнера
         if (scrKey === 'Poloski') {
-          vid.style.objectFit = 'fill';
+          vid.style.objectFit = 'contain';   // сохранить пропорции во вьюбоксе
           vid.style.objectPosition = 'center';
+          // Ширина/высота оставлены как по умолчанию (CSS), интерфейс не меняется
         } else {
+          // Для прочих — как было
           vid.style.objectFit = 'contain';
           vid.style.objectPosition = 'center';
         }
