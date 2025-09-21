@@ -554,14 +554,14 @@
           ctx.clearRect(0, 0, cw, ch);
 
           if (sel.value === 'Poloski') {
-            // ТОЛЬКО Poloski: масштаб строго по ширине маски, сохранить пропорции, центрирование по вертикали
+            // ТОЛЬКО ДЛЯ Poloski: масштаб по ширине маски, сохранить пропорции, центр по вертикали
             const scaleW = cw / img.width;
             const w = cw;
             const h = img.height * scaleW;
             const y = (ch - h) / 2;
             ctx.drawImage(img, 0, y, w, h);
           } else {
-            // Остальные — прежний contain
+            // Для остальных — прежняя логика contain
             const scale = Math.min(cw / img.width, ch / img.height);
             const w = img.width * scale;
             const h = img.height * scale;
@@ -580,7 +580,14 @@
       } else {
         canvas.style.display = 'none';
         vid.style.display = 'block';
-        // Видео оставляем с object-fit: contain (CSS), пропорции сохраняются без дополнительных изменений
+        
+        // Для экрана Poloski устанавливаем object-fit: fill для заполнения ширины
+        if (sel.value === 'Poloski') {
+          vid.style.objectFit = 'fill';
+        } else {
+          vid.style.objectFit = 'contain';
+        }
+        
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
           uploadError.style.display = 'block';
