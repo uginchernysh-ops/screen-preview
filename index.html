@@ -68,7 +68,7 @@
       position: relative; transform-origin: center center; transition: transform 0.2s ease;
     }
 
-    /* Маска под контентом, чтобы видео/фото были видны всегда */
+    /* Порядок слоёв: маска под контентом, чтобы контент был виден */
     #maskImage, #fallbackCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
     #videoPlayer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; }
     #previewCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
@@ -203,22 +203,21 @@
   </div>
 
   <script>
-    // Кэш масок
+    // База: локальные относительные пути к папке images
     const maskCache = {};
     const smallScreens = ['Nav','Bar1','Bar2','TualetM','TualetW','TualetPotolok','Lestnitsa'];
 
-    // ВНИМАНИЕ: проверьте наличие файлов в images/
     const screens = {
-      Bolshoi:       { w:6528, h:1472, src: 'images/Bolshoi-ekran-6528kh1472.jpg' },   // 102:23
-      Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg' },
-      Nav:           { w:316,  h:384,  src: 'images/Navigation-316x384.jpg' },
-      Bar1:          { w:384,  h:64,   src: 'images/Bar 1 384x64.jpg' },
-      Bar2:          { w:256,  h:64,   src: 'images/Bar-2-256Kh64.jpg' },
-      Recepshen:     { w:2176, h:1280, src: 'images/Recepshen-2176x1280.jpg' },       // 17:10
-      TualetM:       { w:284,  h:256,  src: 'images/Tualet-men-284x256.jpg' },
-      TualetW:       { w:284,  h:256,  src: 'images/Tualet-women-284x256.jpg' },
-      TualetPotolok: { w:383,  h:384,  src: 'images/Tualet-potolok-383x384.jpg' },
-      Lestnitsa:     { w:200,  h:120,  src: 'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg' }
+      Bolshoi:       { w:6528, h:1472, src: 'images/Bolshoi-ekran-6528kh1472.jpg', ratio: "102:23" },   // 6528/1472 = 4.4347 = 102/23
+      Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg', ratio: "1:3" },
+      Nav:           { w:316,  h:384,  src: 'images/Navigation-316x384.jpg', ratio: "79:96" },
+      Bar1:          { w:384,  h:64,   src: 'images/Bar 1 384x64.jpg', ratio: "6:1" },
+      Bar2:          { w:256,  h:64,   src: 'images/Bar-2-256Kh64.jpg', ratio: "4:1" },
+      Recepshen:     { w:2176, h:1280, src: 'images/Recepshen-2176x1280.jpg', ratio: "17:10" },       // 2176/1280 = 1.7 = 17/10
+      TualetM:       { w:284,  h:256,  src: 'images/Tualet-men-284x256.jpg', ratio: "71:64" },
+      TualetW:       { w:284,  h:256,  src: 'images/Tualet-women-284x256.jpg', ratio: "71:64" },
+      TualetPotolok: { w:383,  h:384,  src: 'images/Tualet-potolok-383x384.jpg', ratio: "383:384" },
+      Lestnitsa:     { w:200,  h:120,  src: 'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg', ratio: "5:3" }
     };
 
     const sel = document.getElementById('screenSelect');
@@ -265,8 +264,8 @@
     function calculateAspectRatio(width, height){
       const d = gcd(width, height);
       const rw = width/d, rh = height/d;
-      return `${rw}:${rh}`; // 6528×1472 -> 102:23, 2176×1280 -> 17:10
-    } // подтверждается калькуляторами соотношений [web:22][web:27]
+      return `${rw}:${rh}`;
+    }
 
     function applyContainerSize(scr){
       cont.style.width = scr.w + 'px';
@@ -332,6 +331,7 @@
       fctx.textAlign = 'center';
       fctx.fillText(`Экран: ${sel.value}`, scr.w/2, scr.h/2 - 10);
       fctx.fillText(`${scr.w} × ${scr.h} пикселей`, scr.w/2, scr.h/2 + 10);
+      fctx.fillText(`Соотношение: ${scr.ratio}`, scr.w/2, scr.h/2 + 30);
 
       fallbackCanvas.style.position = 'absolute';
       fallbackCanvas.style.inset = '0';
@@ -360,9 +360,8 @@
 
       currentScreen.textContent = sel.options[sel.selectedIndex].text;
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
-      aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
+      aspectRatio.textContent = scr.ratio;
 
-      // Пробуем загрузить маску (с кэшем)
       if (maskCache[sel.value]){
         maskImg.src = maskCache[sel.value];
         loadingIndicator.style.display = 'none';
@@ -371,15 +370,15 @@
         const testImage = new Image();
         testImage.onload = function(){
           if (sel.value === currentScreenType){
-            maskImg.src = scr.src;            // корректный путь
-            maskCache[sel.value] = scr.src;   // сохранить в кэш
+            maskImg.src = scr.src;
+            maskCache[sel.value] = scr.src;
             loadingIndicator.style.display = 'none';
             autoFit();
           }
         };
         testImage.onerror = function(){
           if (sel.value === currentScreenType){
-            handleImageError();               // fallback-контур, если файла нет
+            handleImageError();
             autoFit();
           }
         };
@@ -426,7 +425,7 @@
       }, 300);
     });
 
-    // Загрузка контента: изображение через drawImage contain, видео через object-fit: contain
+    // Масштабирование изображения в canvas по принципу "contain" с центрированием
     inFile.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
@@ -452,6 +451,7 @@
         const img = new Image();
         img.onload = () => {
           ctx.clearRect(0, 0, cw, ch);
+          // contain
           const scale = Math.min(cw / img.width, ch / img.height);
           const w = img.width * scale;
           const h = img.height * scale;
@@ -469,6 +469,7 @@
       } else {
         canvas.style.display = 'none';
         vid.style.display = 'block';
+        // Видео заполняет через CSS object-fit: contain и центрируется
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
           uploadError.style.display = 'block';
