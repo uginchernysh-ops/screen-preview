@@ -650,7 +650,7 @@
       const s = v / 100;
       cont.style.transform = `scale(${s})`;
       scaleValue.textContent = `${v}%`;
-      scalePercent.textContent = `${v%`;
+      scalePercent.textContent = `${v}%`;
     }
 
     function updateScale(){
@@ -744,14 +744,9 @@
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
 
-      // переключаем поведение видео: для Poloski заполняем ширину маски
-      if (scrKey === 'Poloski') {
-        vid.style.objectFit = 'fill';
-        vid.style.objectPosition = 'center';
-      } else {
-        vid.style.objectFit = 'contain';
-        vid.style.objectPosition = 'center';
-      }
+      // Для всех экранов видео без искажений
+      vid.style.objectFit = 'contain';
+      vid.style.objectPosition = 'center';
 
       // Проверяем кэш
       if (maskCache[scrKey]) {
@@ -832,7 +827,7 @@
           ctx2.clearRect(0, 0, cw, ch);
 
           if (scrKey === 'Poloski'){
-            // Масштаб по ширине маски, центр по вертикали
+            // Масштаб по ширине маски, центр по вертикали, пропорции сохранены
             const scaleW = cw / img.width;
             const w = cw;
             const h = img.height * scaleW;
@@ -861,14 +856,9 @@
         canvas.style.display = 'none';
         vid.style.display = 'block';
 
-        // Для «Poloski» — заполнение ширины маски (растягивание допускается)
-        if (scrKey === 'Poloski') {
-          vid.style.objectFit = 'fill';
-          vid.style.objectPosition = 'center';
-        } else {
-          vid.style.objectFit = 'contain';
-          vid.style.objectPosition = 'center';
-        }
+        // Видео без искажений (contain) для всех экранов
+        vid.style.objectFit = 'contain';
+        vid.style.objectPosition = 'center';
 
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
