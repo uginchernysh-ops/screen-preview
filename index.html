@@ -15,13 +15,14 @@
       padding: 20px;
       line-height: 1.6;
       position: relative;
-      overflow-x: hidden;
+      overflow-x: hidden; /* чтобы не было горизонтальной прокрутки при 100vw секции */
     }
     body::before { content: ''; position: absolute; inset: 0; background: rgba(44,62,80,0.85); z-index: -1; }
 
     .logo-container { text-align: center; margin-bottom: 15px; }
     .logo { max-width: 220px; height: auto; margin-bottom: 10px; }
 
+    /* Центрированная оболочка для шапки/панели */
     .interface-container {
       width: 100%;
       max-width: 2048px;
@@ -64,18 +65,19 @@
     }
     button:hover { background: #2980b9; }
 
+    /* Полноширинная секция предпросмотра на 100vw */
     .row-full {
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
+      width: 100vw;           /* ширина экрана */
+      margin-left: calc(50% - 50vw); /* вытянуть из центрированной оболочки */
       margin-right: calc(50% - 50vw);
-    } /* 100vw полоса предпросмотра */ /* [web:85][web:94] */
+    } /* техника full-width внутри фикс. контейнера [row-full] */ /* [web:84][web:85] */
 
     .preview-section { width: 100%; }
     .preview-container {
       position: relative;
       width: 100%;
-      height: 78vh;
-      min-height: 520px;
+      height: 78vh;         /* ещё выше область предпросмотра */
+      min-height: 520px;    /* минимум выше для больших масок */
       background: rgba(0,0,0,0.35);
       border-radius: 10px;
       overflow: hidden;
@@ -85,14 +87,14 @@
       box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
     }
 
-    #screenContainer { position: relative; transform-origin: center center; transition: transform 0.2s ease; }
+    #screenContainer {
+      position: relative;
+      transform-origin: center center;
+      transition: transform 0.2s ease;
+    }
 
     #maskImage, #fallbackCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-    #videoPlayer {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: contain; object-position: center;
-      z-index: 2;
-    } /* вписывание видео */ /* [web:73][web:66] */
+    #videoPlayer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; }
     #previewCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
 
     .loading-indicator {
@@ -156,7 +158,7 @@
         <div class="control-group">
           <h2>Масштаб</h2>
           <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
-          <input type="range" id="scaleSlider" min="5" max="600" value="100">
+          <input type="range" id="scaleSlider" min="5" max="600" value="100"> <!-- подняли максимум до 600% -->
           <button id="autoFitBtn">Автоподгон</button>
         </div>
 
@@ -172,6 +174,7 @@
     </div>
   </div>
 
+  <!-- Полноширинная полоса предпросмотра -->
   <div class="row-full">
     <div class="preview-section">
       <div class="preview-container" id="previewContainer">
@@ -219,17 +222,16 @@
     const maskCache = {};
     const smallScreens = ['Nav','Bar1','Bar2','TualetM','TualetW','TualetPotolok','Lestnitsa'];
 
-    // Индивидуальные масштабы по умолчанию
     const screens = {
       Bolshoi:       { w:6528, h:1472, src: 'images/Bolshoi-ekran-6528kh1472.jpg', defaultScale: 109 },
-      Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg',  defaultScale: 95  },
-      Nav:           { w:316,  h:384,  src: 'images/Navigation-316x384.jpg',      defaultScale: 212 },
-      Bar1:          { w:384,  h:64,   src: 'images/Bar 1 384x64.jpg',             defaultScale: 365 },
-      Bar2:          { w:256,  h:64,   src: 'images/Bar-2-256Kh64.jpg',            defaultScale: 100 },
-      Recepshen:     { w:2176, h:1280, src: 'images/Recepshen-2176x1280.jpg',      defaultScale: 109 },
-      TualetM:       { w:284,  h:256,  src: 'images/Tualet-men-284x256.jpg',       defaultScale: 313 },
-      TualetW:       { w:284,  h:256,  src: 'images/Tualet-women-284x256.jpg',     defaultScale: 100 },
-      TualetPotolok: { w:383,  h:384,  src: 'images/Tualet-potolok-383x384.jpg',   defaultScale: 208 },
+      Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg', defaultScale: 95 },
+      Nav:           { w:316,  h:384,  src: 'images/Navigation-316x384.jpg', defaultScale: 212 },
+      Bar1:          { w:384,  h:64,   src: 'images/Bar 1 384x64.jpg', defaultScale: 365 },
+      Bar2:          { w:256,  h:64,   src: 'images/Bar-2-256Kh64.jpg', defaultScale: 100 },
+      Recepshen:     { w:2176, h:1280, src: 'images/Recepshen-2176x1280.jpg', defaultScale: 109 },
+      TualetM:       { w:284,  h:256,  src: 'images/Tualet-men-284x256.jpg', defaultScale: 313 },
+      TualetW:       { w:284,  h:256,  src: 'images/Tualet-women-284x256.jpg', defaultScale: 100 },
+      TualetPotolok: { w:383,  h:384,  src: 'images/Tualet-potolok-383x384.jpg', defaultScale: 208 },
       Lestnitsa:     { w:200,  h:120,  src: 'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg', defaultScale: 410 }
     };
 
@@ -268,27 +270,22 @@
       cont.style.height = scr.h + 'px';
     }
 
-    function setScaleValue(percent){
-      const v = Math.max(5, Math.min(600, Math.floor(percent)));
-      scaleSlider.value = v;
-      const s = v / 100;
-      cont.style.transform = `scale(${s})`;
-      scaleValue.textContent = `${v}%`;
-      scalePercent.textContent = `${v}%`;
-    }
-
     function updateScale(){
-      setScaleValue(scaleSlider.value);
+      const s = scaleSlider.value / 100;
+      cont.style.transform = `scale(${s})`;
+      scaleValue.textContent = `${scaleSlider.value}%`;
+      scalePercent.textContent = `${scaleSlider.value}%`;
     }
 
     function autoFit(){
       const scr = screens[sel.value];
-      const availW = previewContainer.clientWidth - 24;
+      const availW = previewContainer.clientWidth - 24;  // ширина full-width контейнера
       const availH = previewContainer.clientHeight - 24;
       const boost = smallScreens.includes(sel.value) ? 2 : 1;
       const scale = Math.min(availW / scr.w, availH / scr.h) * 100 * boost;
-      setScaleValue(scale);
-    } /* вписывание по контейнеру */ /* [web:73][web:66] */
+      scaleSlider.value = Math.max(5, Math.min(600, Math.floor(scale)));
+      updateScale();
+    } // масштаб от 100vw секции [vw единицы и контейнеры] [web:85][web:81]
 
     function updateOpacity(){
       const o = opacitySlider.value / 100;
@@ -341,14 +338,8 @@
       cont.appendChild(fb);
     }
 
-    function applyDefaultScale(scrKey){
-      const scr = screens[scrKey];
-      if (scr && typeof scr.defaultScale === 'number') setScaleValue(scr.defaultScale);
-    } /* применение масштаба по умолчанию из option */ /* [web:101] */
-
     function updateScreen(){
-      const scrKey = sel.value;
-      const scr = screens[scrKey];
+      const scr = screens[sel.value];
 
       const old = document.getElementById('fallbackCanvas');
       if (old) old.remove();
@@ -366,17 +357,19 @@
       screenResolution.textContent = `${scr.w} × ${scr.h}`;
       aspectRatio.textContent = calculateAspectRatio(scr.w, scr.h);
 
+      // Установка масштаба по умолчанию для выбранного экрана
+      scaleSlider.value = scr.defaultScale;
+      updateScale();
+
       const url = scr.src;
       const img = new Image();
       img.onload = () => {
         maskImg.src = url;
-        maskCache[scrKey] = url;
+        maskCache[sel.value] = url;
         loadingIndicator.style.display = 'none';
-        applyDefaultScale(scrKey); // применяем масштаб по умолчанию
       };
       img.onerror = () => {
         handleImageError();
-        applyDefaultScale(scrKey);
       };
       img.src = url;
     }
@@ -397,10 +390,9 @@
 
     window.addEventListener('resize', () => {
       clearTimeout(window.__rsz);
-      window.__rsz = setTimeout(() => {/* сохраняем выбранный масштаб — без автоподгона на resize */}, 120);
-    }); /* debounce */ /* [web:117][web:120] */
+      window.__rsz = setTimeout(() => autoFit(), 120);
+    });
 
-    // Загрузка контента: для Poloski — вписывание по ширине маски (без искажений)
     inFile.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
@@ -414,8 +406,7 @@
         return;
       }
 
-      const scrKey = sel.value;
-      const scr = screens[scrKey];
+      const scr = screens[sel.value];
       const cw = scr.w, ch = scr.h;
 
       if (file.type.startsWith('image/')){
@@ -425,25 +416,13 @@
 
         const img = new Image();
         img.onload = () => {
-          const ctx2 = canvas.getContext('2d');
-          ctx2.clearRect(0, 0, cw, ch);
-
-          if (scrKey === 'Poloski'){
-            // Вписать по ширине маски (fill по ширине), центрировать по высоте без искажения
-            const scaleW = cw / img.width;
-            const w = cw;
-            const h = img.height * scaleW;
-            const y = (ch - h) / 2;
-            ctx2.drawImage(img, 0, y, w, h);
-          } else {
-            // Стандартный contain
-            const scale = Math.min(cw / img.width, ch / img.height);
-            const w = img.width * scale;
-            const h = img.height * scale;
-            const x = (cw - w) / 2;
-            const y = (ch - h) / 2;
-            ctx2.drawImage(img, x, y, w, h);
-          }
+          ctx.clearRect(0, 0, cw, ch);
+          const scale = Math.min(cw / img.width, ch / img.height);
+          const w = img.width * scale;
+          const h = img.height * scale;
+          const x = (cw - w) / 2;
+          const y = (ch - h) / 2;
+          ctx.drawImage(img, x, y, w, h);
         };
         img.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки изображения';
@@ -455,7 +434,6 @@
       } else {
         canvas.style.display = 'none';
         vid.style.display = 'block';
-        // Для Poloski object-fit: contain и центрирование обеспечивают корректную ширину
         vid.onerror = () => {
           uploadError.textContent = 'Ошибка загрузки видео';
           uploadError.style.display = 'block';
@@ -469,6 +447,7 @@
 
     // Init
     updateScreen();
+    updateScale();
     updateBackground();
     document.getElementById('colorPreview').style.backgroundColor = bgColorPicker.value;
   </script>
