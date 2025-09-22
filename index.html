@@ -82,8 +82,8 @@
     .preview-container {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
-      min-height: 450px;
+      aspect-ratio: 16 / 9; /* Изменено на 16:9 */
+      min-height: 300px; /* Уменьшена минимальная высота */
       background: rgba(0,0,0,0.3);
       border-radius: 15px;
       overflow: auto;
@@ -121,7 +121,7 @@
       }
       .control-panel.active { left: 0; }
       .control-panel-toggle { display: block; }
-      .preview-container { aspect-ratio: auto; height: 50vh; }
+      .preview-container { aspect-ratio: 16/9; height: auto; } /* Сохраняем 16:9 на мобильных */
       .logo { max-width: 200px; }
       h1 { font-size: 2.2rem; }
       .subtitle { font-size: 1.2rem; }
