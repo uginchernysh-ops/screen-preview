@@ -549,14 +549,14 @@
 
     // Валидация файлов
     function validateFile(file) {
-      const maxSize = 100 * 1024 * 1024; // 100MB
+      const maxSize = 1000 * 1024 * 1024; // 1000MB
       const allowedTypes = [
         'image/jpeg', 'image/png', 'image/gif', 'image/webp',
         'video/mp4', 'video/webm', 'video/ogg'
       ];
       
       if (file.size > maxSize) {
-        throw new Error('Файл слишком большой (максимум 100MB)');
+        throw new Error('Файл слишком большой (максимум 1000MB)');
       }
       
       if (!allowedTypes.includes(file.type)) {
@@ -1018,3 +1018,4 @@
   </script>
 </body>
 </html>
+
