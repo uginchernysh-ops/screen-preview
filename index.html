@@ -15,121 +15,284 @@
       padding: 20px;
       line-height: 1.6;
       position: relative;
-      display: flex;
-      flex-direction: column;
+      transition: background 0.3s ease;
     }
-    body::before { content: ''; position: absolute; inset: 0; background: rgba(44,62,80,0.85); z-index: -1; }
+    body::before { 
+      content: ''; 
+      position: absolute; 
+      inset: 0; 
+      background: rgba(44,62,80,0.85); 
+      z-index: -1; 
+      transition: background 0.3s ease;
+    }
 
-    .logo-container { text-align: center; margin-bottom: 20px; }
-    .logo { max-width: 280px; height: auto; margin-bottom: 15px; }
+    .logo-container { text-align: center; margin-bottom: 15px; }
+    .logo { max-width: 200px; height: auto; margin-bottom: 10px; }
 
     .interface-container {
-      max-width: 95vw;
-      margin: 0 auto;
+      max-width: 1800px;
+      margin: 0 auto; 
       background: rgba(44,62,80,0.7);
-      border-radius: 20px;
-      padding: 25px;
+      border-radius: 15px; 
+      padding: 20px; 
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+      transition: max-width 0.3s ease;
     }
 
-    header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    h1 { font-size: 2.8rem; margin-bottom: 12px; color: #3498db; }
-    .subtitle { font-size: 1.4rem; opacity: 0.8; }
+    header { text-align: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    h1 { font-size: 2.2rem; margin-bottom: 8px; color: #3498db; }
+    .subtitle { font-size: 1.1rem; opacity: 0.8; }
 
-    .main-content {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      flex: 1;
+    .main-content { 
+      display: flex; 
+      gap: 25px; 
+      flex-wrap: wrap; 
     }
 
     .control-panel {
-      flex: 0 0 350px;
-      background: rgba(52,73,94,0.8);
-      padding: 25px;
-      border-radius: 15px;
+      flex: 0 0 300px; 
+      background: rgba(52,73,94,0.8); 
+      padding: 20px; 
+      border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
     }
-    .control-group { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .control-group { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .control-group:last-child { border-bottom: none; }
-    h2 { font-size: 1.6rem; margin-bottom: 20px; color: #3498db; }
-    label { display: block; margin-bottom: 12px; font-weight: 500; font-size: 1.2rem; }
+    h2 { font-size: 1.3rem; margin-bottom: 15px; color: #3498db; }
+    label { display: block; margin-bottom: 8px; font-weight: 500; }
 
     select, input[type="file"], input[type="range"], input[type="color"] {
-      width: 100%; padding: 14px; margin-bottom: 20px;
-      border: none; border-radius: 8px;
-      background: #2c3e50; color: #ecf0f1;
-      font-size: 1.1rem; min-height: 50px;
+      width: 100%; padding: 10px; margin-bottom: 15px; border: none; border-radius: 5px;
+      background: #2c3e50; color: #ecf0f1; font-size: 1rem;
+      transition: background 0.3s ease, outline 0.2s ease;
     }
-    input[type="range"] { padding: 0; height: 16px; -webkit-appearance: none; background: #34495e; border-radius: 8px; }
+    input[type="range"] { padding: 0; height: 8px; -webkit-appearance: none; background: #34495e; border-radius: 4px; }
     input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 28px; height: 28px;
-      border-radius: 50%; background: #3498db; cursor: pointer;
+      -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #3498db; cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      background: #2980b9;
+      transform: scale(1.1);
     }
     button {
-      width: 100%; padding: 16px; background: #3498db; color: white;
-      border: none; border-radius: 8px; font-size: 1.2rem; cursor: pointer;
-      transition: background 0.3s; margin-bottom: 15px; min-height: 55px;
+      width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 5px;
+      font-size: 1rem; cursor: pointer; transition: all 0.3s ease; margin-bottom: 10px;
     }
-    button:hover { background: #2980b9; }
+    button:hover { background: #2980b9; transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
 
-    .color-preview { width: 50px; height: 50px; border-radius: 8px; border: 2px solid #ecf0f1; margin-top: 10px; }
+    button:focus, select:focus, input:focus {
+      outline: 2px solid #3498db;
+      outline-offset: 2px;
+    }
 
-    .preview-section { flex: 1; min-width: 350px; display: flex; flex-direction: column; }
+    .color-preview { width: 30px; height: 30px; border-radius: 5px; border: 2px solid #ecf0f1; margin-top: 5px; transition: background 0.3s ease; }
+
+    .preview-section { 
+      flex: 1; 
+      min-width: 300px; 
+    }
     .preview-container {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9; /* Изменено на 16:9 */
-      min-height: 300px; /* Уменьшена минимальная высота */
+      position: relative; 
+      width: 100%; 
+      height: 70vh;
+      min-height: 450px;
       background: rgba(0,0,0,0.3);
-      border-radius: 15px;
+      border-radius: 10px; 
       overflow: auto;
-      display: flex; justify-content: center; align-items: center;
-      margin-bottom: 20px;
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      margin-bottom: 15px; 
       box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-      flex: 1;
+      transition: all 0.3s ease;
     }
 
-    #screenContainer { position: relative; transform-origin: center center; transition: transform 0.2s ease; max-width: 100%; max-height: 100%; }
-    #maskImage, #fallbackCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; object-fit: contain; }
-    #videoPlayer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; }
-    #previewCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
+    .preview-container::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
 
-    .loading-indicator { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,0.7); color: white; padding: 20px 30px; border-radius: 10px; z-index: 5; display: none; font-size: 1.2rem; }
-    .placeholder-message { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; color: rgba(255,255,255,0.6); z-index: 0; font-size: 1.2rem; }
+    .preview-container::-webkit-scrollbar-thumb {
+      background: rgba(52, 152, 219, 0.5);
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
 
-    .screen-info { background: rgba(52,73,94,0.8); padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); margin-bottom: 20px; }
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-    .info-item { background: rgba(44,62,80,0.5); padding: 15px; border-radius: 10px; }
-    .info-label { font-size: 1.1rem; opacity: 0.7; margin-bottom: 8px; }
-    .info-value { font-size: 1.2rem; font-weight: 500; }
+    .preview-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(52, 152, 219, 0.8);
+    }
 
-    .error-message { color: #e74c3c; margin-top: 15px; display: none; font-size: 1.1rem; }
+    #screenContainer {
+      position: relative; 
+      transform-origin: center center; 
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      max-width: 100%;
+      max-height: 100%;
+    }
 
-    .control-panel-toggle { display: none; position: fixed; top: 20px; left: 20px; z-index: 1000; width: auto; padding: 14px 20px; background: #3498db; border-radius: 8px; font-size: 1.2rem; min-height: 50px; }
-    .fullscreen-btn-container { text-align: center; margin-top: 15px; }
-    #fullscreenBtn { width: auto; padding: 12px 25px; font-size: 1.2rem; min-height: 50px; }
+    #maskImage, #fallbackCanvas { 
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      z-index: 1; 
+      pointer-events: none; 
+      object-fit: contain;
+    }
+    #videoPlayer { 
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      object-fit: contain; 
+      z-index: 2; 
+      transition: opacity 0.3s ease;
+    }
+    #previewCanvas { 
+      position: absolute; 
+      inset: 0; 
+      width: 100%; 
+      height: 100%; 
+      z-index: 2; 
+      transition: opacity 0.3s ease;
+    }
+
+    .loading-indicator {
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%,-50%);
+      background: rgba(0,0,0,0.7); 
+      color: white; 
+      padding: 15px 25px; 
+      border-radius: 8px; 
+      z-index: 5; 
+      display: none;
+    }
+    
+    .loading-indicator::after {
+      content: '...';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+    
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60%, 100% { content: '...'; }
+    }
+
+    .placeholder-message {
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%,-50%);
+      text-align: center; 
+      color: rgba(255,255,255,0.6); 
+      z-index: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .screen-info {
+      background: rgba(52,73,94,0.8); 
+      padding: 15px; 
+      border-radius: 10px; 
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+      margin-bottom: 15px;
+      transition: background 0.3s ease;
+    }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .info-item { background: rgba(44,62,80,0.5); padding: 10px; border-radius: 8px; transition: background 0.3s ease; }
+    .info-label { font-size: 0.9rem; opacity: 0.7; margin-bottom: 5px; }
+    .info-value { font-size: 1rem; font-weight: 500; }
+
+    .error-message { color: #e74c3c; margin-top: 10px; display: none; }
+    .success-message { color: #2ecc71; margin-top: 10px; display: none; }
+
+    .control-panel-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1000; width: auto; padding: 10px 15px; background: #3498db; border-radius: 5px; }
+    .fullscreen-btn-container { text-align: center; margin-top: 10px; }
+    #fullscreenBtn { width: auto; padding: 8px 15px; font-size: 0.9rem; }
+
+    .hotkeys-info {
+      background: rgba(44,62,80,0.5);
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .hotkeys-info kbd {
+      background: #2c3e50;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid #34495e;
+      font-family: monospace;
+    }
+
+    @media (max-width: 1024px) {
+      .interface-container {
+        max-width: 95%;
+      }
+      .preview-container {
+        height: 60vh;
+      }
+    }
 
     @media (max-width: 768px) {
       .main-content { flex-direction: column; }
-      .control-panel {
-        position: fixed; top: 0; left: -100%; width: 85%; max-width: 350px; height: 100vh;
-        z-index: 999; overflow-y: auto; transition: left 0.3s ease;
+      .control-panel { 
+        position: fixed; 
+        top: 0; 
+        left: -100%; 
+        width: 80%; 
+        max-width: 300px; 
+        height: 100vh; 
+        z-index: 999; 
+        overflow-y: auto; 
+        transition: left 0.3s ease; 
       }
       .control-panel.active { left: 0; }
       .control-panel-toggle { display: block; }
-      .preview-container { aspect-ratio: 16/9; height: auto; } /* Сохраняем 16:9 на мобильных */
-      .logo { max-width: 200px; }
-      h1 { font-size: 2.2rem; }
-      .subtitle { font-size: 1.2rem; }
+      .preview-container { height: 50vh; }
+      .logo { max-width: 150px; }
+    }
+
+    @media (min-width: 2000px) {
+      .interface-container {
+        max-width: 2200px;
+      }
+      
+      .preview-container {
+        height: 80vh;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .control-panel {
+        background: rgba(30, 40, 50, 0.9);
+      }
+    }
+
+    .fps-counter {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: #2ecc71;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      z-index: 10;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <button class="control-panel-toggle" id="panelToggle" aria-label="Открыть панель управления">☰ Панель управления</button>
+  <button class="control-panel-toggle" id="panelToggle">☰ Панель управления</button>
 
   <div class="interface-container">
     <div class="logo-container">
@@ -139,7 +302,7 @@
 
     <header>
       <h1>Screen Preview с масштабированием</h1>
-      <p class="subtitle">Просмотр контента на различных экранах с сохранением пропорций</p>
+      <p class="subtitle">Просмотр контента на различных экранах с сохранением оригинальных пропорций</p>
     </header>
 
     <div class="main-content">
@@ -163,18 +326,33 @@
           <label for="uploadInput">Загрузить контент:</label>
           <input type="file" id="uploadInput" accept="image/*,video/*">
           <div class="error-message" id="uploadError"></div>
+          <div class="success-message" id="uploadSuccess"></div>
         </div>
 
         <div class="control-group">
           <h2>Масштаб</h2>
           <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
           <input type="range" id="scaleSlider" min="10" max="400" value="100">
-          <button id="autoFitBtn">Автоподгон</button>
+          <button id="autoFitBtn">Автоподгон (Ctrl+0)</button>
+          <div class="hotkeys-info">
+            <kbd>Ctrl</kbd> + <kbd>+</kbd>/<kbd>-</kbd> - масштаб | <kbd>Ctrl</kbd> + <kbd>F</kbd> - полный экран
+          </div>
+        </div>
+
+        <div class="control-group">
+          <h2>Режим отображения</h2>
+          <label for="displayMode">Режим:</label>
+          <select id="displayMode">
+            <option value="contain">Вписать (contain)</option>
+            <option value="cover">Заполнить (cover)</option>
+            <option value="stretch">Растянуть</option>
+            <option value="original">Оригинальный размер</option>
+          </select>
         </div>
 
         <div class="control-group">
           <h2>Внешний вид</h2>
-          <label for="contentOpacity">Прозрачность: <span id="opacityValue">100%</span></label>
+          <label for="contentOpacity">Прозрачность контента: <span id="opacityValue">100%</span></label>
           <input type="range" id="contentOpacity" min="0" max="100" value="100">
           <label for="bgColor">Цвет фона:</label>
           <input type="color" id="bgColor" value="#2c3e50">
@@ -182,232 +360,661 @@
         </div>
 
         <div class="control-group">
-          <h2>Системные</h2>
+          <h2>Инструменты</h2>
           <button id="resetBtn">Сбросить настройки</button>
+          <button id="screenshotBtn">Сделать скриншот</button>
+          <label>
+            <input type="checkbox" id="showFps"> Показать FPS
+          </label>
         </div>
       </div>
 
       <div class="preview-section">
         <div class="preview-container" id="previewContainer">
+          <div class="fps-counter" id="fpsCounter">FPS: 60</div>
           <div id="screenContainer">
-            <div class="loading-indicator" id="loadingIndicator">Загрузка маски экрана...</div>
+            <div class="loading-indicator" id="loadingIndicator">Загрузка маски экрана</div>
             <img id="maskImage" src="" alt="Mask" onerror="handleImageError()" style="object-fit: contain;">
             <video id="videoPlayer" controls></video>
             <canvas id="previewCanvas"></canvas>
             <div class="placeholder-message" id="placeholderMessage">
-              <h3>Загрузите контент</h3>
-              <p>Перетащите файл сюда или используйте кнопку загрузки</p>
+              <h3>Загрузите контент для предпросмотра</h3>
+              <p>Выберите файл изображения или видео для отображения на выбранном экране</p>
             </div>
           </div>
         </div>
 
         <div class="screen-info">
           <div class="info-grid">
-            <div class="info-item"><div class="info-label">Текущий экран</div><div class="info-value" id="currentScreen">Большой экран</div></div>
-            <div class="info-item"><div class="info-label">Разрешение</div><div class="info-value" id="screenResolution">6528 × 1472</div></div>
-            <div class="info-item"><div class="info-label">Соотношение</div><div class="info-value" id="aspectRatio">102:23</div></div>
-            <div class="info-item"><div class="info-label">Масштаб</div><div class="info-value" id="scalePercent">100%</div></div>
+            <div class="info-item">
+              <div class="info-label">Текущий экран</div>
+              <div class="info-value" id="currentScreen">Большой экран</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Разрешение</div>
+              <div class="info-value" id="screenResolution">6528 × 1472</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Соотношение сторон</div>
+              <div class="info-value" id="aspectRatio">102:23</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Масштаб</div>
+              <div class="info-value" id="scalePercent">100%</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Загруженный контент</div>
+              <div class="info-value" id="contentInfo">Нет</div>
+            </div>
           </div>
         </div>
 
         <div class="fullscreen-btn-container">
-          <button id="fullscreenBtn">Полный экран</button>
+          <button id="fullscreenBtn">Полный экран (Ctrl+F)</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
+    // Конфигурация
     const maskCache = {};
+    const imageCache = {};
     const smallScreens = ['Nav','Bar1','Bar2','TualetM','TualetW','TualetPotolok','Lestnitsa'];
-    let currentFileURL = null;
-
-    const screens = {
-      Bolshoi: { w:6528, h:1472, src:'images/Bolshoi-ekran-6528kh1472.jpg', ratio:"102:23" },
-      Poloski: { w:640,  h:1920, src:'images/Ekran-poloski-640x1920.jpg', ratio:"1:3" },
-      Nav: { w:316,  h:384,  src:'images/Navigation-316x384.jpg', ratio:"79:96" },
-      Bar1:{ w:384,  h:64,   src:'images/Bar 1 384x64.jpg', ratio:"6:1" },
-      Bar2:{ w:256,  h:64,   src:'images/Bar-2-256Kh64.jpg', ratio:"4:1" },
-      Recepshen:{ w:2176, h:1280, src:'images/Recepshen-2176x1280.jpg', ratio:"17:10" },
-      TualetM:{ w:284,  h:256,  src:'images/Tualet-men-284x256.jpg', ratio:"71:64" },
-      TualetW:{ w:284,  h:256,  src:'images/Tualet-women-284x256.jpg', ratio:"71:64" },
-      TualetPotolok:{ w:383,  h:384,  src:'images/Tualet-potolok-383x384.jpg', ratio:"383:384" },
-      Lestnitsa:{ w:200,  h:120,  src:'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg', ratio:"5:3" }
+    
+    const displayModes = {
+      CONTAIN: 'contain',
+      COVER: 'cover',
+      STRETCH: 'stretch',
+      ORIGINAL: 'original'
     };
 
-    const sel = document.getElementById('screenSelect');
-    const inFile = document.getElementById('uploadInput');
-    const cont = document.getElementById('screenContainer');
-    const maskImg = document.getElementById('maskImage');
-    const vid = document.getElementById('videoPlayer');
-    const canvas = document.getElementById('previewCanvas');
-    const ctx = canvas.getContext('2d');
-    const scaleSlider = document.getElementById('scaleSlider');
-    const scaleValue = document.getElementById('scaleValue');
-    const autoFitBtn = document.getElementById('autoFitBtn');
-    const fullscreenBtn = document.getElementById('fullscreenBtn');
-    const opacitySlider = document.getElementById('contentOpacity');
-    const opacityValue = document.getElementById('opacityValue');
-    const bgColorPicker = document.getElementById('bgColor');
-    const colorPreview = document.getElementById('colorPreview');
-    const loadingIndicator = document.getElementById('loadingIndicator');
-    const placeholderMessage = document.getElementById('placeholderMessage');
-    const uploadError = document.getElementById('uploadError');
-    const panelToggle = document.getElementById('panelToggle');
-    const controlPanel = document.getElementById('controlPanel');
-    const currentScreen = document.getElementById('currentScreen');
-    const screenResolution = document.getElementById('screenResolution');
-    const aspectRatio = document.getElementById('aspectRatio');
-    const scalePercent = document.getElementById('scalePercent');
-    const previewContainer = document.getElementById('previewContainer');
-    const resetBtn = document.getElementById('resetBtn');
+    const screens = {
+      Bolshoi:       { w:6528, h:1472, src: 'images/Bolshoi-ekran-6528kh1472.jpg', ratio: "102:23" },
+      Poloski:       { w:640,  h:1920, src: 'images/Ekran-poloski-640x1920.jpg', ratio: "1:3" },
+      Nav:           { w:316,  h:384,  src: 'images/Navigation-316x384.jpg', ratio: "79:96" },
+      Bar1:          { w:384,  h:64,   src: 'images/Bar 1 384x64.jpg', ratio: "6:1" },
+      Bar2:          { w:256,  h:64,   src: 'images/Bar-2-256Kh64.jpg', ratio: "4:1" },
+      Recepshen:     { w:2176, h:1280, src: 'images/Recepshen-2176x1280.jpg', ratio: "17:10" },
+      TualetM:       { w:284,  h:256,  src: 'images/Tualet-men-284x256.jpg', ratio: "71:64" },
+      TualetW:       { w:284,  h:256,  src: 'images/Tualet-women-284x256.jpg', ratio: "71:64" },
+      TualetPotolok: { w:383,  h:384,  src: 'images/Tualet-potolok-383x384.jpg', ratio: "383:384" },
+      Lestnitsa:     { w:200,  h:120,  src: 'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg', ratio: "5:3" }
+    };
 
+    // Элементы DOM
+    const elements = {
+      sel: document.getElementById('screenSelect'),
+      inFile: document.getElementById('uploadInput'),
+      cont: document.getElementById('screenContainer'),
+      maskImg: document.getElementById('maskImage'),
+      vid: document.getElementById('videoPlayer'),
+      canvas: document.getElementById('previewCanvas'),
+      ctx: document.getElementById('previewCanvas').getContext('2d'),
+      scaleSlider: document.getElementById('scaleSlider'),
+      scaleValue: document.getElementById('scaleValue'),
+      autoFitBtn: document.getElementById('autoFitBtn'),
+      fullscreenBtn: document.getElementById('fullscreenBtn'),
+      opacitySlider: document.getElementById('contentOpacity'),
+      opacityValue: document.getElementById('opacityValue'),
+      bgColorPicker: document.getElementById('bgColor'),
+      colorPreview: document.getElementById('colorPreview'),
+      loadingIndicator: document.getElementById('loadingIndicator'),
+      placeholderMessage: document.getElementById('placeholderMessage'),
+      uploadError: document.getElementById('uploadError'),
+      uploadSuccess: document.getElementById('uploadSuccess'),
+      panelToggle: document.getElementById('panelToggle'),
+      controlPanel: document.getElementById('controlPanel'),
+      currentScreen: document.getElementById('currentScreen'),
+      screenResolution: document.getElementById('screenResolution'),
+      aspectRatio: document.getElementById('aspectRatio'),
+      scalePercent: document.getElementById('scalePercent'),
+      previewContainer: document.getElementById('previewContainer'),
+      displayMode: document.getElementById('displayMode'),
+      resetBtn: document.getElementById('resetBtn'),
+      screenshotBtn: document.getElementById('screenshotBtn'),
+      showFps: document.getElementById('showFps'),
+      fpsCounter: document.getElementById('fpsCounter'),
+      contentInfo: document.getElementById('contentInfo')
+    };
+
+    let currentScreenType = elements.sel.value;
     let isPortrait = window.innerHeight > window.innerWidth;
-    let resizeTimeout;
-    let currentScreenType = sel.value;
+    let currentDisplayMode = displayModes.CONTAIN;
+    let frameCount = 0;
+    let lastTime = performance.now();
+    let fps = 60;
 
-    panelToggle.addEventListener('click', () => controlPanel.classList.toggle('active'));
-    window.addEventListener('resize', () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(()=>{ isPortrait=window.innerHeight>window.innerWidth; },200); });
+    // Утилиты
+    function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
 
-    // drag & drop загрузка
-    previewContainer.addEventListener('dragover', e => { e.preventDefault(); previewContainer.style.border="2px dashed #3498db"; });
-    previewContainer.addEventListener('dragleave', e => { previewContainer.style.border="none"; });
-    previewContainer.addEventListener('drop', e => {
-      e.preventDefault();
-      previewContainer.style.border="none";
-      if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-    });
+    function calculateAspectRatio(width, height) {
+      const d = gcd(width, height);
+      const rw = width / d, rh = height / d;
+      return `${rw}:${rh}`;
+    }
 
-    inFile.addEventListener('change', e => { if (e.target.files.length) handleFile(e.target.files[0]); });
-
-    scaleSlider.addEventListener('input', () => {
-      scaleValue.textContent = scaleSlider.value + '%';
-      scalePercent.textContent = scaleSlider.value + '%';
-      cont.style.transform = `scale(${scaleSlider.value/100})`;
-      saveSettings();
-    });
-
-    autoFitBtn.addEventListener('click', autoFit);
-
-    opacitySlider.addEventListener('input', () => {
-      const val = opacitySlider.value;
-      opacityValue.textContent = val+'%';
-      vid.style.opacity = val/100;
-      canvas.style.opacity = val/100;
-      saveSettings();
-    });
-
-    bgColorPicker.addEventListener('input', () => {
-      previewContainer.style.background = bgColorPicker.value;
-      colorPreview.style.background = bgColorPicker.value;
-      saveSettings();
-    });
-
-    fullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) previewContainer.requestFullscreen().catch(console.error);
-      else document.exitFullscreen();
-    });
-
-    sel.addEventListener('change', () => {
-      currentScreenType = sel.value;
-      updateScreen();
-      saveSettings();
-    });
-
-    function handleFile(file){
-      if (currentFileURL) URL.revokeObjectURL(currentFileURL);
-      currentFileURL = URL.createObjectURL(file);
-      uploadError.style.display="none";
-      placeholderMessage.style.display="none";
-
-      if (file.type.startsWith("video/")) {
-        vid.src = currentFileURL; vid.style.display="block"; canvas.style.display="none";
-      } else if (file.type.startsWith("image/")) {
-        const img=new Image();
-        img.onload=()=>{
-          canvas.width=img.width; canvas.height=img.height;
-          ctx.clearRect(0,0,canvas.width,canvas.height);
-          ctx.drawImage(img,0,0);
-          vid.style.display="none"; canvas.style.display="block";
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
         };
-        img.onerror=()=>{ uploadError.textContent="Ошибка загрузки изображения."; uploadError.style.display="block"; };
-        img.src=currentFileURL;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    function darkenColor(color, amt) {
+      let r = parseInt(color.substring(1, 3), 16);
+      let g = parseInt(color.substring(3, 5), 16);
+      let b = parseInt(color.substring(5, 7), 16);
+      r = Math.max(0, Math.floor(r * (1 - amt)));
+      g = Math.max(0, Math.floor(g * (1 - amt)));
+      b = Math.max(0, Math.floor(b * (1 - amt)));
+      return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    }
+
+    // Preload масок
+    function preloadMasks() {
+      Object.values(screens).forEach(screen => {
+        const img = new Image();
+        img.onload = () => {
+          imageCache[screen.src] = img;
+        };
+        img.src = screen.src;
+      });
+    }
+
+    // Загрузка с повторными попытками
+    function loadImageWithRetry(src, retries = 3, delay = 1000) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        
+        img.onload = () => resolve(img);
+        img.onerror = () => {
+          if (retries > 0) {
+            setTimeout(() => {
+              loadImageWithRetry(src, retries - 1, delay).then(resolve).catch(reject);
+            }, delay);
+          } else {
+            reject(new Error(`Не удалось загрузить: ${src}`));
+          }
+        };
+        
+        img.src = src;
+      });
+    }
+
+    // Валидация файлов
+    function validateFile(file) {
+      const maxSize = 100 * 1024 * 1024; // 100MB
+      const allowedTypes = [
+        'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+        'video/mp4', 'video/webm', 'video/ogg'
+      ];
+      
+      if (file.size > maxSize) {
+        throw new Error('Файл слишком большой (максимум 100MB)');
+      }
+      
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error('Неподдерживаемый формат файла');
+      }
+      
+      return true;
+    }
+
+    // Сохранение/загрузка настроек
+    function saveSettings() {
+      const settings = {
+        screen: elements.sel.value,
+        scale: elements.scaleSlider.value,
+        opacity: elements.opacitySlider.value,
+        bgColor: elements.bgColorPicker.value,
+        displayMode: elements.displayMode.value
+      };
+      localStorage.setItem('screenPreviewSettings', JSON.stringify(settings));
+    }
+
+    function loadSettings() {
+      const saved = localStorage.getItem('screenPreviewSettings');
+      if (saved) {
+        try {
+          const settings = JSON.parse(saved);
+          elements.sel.value = settings.screen || elements.sel.value;
+          elements.scaleSlider.value = settings.scale || elements.scaleSlider.value;
+          elements.opacitySlider.value = settings.opacity || elements.opacitySlider.value;
+          elements.bgColorPicker.value = settings.bgColor || elements.bgColorPicker.value;
+          elements.displayMode.value = settings.displayMode || elements.displayMode.value;
+          
+          updateScreen();
+          updateScale();
+          updateOpacity();
+          updateBackground();
+          updateDisplayMode();
+          
+          showMessage('Настройки загружены', 'success');
+        } catch (e) {
+          console.error('Ошибка загрузки настроек:', e);
+        }
+      }
+    }
+
+    function resetSettings() {
+      localStorage.removeItem('screenPreviewSettings');
+      elements.sel.value = 'Bolshoi';
+      elements.scaleSlider.value = 100;
+      elements.opacitySlider.value = 100;
+      elements.bgColorPicker.value = '#2c3e50';
+      elements.displayMode.value = 'contain';
+      
+      updateScreen();
+      updateScale();
+      updateOpacity();
+      updateBackground();
+      updateDisplayMode();
+      
+      showMessage('Настройки сброшены', 'success');
+    }
+
+    // Показать сообщение
+    function showMessage(message, type = 'error') {
+      const element = type === 'success' ? elements.uploadSuccess : elements.uploadError;
+      element.textContent = message;
+      element.style.display = 'block';
+      
+      setTimeout(() => {
+        element.style.display = 'none';
+      }, 3000);
+    }
+
+    // FPS счетчик
+    function updateFPS() {
+      frameCount++;
+      const currentTime = performance.now();
+      if (currentTime >= lastTime + 1000) {
+        fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+        elements.fpsCounter.textContent = `FPS: ${fps}`;
+        frameCount = 0;
+        lastTime = currentTime;
+      }
+      requestAnimationFrame(updateFPS);
+    }
+
+    // Основные функции
+    function applyContainerSize(scr) {
+      if (scr.w > 2000 || scr.h > 2000) {
+        const maxWidth = elements.previewContainer.clientWidth * 0.9;
+        const maxHeight = elements.previewContainer.clientHeight * 0.9;
+        const scale = Math.min(maxWidth / scr.w, maxHeight / scr.h);
+        
+        elements.cont.style.width = (scr.w * scale) + 'px';
+        elements.cont.style.height = (scr.h * scale) + 'px';
       } else {
-        uploadError.textContent="Неподдерживаемый тип файла. Загрузите изображение или видео.";
-        uploadError.style.display="block";
+        elements.cont.style.width = scr.w + 'px';
+        elements.cont.style.height = scr.h + 'px';
       }
     }
 
-    function updateScreen(){
-      const scr=screens[currentScreenType];
-      currentScreen.textContent=sel.options[sel.selectedIndex].text;
-      screenResolution.textContent=`${scr.w} × ${scr.h}`;
-      aspectRatio.textContent=scr.ratio;
-      loadingIndicator.style.display="block";
-      placeholderMessage.style.display=(!vid.src&&!canvas.width)?"block":"none";
-
-      if(maskCache[currentScreenType]){ maskImg.src=maskCache[currentScreenType]; loadingIndicator.style.display="none"; }
-      else{
-        maskImg.onload=()=>{ maskCache[currentScreenType]=scr.src; loadingIndicator.style.display="none"; };
-        maskImg.onerror=()=>{ loadingIndicator.style.display="none"; };
-        maskImg.src=scr.src;
-      }
-      autoFit();
-    }
-
-    function autoFit(){
-      const scr=screens[currentScreenType];
-      const pcRect=previewContainer.getBoundingClientRect();
-      const scale=Math.min(pcRect.width/scr.w, pcRect.height/scr.h)*100;
-      scaleSlider.value=Math.floor(scale);
-      scaleValue.textContent=scaleSlider.value+'%';
-      scalePercent.textContent=scaleSlider.value+'%';
-      cont.style.transform=`scale(${scaleSlider.value/100})`;
+    function updateScale() {
+      const s = elements.scaleSlider.value / 100;
+      elements.cont.style.transform = `scale(${s})`;
+      elements.scaleValue.textContent = `${elements.scaleSlider.value}%`;
+      elements.scalePercent.textContent = `${elements.scaleSlider.value}%`;
       saveSettings();
     }
 
-    function saveSettings(){
-      localStorage.setItem("screenSettings", JSON.stringify({
-        screenType: currentScreenType,
-        scale: scaleSlider.value,
-        opacity: opacitySlider.value,
-        bgColor: bgColorPicker.value
-      }));
-    }
-
-    function loadSettings(){
-      const saved=localStorage.getItem("screenSettings");
-      if(saved){
-        try{
-          const st=JSON.parse(saved);
-          if(st.screenType && screens[st.screenType]){ sel.value=st.screenType; currentScreenType=st.screenType; }
-          if(st.scale){ scaleSlider.value=st.scale; scaleValue.textContent=st.scale+'%'; scalePercent.textContent=st.scale+'%'; cont.style.transform=`scale(${st.scale/100})`; }
-          if(st.opacity){ opacitySlider.value=st.opacity; opacityValue.textContent=st.opacity+'%'; vid.style.opacity=st.opacity/100; canvas.style.opacity=st.opacity/100; }
-          if(st.bgColor){ bgColorPicker.value=st.bgColor; previewContainer.style.background=st.bgColor; colorPreview.style.background=st.bgColor; }
-        }catch(e){ console.error("Ошибка загрузки настроек:",e); }
+    function autoFit() {
+      const scr = screens[elements.sel.value];
+      const availW = elements.previewContainer.clientWidth - 40;
+      const availH = elements.previewContainer.clientHeight - 40;
+      
+      let baseScale = smallScreens.includes(elements.sel.value) ? 2 : 1;
+      
+      if (scr.w > 2000 || scr.h > 2000) {
+        baseScale = 0.8;
       }
-      updateScreen();
+      
+      const scale = Math.min(availW / scr.w, availH / scr.h) * 100 * baseScale;
+      elements.scaleSlider.value = Math.max(10, Math.min(400, Math.floor(scale)));
+      updateScale();
     }
 
-    resetBtn.addEventListener("click", () => {
-      localStorage.removeItem("screenSettings");
-      sel.value = "Bolshoi";
-      currentScreenType = "Bolshoi";
-      scaleSlider.value = 100;
-      scaleValue.textContent = "100%";
-      scalePercent.textContent = "100%";
-      cont.style.transform = "scale(1)";
-      opacitySlider.value = 100;
-      opacityValue.textContent = "100%";
-      vid.style.opacity = 1;
-      canvas.style.opacity = 1;
-      bgColorPicker.value = "#2c3e50";
-      previewContainer.style.background = "#2c3e50";
-      colorPreview.style.background = "#2c3e50";
-      updateScreen();
-    });
+    function updateOpacity() {
+      const o = elements.opacitySlider.value / 100;
+      elements.vid.style.opacity = o;
+      elements.canvas.style.opacity = o;
+      elements.opacityValue.textContent = `${elements.opacitySlider.value}%`;
+      saveSettings();
+    }
 
-    loadSettings();
+    function updateBackground() {
+      const color = elements.bgColorPicker.value;
+      document.body.style.background = `url('images/Back.jpg') no-repeat center center fixed, linear-gradient(to bottom, ${color}, ${darkenColor(color, 0.3)})`;
+      document.body.style.backgroundSize = 'cover';
+      elements.colorPreview.style.backgroundColor = color;
+      saveSettings();
+    }
+
+    function updateDisplayMode() {
+      currentDisplayMode = elements.displayMode.value;
+      // Применение режима отображения будет при загрузке нового контента
+      if (elements.inFile.files.length > 0) {
+        elements.inFile.dispatchEvent(new Event('change'));
+      }
+      saveSettings();
+    }
+
+    function updateContentInfo(file = null) {
+      if (file) {
+        const size = (file.size / 1024 / 1024).toFixed(2);
+        elements.contentInfo.textContent = `${file.type.split('/')[1].toUpperCase()} | ${size} MB`;
+      } else {
+        elements.contentInfo.textContent = 'Нет';
+      }
+    }
+
+    function handleImageError() {
+      elements.loadingIndicator.style.display = 'none';
+      const scr = screens[elements.sel.value];
+      elements.maskImg.style.display = 'none';
+      let fb = document.getElementById('fallbackCanvas');
+      if (fb) fb.remove();
+
+      const fallbackCanvas = document.createElement('canvas');
+      fallbackCanvas.width = scr.w;
+      fallbackCanvas.height = scr.h;
+      const fctx = fallbackCanvas.getContext('2d');
+      fctx.strokeStyle = '#3498db';
+      fctx.lineWidth = 2;
+      fctx.strokeRect(0, 0, scr.w, scr.h);
+      fctx.fillStyle = '#3498db';
+      fctx.font = '16px Arial';
+      fctx.textAlign = 'center';
+      fctx.fillText(`Экран: ${elements.sel.value}`, scr.w / 2, scr.h / 2 - 10);
+      fctx.fillText(`${scr.w} × ${scr.h} пикселей`, scr.w / 2, scr.h / 2 + 10);
+      fctx.fillText(`Соотношение: ${scr.ratio}`, scr.w / 2, scr.h / 2 + 30);
+
+      fallbackCanvas.style.position = 'absolute';
+      fallbackCanvas.style.inset = '0';
+      fallbackCanvas.style.width = '100%';
+      fallbackCanvas.style.height = '100%';
+      fallbackCanvas.style.zIndex = '1';
+      fallbackCanvas.id = 'fallbackCanvas';
+      elements.cont.appendChild(fallbackCanvas);
+    }
+
+    function updateScreen() {
+      const scr = screens[elements.sel.value];
+      currentScreenType = elements.sel.value;
+
+      const fb = document.getElementById('fallbackCanvas');
+      if (fb) fb.remove();
+
+      elements.loadingIndicator.style.display = 'block';
+      elements.maskImg.style.display = 'block';
+
+      applyContainerSize(scr);
+
+      elements.vid.style.display = 'none';
+      elements.canvas.style.display = 'none';
+      elements.inFile.value = '';
+
+      elements.currentScreen.textContent = elements.sel.options[elements.sel.selectedIndex].text;
+      elements.screenResolution.textContent = `${scr.w} × ${scr.h}`;
+      elements.aspectRatio.textContent = scr.ratio;
+      updateContentInfo();
+
+      if (imageCache[scr.src]) {
+        elements.maskImg.src = scr.src;
+        elements.loadingIndicator.style.display = 'none';
+        autoFit();
+      } else {
+        loadImageWithRetry(scr.src)
+          .then(() => {
+            if (elements.sel.value === currentScreenType) {
+              elements.maskImg.src = scr.src;
+              imageCache[scr.src] = true;
+              elements.loadingIndicator.style.display = 'none';
+              autoFit();
+            }
+          })
+          .catch(() => {
+            if (elements.sel.value === currentScreenType) {
+              handleImageError();
+              autoFit();
+            }
+          });
+      }
+      
+      saveSettings();
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        elements.previewContainer.requestFullscreen().catch(() => {});
+        elements.fullscreenBtn.textContent = 'Выйти из полноэкранного режима';
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          elements.fullscreenBtn.textContent = 'Полный экран (Ctrl+F)';
+        }
+      }
+    }
+
+    function takeScreenshot() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const scr = screens[elements.sel.value];
+      
+      canvas.width = scr.w;
+      canvas.height = scr.h;
+      
+      // Рисуем текущий контент
+      if (elements.vid.style.display !== 'none') {
+        ctx.drawImage(elements.vid, 0, 0, scr.w, scr.h);
+      } else if (elements.canvas.style.display !== 'none') {
+        ctx.drawImage(elements.canvas, 0, 0, scr.w, scr.h);
+      }
+      
+      const link = document.createElement('a');
+      link.download = `screenshot-${elements.sel.value}-${new Date().getTime()}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+      
+      showMessage('Скриншот сохранен', 'success');
+    }
+
+    // Обработчики событий
+    function setupEventListeners() {
+      // Панель управления
+      elements.panelToggle.addEventListener('click', () => elements.controlPanel.classList.toggle('active'));
+      
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 &&
+            !elements.controlPanel.contains(e.target) &&
+            e.target !== elements.panelToggle &&
+            elements.controlPanel.classList.contains('active')) {
+          elements.controlPanel.classList.remove('active');
+        }
+      });
+
+      // Основные элементы
+      elements.sel.addEventListener('change', updateScreen);
+      elements.scaleSlider.addEventListener('input', updateScale);
+      elements.autoFitBtn.addEventListener('click', autoFit);
+      elements.opacitySlider.addEventListener('input', updateOpacity);
+      elements.bgColorPicker.addEventListener('input', updateBackground);
+      elements.displayMode.addEventListener('change', updateDisplayMode);
+      elements.resetBtn.addEventListener('click', resetSettings);
+      elements.screenshotBtn.addEventListener('click', takeScreenshot);
+      elements.fullscreenBtn.addEventListener('click', toggleFullscreen);
+      
+      elements.showFps.addEventListener('change', (e) => {
+        elements.fpsCounter.style.display = e.target.checked ? 'block' : 'none';
+      });
+
+      // Загрузка файлов
+      elements.inFile.addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        elements.placeholderMessage.style.display = 'none';
+        elements.uploadError.style.display = 'none';
+        elements.uploadSuccess.style.display = 'none';
+
+        try {
+          validateFile(file);
+        } catch (error) {
+          showMessage(error.message);
+          return;
+        }
+
+        const scr = screens[elements.sel.value];
+        const cw = scr.w, ch = scr.h;
+
+        if (file.type.startsWith('image/')) {
+          elements.vid.style.display = 'none';
+          elements.canvas.style.display = 'block';
+          elements.canvas.width = cw;
+          elements.canvas.height = ch;
+
+          const img = new Image();
+          img.onload = () => {
+            elements.ctx.clearRect(0, 0, cw, ch);
+            
+            let x = 0, y = 0, width = cw, height = ch;
+            
+            switch(currentDisplayMode) {
+              case displayModes.COVER:
+                const scaleCover = Math.max(cw / img.width, ch / img.height);
+                width = img.width * scaleCover;
+                height = img.height * scaleCover;
+                x = (cw - width) / 2;
+                y = (ch - height) / 2;
+                break;
+                
+              case displayModes.STRETCH:
+                // Используем полный размер canvas
+                break;
+                
+              case displayModes.ORIGINAL:
+                width = img.width;
+                height = img.height;
+                x = (cw - width) / 2;
+                y = (ch - height) / 2;
+                break;
+                
+              default: // CONTAIN
+                const scaleContain = Math.min(cw / img.width, ch / img.height);
+                width = img.width * scaleContain;
+                height = img.height * scaleContain;
+                x = (cw - width) / 2;
+                y = (ch - height) / 2;
+            }
+            
+            elements.ctx.drawImage(img, x, y, width, height);
+            updateContentInfo(file);
+            showMessage('Изображение успешно загружено', 'success');
+          };
+          
+          img.onerror = () => {
+            showMessage('Ошибка загрузки изображения');
+            elements.placeholderMessage.style.display = 'block';
+          };
+          
+          img.src = URL.createObjectURL(file);
+          elements.canvas.style.opacity = elements.opacitySlider.value / 100;
+          
+        } else if (file.type.startsWith('video/')) {
+          elements.canvas.style.display = 'none';
+          elements.vid.style.display = 'block';
+          
+          elements.vid.onerror = () => {
+            showMessage('Ошибка загрузки видео');
+            elements.placeholderMessage.style.display = 'block';
+          };
+          
+          elements.vid.onloadeddata = () => {
+            updateContentInfo(file);
+            showMessage('Видео успешно загружено', 'success');
+          };
+          
+          elements.vid.src = URL.createObjectURL(file);
+          elements.vid.play().catch(() => {});
+          elements.vid.style.opacity = elements.opacitySlider.value / 100;
+        }
+      });
+
+      // Горячие клавиши
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+          switch(e.key) {
+            case '+': case '=':
+              e.preventDefault();
+              elements.scaleSlider.value = Math.min(400, parseInt(elements.scaleSlider.value) + 10);
+              updateScale();
+              break;
+            case '-':
+              e.preventDefault();
+              elements.scaleSlider.value = Math.max(10, parseInt(elements.scaleSlider.value) - 10);
+              updateScale();
+              break;
+            case '0':
+              e.preventDefault();
+              autoFit();
+              break;
+            case 'f': case 'F':
+              e.preventDefault();
+              toggleFullscreen();
+              break;
+          }
+        }
+      });
+
+      // Адаптация к изменению размера
+      window.addEventListener('resize', debounce(function() {
+        const newIsPortrait = window.innerHeight > window.innerWidth;
+        if (newIsPortrait !== isPortrait) {
+          isPortrait = newIsPortrait;
+          updateScreen();
+        } else {
+          autoFit();
+        }
+      }, 250));
+
+      window.addEventListener('orientationchange', debounce(function() {
+        isPortrait = window.innerHeight > window.innerWidth;
+        updateScreen();
+      }, 300));
+
+      // Полноэкранный режим
+      document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) {
+          elements.fullscreenBtn.textContent = 'Полный экран (Ctrl+F)';
+        }
+      });
+    }
+
+    // Инициализация
+    function init() {
+      preloadMasks();
+      setupEventListeners();
+      loadSettings();
+      updateFPS();
+      
+      // Установка начальных значений
+      updateScale();
+      updateBackground();
+      elements.colorPreview.style.backgroundColor = elements.bgColorPicker.value;
+      
+      console.log('Screen Preview инициализирован');
+    }
+
+    // Запуск при загрузке страницы
+    window.addEventListener('load', init);
   </script>
 </body>
 </html>
