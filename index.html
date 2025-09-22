@@ -675,7 +675,11 @@
       
       if (scr.w > 2000 || scr.h > 2000) {
         baseScale = 0.8;
-      }
+      } // ДОБАВИТЬ ОТДЕЛЬНО ДЛЯ ПЕРВОГО ЭКРАНА
+if (elements.sel.value === 'Bolshoi') {
+  baseScale = 1.5; // увеличенный масштаб для первого экрана
+}
+
       
       const scale = Math.min(availW / scr.w, availH / scr.h) * 100 * baseScale;
       elements.scaleSlider.value = Math.max(10, Math.min(400, Math.floor(scale)));
@@ -1018,4 +1022,5 @@
   </script>
 </body>
 </html>
+
 
