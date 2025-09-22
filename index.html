@@ -741,6 +741,7 @@
     // ========== МОДУЛЬ VideoManager ==========
     const VideoManager = {
       players: new Map(),
+      animationFrameId: null,
       
       createPlayer(file, canvas) {
         const video = document.createElement('video');
@@ -757,25 +758,64 @@
       
       setupVideoProcessing(video, canvas) {
         const ctx = canvas.getContext('2d');
+        let isDrawing = false;
         
         const drawFrame = () => {
-          if (video.paused || video.ended) return;
+          if (!isDrawing) return;
           
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          
-          // Применяем фильтры если нужно
-          if (StateManager.appState.filters) {
-            ImageProcessor.applyFilters(canvas, StateManager.appState.filters);
+          try {
+            if (video.readyState >= video.HAVE_CURRENT_DATA && !video.paused && !video.ended) {
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+              
+              // Применяем фильтры если нужно
+              if (StateManager.appState.filters) {
+                ImageProcessor.applyFilters(canvas, StateManager.appState.filters);
+              }
+            }
+            
+            if (!video.ended) {
+              this.animationFrameId = requestAnimationFrame(drawFrame);
+            } else {
+              isDrawing = false;
+            }
+          } catch (error) {
+            console.warn('Ошибка при отрисовке видео:', error);
+            isDrawing = false;
           }
-          
-          requestAnimationFrame(drawFrame);
         };
         
-        video.addEventListener('play', drawFrame);
+        const startDrawing = () => {
+          if (!isDrawing) {
+            isDrawing = true;
+            drawFrame();
+          }
+        };
+        
+        const stopDrawing = () => {
+          isDrawing = false;
+          if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+          }
+        };
+        
+        video.addEventListener('play', startDrawing);
+        video.addEventListener('pause', stopDrawing);
+        video.addEventListener('ended', stopDrawing);
+        video.addEventListener('seeked', () => {
+          if (!video.paused) {
+            startDrawing();
+          }
+        });
       },
       
       cleanup() {
+        if (this.animationFrameId) {
+          cancelAnimationFrame(this.animationFrameId);
+          this.animationFrameId = null;
+        }
+        
         this.players.forEach((video, key) => {
           URL.revokeObjectURL(video.src);
         });
@@ -1536,6 +1576,10 @@
           elements.canvas.style.display = 'none';
           elements.vid.style.display = 'block';
           
+          // Останавливаем предыдущее видео и очищаем
+          elements.vid.pause();
+          URL.revokeObjectURL(elements.vid.src);
+          
           elements.vid.onerror = () => {
             showMessage('Ошибка загрузки видео');
             elements.placeholderMessage.style.display = 'block';
@@ -1548,10 +1592,22 @@
             showMessage('Видео успешно загружено', 'success');
             progress.remove();
             Metrics.trackFileLoad('video', file.size);
+            
+            // Автовоспроизведение с обработкой ошибок
+            elements.vid.play().catch(error => {
+              console.warn('Автовоспроизведение заблокировано:', error);
+              // Показываем сообщение, что нужно запустить видео вручную
+              showMessage('Нажмите play для воспроизведения видео', 'success');
+            });
+          };
+          
+          elements.vid.onended = () => {
+            console.log('Видео завершено');
+            // Можно добавить автоматическое повторение или другие действия
           };
           
           elements.vid.src = URL.createObjectURL(file);
-          elements.vid.play().catch(() => {});
+          elements.vid.loop = true; // Зацикливание видео
           elements.vid.style.opacity = elements.opacitySlider.value / 100;
         }
         
