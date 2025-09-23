@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Screen Preview СЃ РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРёРµРј</title>
+  <title>Screen Preview с масштабированием</title>
   
-  <!-- PWA РјРµС‚Р°-С‚РµРіРё -->
+  <!-- PWA мета-теги -->
   <meta name="theme-color" content="#3498db">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -166,7 +166,7 @@
       transition: opacity 0.3s ease;
     }
 
-    /* РЎРµС‚РєР° */
+    /* Сетка */
     .show-grid {
       background-image: 
         linear-gradient(rgba(52, 152, 219, 0.1) 1px, transparent 1px),
@@ -198,7 +198,7 @@
       60%, 100% { content: '...'; }
     }
 
-    /* РџСЂРµР»РѕР°РґРµСЂ РґР»СЏ С„Р°Р№Р»РѕРІ */
+    /* Прелоадер для файлов */
     .file-loading {
       position: absolute;
       top: 10px;
@@ -236,7 +236,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* РЎРєРµР»РµС‚РѕРЅ-Р·Р°РіСЂСѓР·РєР° */
+    /* Скелетон-загрузка */
     .skeleton-loading {
       background: linear-gradient(90deg, #34495e 25%, #2c3e50 50%, #34495e 75%);
       background-size: 200% 100%;
@@ -297,7 +297,7 @@
       font-family: monospace;
     }
 
-    /* РќРѕРІС‹Рµ РєРЅРѕРїРєРё РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ */
+    /* Новые кнопки инструментов */
     .tools-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -325,7 +325,7 @@
       display: none;
     }
 
-    /* Р¤РёР»СЊС‚СЂС‹ РёР·РѕР±СЂР°Р¶РµРЅРёР№ */
+    /* Фильтры изображений */
     .filters-panel {
       background: rgba(44,62,80,0.6);
       padding: 15px;
@@ -396,7 +396,7 @@
   </style>
 </head>
 <body>
-  <button class="control-panel-toggle" id="panelToggle">в° РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ</button>
+  <button class="control-panel-toggle" id="panelToggle">☰ Панель управления</button>
 
   <div class="interface-container">
     <div class="logo-container">
@@ -405,72 +405,72 @@
     </div>
 
     <header>
-      <h1>Screen Preview СЃ РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРёРµРј</h1>
-      <p class="subtitle">РџСЂРѕСЃРјРѕС‚СЂ РєРѕРЅС‚РµРЅС‚Р° РЅР° СЂР°Р·Р»РёС‡РЅС‹С… СЌРєСЂР°РЅР°С… СЃ СЃРѕС…СЂР°РЅРµРЅРёРµРј РѕСЂРёРіРёРЅР°Р»СЊРЅС‹С… РїСЂРѕРїРѕСЂС†РёР№</p>
+      <h1>Screen Preview с масштабированием</h1>
+      <p class="subtitle">Просмотр контента на различных экранах с сохранением оригинальных пропорций</p>
     </header>
 
     <div class="main-content">
       <div class="control-panel" id="controlPanel">
         <div class="control-group">
-          <h2>РРєСЂР°РЅ</h2>
-          <label for="screenSelect">Р’С‹Р±РµСЂРёС‚Рµ СЌРєСЂР°РЅ:</label>
+          <h2>Экран</h2>
+          <label for="screenSelect">Выберите экран:</label>
           <select id="screenSelect">
-            <option value="Bolshoi">Р‘РѕР»СЊС€РѕР№ СЌРєСЂР°РЅ (6528Г—1472)</option>
-            <option value="Poloski">РРєСЂР°РЅ РїРѕР»РѕСЃРєРё (640Г—1920)</option>
-            <option value="Nav">РќР°РІРёРіР°С†РёСЏ (316Г—384)</option>
-            <option value="Bar1">Р‘Р°СЂ 1 (384Г—64)</option>
-            <option value="Bar2">Р‘Р°СЂ 2 (256Г—64)</option>
-            <option value="Recepshen">Р РµС†РµРїС€РµРЅ (2176Г—1280)</option>
-            <option value="TualetM">РўСѓР°Р»РµС‚ РјСѓР¶СЃРєРѕР№ (284Г—256)</option>
-            <option value="TualetW">РўСѓР°Р»РµС‚ Р¶РµРЅСЃРєРёР№ (284Г—256)</option>
-            <option value="TualetPotolok">РўСѓР°Р»РµС‚ РїРѕС‚РѕР»РѕРє (383Г—384)</option>
-            <option value="Lestnitsa">РРєСЂР°РЅ РЅР° Р»РµСЃС‚РЅРёС†Рµ (200Г—120)</option>
+            <option value="Bolshoi">Большой экран (6528×1472)</option>
+            <option value="Poloski">Экран полоски (640×1920)</option>
+            <option value="Nav">Навигация (316×384)</option>
+            <option value="Bar1">Бар 1 (384×64)</option>
+            <option value="Bar2">Бар 2 (256×64)</option>
+            <option value="Recepshen">Рецепшен (2176×1280)</option>
+            <option value="TualetM">Туалет мужской (284×256)</option>
+            <option value="TualetW">Туалет женский (284×256)</option>
+            <option value="TualetPotolok">Туалет потолок (383×384)</option>
+            <option value="Lestnitsa">Экран на лестнице (200×120)</option>
           </select>
 
-          <label for="uploadInput">Р—Р°РіСЂСѓР·РёС‚СЊ РєРѕРЅС‚РµРЅС‚:</label>
-          <input type="file" id="uploadInput" accept="image/*,video/*">
+          <label for="uploadInput">Загрузить контент:</label>
+          <input type="file" id="uploadInput" accept="image/*,video/*,.mov">
           <div class="error-message" id="uploadError"></div>
           <div class="success-message" id="uploadSuccess"></div>
         </div>
 
         <div class="control-group">
-          <h2>РњР°СЃС€С‚Р°Р±</h2>
-          <label for="scaleSlider">РњР°СЃС€С‚Р°Р±: <span id="scaleValue">100%</span></label>
+          <h2>Масштаб</h2>
+          <label for="scaleSlider">Масштаб: <span id="scaleValue">100%</span></label>
           <input type="range" id="scaleSlider" min="10" max="400" value="100">
           
           <div class="tools-grid">
-            <button id="zoomInBtn">РЈРІРµР»РёС‡РёС‚СЊ (+)</button>
-            <button id="zoomOutBtn">РЈРјРµРЅСЊС€РёС‚СЊ (-)</button>
-            <button id="autoFitBtn">РђРІС‚РѕРїРѕРґРіРѕРЅ (Ctrl+0)</button>
-            <button id="rotateBtn">РџРѕРІРµСЂРЅСѓС‚СЊ 90В°</button>
+            <button id="zoomInBtn">Увеличить (+)</button>
+            <button id="zoomOutBtn">Уменьшить (-)</button>
+            <button id="autoFitBtn">Автоподгон (Ctrl+0)</button>
+            <button id="rotateBtn">Повернуть 90°</button>
           </div>
           
           <div class="hotkeys-info">
-            <kbd>Ctrl</kbd> + <kbd>+</kbd>/<kbd>-</kbd> - РјР°СЃС€С‚Р°Р± | <kbd>Ctrl</kbd> + <kbd>F</kbd> - РїРѕР»РЅС‹Р№ СЌРєСЂР°РЅ
+            <kbd>Ctrl</kbd> + <kbd>+</kbd>/<kbd>-</kbd> - масштаб | <kbd>Ctrl</kbd> + <kbd>F</kbd> - полный экран
           </div>
         </div>
 
         <div class="control-group">
-          <h2>Р РµР¶РёРј РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ</h2>
-          <label for="displayMode">Р РµР¶РёРј:</label>
+          <h2>Режим отображения</h2>
+          <label for="displayMode">Режим:</label>
           <select id="displayMode">
-            <option value="contain">Р’РїРёСЃР°С‚СЊ (contain)</option>
-            <option value="cover">Р—Р°РїРѕР»РЅРёС‚СЊ (cover)</option>
-            <option value="stretch">Р Р°СЃС‚СЏРЅСѓС‚СЊ</option>
-            <option value="original">РћСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ</option>
+            <option value="contain">Вписать (contain)</option>
+            <option value="cover">Заполнить (cover)</option>
+            <option value="stretch">Растянуть</option>
+            <option value="original">Оригинальный размер</option>
           </select>
           
           <label>
-            <input type="checkbox" id="toggleGridBtn"> РџРѕРєР°Р·Р°С‚СЊ СЃРµС‚РєСѓ
+            <input type="checkbox" id="toggleGridBtn"> Показать сетку
           </label>
         </div>
 
         <div class="control-group">
-          <h2>Р¤РёР»СЊС‚СЂС‹ РёР·РѕР±СЂР°Р¶РµРЅРёР№</h2>
+          <h2>Фильтры изображений</h2>
           <div class="filters-panel">
             <div class="filter-slider">
               <div class="filter-label">
-                <span>РЇСЂРєРѕСЃС‚СЊ:</span>
+                <span>Яркость:</span>
                 <span id="brightnessValue">100%</span>
               </div>
               <input type="range" id="brightnessSlider" min="0" max="200" value="100">
@@ -478,7 +478,7 @@
             
             <div class="filter-slider">
               <div class="filter-label">
-                <span>РљРѕРЅС‚СЂР°СЃС‚:</span>
+                <span>Контраст:</span>
                 <span id="contrastValue">100%</span>
               </div>
               <input type="range" id="contrastSlider" min="0" max="200" value="100">
@@ -486,32 +486,32 @@
             
             <div class="filter-slider">
               <div class="filter-label">
-                <span>РќР°СЃС‹С‰РµРЅРЅРѕСЃС‚СЊ:</span>
+                <span>Насыщенность:</span>
                 <span id="saturationValue">100%</span>
               </div>
               <input type="range" id="saturationSlider" min="0" max="200" value="100">
             </div>
             
-            <button id="resetFiltersBtn">РЎР±СЂРѕСЃРёС‚СЊ С„РёР»СЊС‚СЂС‹</button>
+            <button id="resetFiltersBtn">Сбросить фильтры</button>
           </div>
         </div>
 
         <div class="control-group">
-          <h2>Р’РЅРµС€РЅРёР№ РІРёРґ</h2>
-          <label for="contentOpacity">РџСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ РєРѕРЅС‚РµРЅС‚Р°: <span id="opacityValue">100%</span></label>
+          <h2>Внешний вид</h2>
+          <label for="contentOpacity">Прозрачность контента: <span id="opacityValue">100%</span></label>
           <input type="range" id="contentOpacity" min="0" max="100" value="100">
-          <label for="bgColor">Р¦РІРµС‚ С„РѕРЅР°:</label>
+          <label for="bgColor">Цвет фона:</label>
           <input type="color" id="bgColor" value="#2c3e50">
           <div class="color-preview" id="colorPreview"></div>
         </div>
 
         <div class="control-group">
-          <h2>РРЅСЃС‚СЂСѓРјРµРЅС‚С‹</h2>
-          <button id="resetBtn">РЎР±СЂРѕСЃРёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё</button>
-          <button id="screenshotBtn">РЎРґРµР»Р°С‚СЊ СЃРєСЂРёРЅС€РѕС‚</button>
-          <button id="undoBtn" disabled>РћС‚РјРµРЅРёС‚СЊ (Ctrl+Z)</button>
+          <h2>Инструменты</h2>
+          <button id="resetBtn">Сбросить настройки</button>
+          <button id="screenshotBtn">Сделать скриншот</button>
+          <button id="undoBtn" disabled>Отменить (Ctrl+Z)</button>
           <label>
-            <input type="checkbox" id="showFps"> РџРѕРєР°Р·Р°С‚СЊ FPS
+            <input type="checkbox" id="showFps"> Показать FPS
           </label>
         </div>
       </div>
@@ -520,13 +520,13 @@
         <div class="preview-container" id="previewContainer">
           <div class="fps-counter" id="fpsCounter">FPS: 60</div>
           <div id="screenContainer">
-            <div class="loading-indicator" id="loadingIndicator">Р—Р°РіСЂСѓР·РєР° РјР°СЃРєРё СЌРєСЂР°РЅР°</div>
+            <div class="loading-indicator" id="loadingIndicator">Загрузка маски экрана</div>
             <img id="maskImage" src="" alt="Mask" onerror="handleImageError()" style="object-fit: contain;">
             <video id="videoPlayer" controls></video>
             <canvas id="previewCanvas"></canvas>
             <div class="placeholder-message" id="placeholderMessage">
-              <h3>Р—Р°РіСЂСѓР·РёС‚Рµ РєРѕРЅС‚РµРЅС‚ РґР»СЏ РїСЂРµРґРїСЂРѕСЃРјРѕС‚СЂР°</h3>
-              <p>Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РёР»Рё РІРёРґРµРѕ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° РІС‹Р±СЂР°РЅРЅРѕРј СЌРєСЂР°РЅРµ</p>
+              <h3>Загрузите контент для предпросмотра</h3>
+              <p>Выберите файл изображения или видео для отображения на выбранном экране</p>
             </div>
           </div>
         </div>
@@ -534,41 +534,41 @@
         <div class="screen-info">
           <div class="info-grid">
             <div class="info-item">
-              <div class="info-label">РўРµРєСѓС‰РёР№ СЌРєСЂР°РЅ</div>
-              <div class="info-value" id="currentScreen">Р‘РѕР»СЊС€РѕР№ СЌРєСЂР°РЅ</div>
+              <div class="info-label">Текущий экран</div>
+              <div class="info-value" id="currentScreen">Большой экран</div>
             </div>
             <div class="info-item">
-              <div class="info-label">Р Р°Р·СЂРµС€РµРЅРёРµ</div>
-              <div class="info-value" id="screenResolution">6528 Г— 1472</div>
+              <div class="info-label">Разрешение</div>
+              <div class="info-value" id="screenResolution">6528 × 1472</div>
             </div>
             <div class="info-item">
-              <div class="info-label">РЎРѕРѕС‚РЅРѕС€РµРЅРёРµ СЃС‚РѕСЂРѕРЅ</div>
+              <div class="info-label">Соотношение сторон</div>
               <div class="info-value" id="aspectRatio">102:23</div>
             </div>
             <div class="info-item">
-              <div class="info-label">РњР°СЃС€С‚Р°Р±</div>
+              <div class="info-label">Масштаб</div>
               <div class="info-value" id="scalePercent">100%</div>
             </div>
             <div class="info-item">
-              <div class="info-label">Р—Р°РіСЂСѓР¶РµРЅРЅС‹Р№ РєРѕРЅС‚РµРЅС‚</div>
-              <div class="info-value" id="contentInfo">РќРµС‚</div>
+              <div class="info-label">Загруженный контент</div>
+              <div class="info-value" id="contentInfo">Нет</div>
             </div>
             <div class="info-item">
-              <div class="info-label">РџРѕРІРѕСЂРѕС‚</div>
-              <div class="info-value" id="rotationInfo">0В°</div>
+              <div class="info-label">Поворот</div>
+              <div class="info-value" id="rotationInfo">0°</div>
             </div>
           </div>
         </div>
 
         <div class="fullscreen-btn-container">
-          <button id="fullscreenBtn">РџРѕР»РЅС‹Р№ СЌРєСЂР°РЅ (Ctrl+F)</button>
+          <button id="fullscreenBtn">Полный экран (Ctrl+F)</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // ========== РљРћРќР¤РР“РЈР РђР¦РРЇ Р РњРћР”РЈР›Р ==========
+    // ========== КОНФИГУРАЦИЯ И МОДУЛИ ==========
     
     const maskCache = {};
     const imageCache = {};
@@ -594,7 +594,7 @@
       Lestnitsa:     { w:200,  h:120,  src: 'images/Ekran-na-lestnice-200Kh120-1920Kh1080.jpg', ratio: "5:3" }
     };
 
-    // ========== РњРћР”РЈР›Р¬ State Management ==========
+    // ========== МОДУЛЬ State Management ==========
     const StateManager = {
       appState: {
         currentScreen: 'Bolshoi',
@@ -658,7 +658,7 @@
             Object.assign(this.appState, state);
             return true;
           } catch (e) {
-            console.error('РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё СЃРѕСЃС‚РѕСЏРЅРёСЏ:', e);
+            console.error('Ошибка загрузки состояния:', e);
           }
         }
         return false;
@@ -687,7 +687,7 @@
       }
     };
 
-    // ========== РњРћР”РЈР›Р¬ ImageProcessor ==========
+    // ========== МОДУЛЬ ImageProcessor ==========
     const ImageProcessor = {
       applyFilters(canvas, filters) {
         const ctx = canvas.getContext('2d');
@@ -699,18 +699,18 @@
         const saturation = filters.saturation / 100;
 
         for (let i = 0; i < data.length; i += 4) {
-          // РЇСЂРєРѕСЃС‚СЊ
+          // Яркость
           data[i] = this.clamp(data[i] * brightness);
           data[i + 1] = this.clamp(data[i + 1] * brightness);
           data[i + 2] = this.clamp(data[i + 2] * brightness);
 
-          // РљРѕРЅС‚СЂР°СЃС‚
+          // Контраст
           const factor = (259 * (contrast * 255 + 255)) / (255 * (259 - contrast * 255));
           data[i] = this.clamp(factor * (data[i] - 128) + 128);
           data[i + 1] = this.clamp(factor * (data[i + 1] - 128) + 128);
           data[i + 2] = this.clamp(factor * (data[i + 2] - 128) + 128);
 
-          // РќР°СЃС‹С‰РµРЅРЅРѕСЃС‚СЊ (СѓРїСЂРѕС‰РµРЅРЅР°СЏ СЂРµР°Р»РёР·Р°С†РёСЏ)
+          // Насыщенность (упрощенная реализация)
           if (saturation !== 1) {
             const gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
             data[i] = this.clamp(gray + saturation * (data[i] - gray));
@@ -738,7 +738,7 @@
       }
     };
 
-    // ========== РњРћР”РЈР›Р¬ VideoManager ==========
+    // ========== МОДУЛЬ VideoManager ==========
     const VideoManager = {
       players: new Map(),
       animationFrameId: null,
@@ -768,7 +768,7 @@
               ctx.clearRect(0, 0, canvas.width, canvas.height);
               ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
               
-              // РџСЂРёРјРµРЅСЏРµРј С„РёР»СЊС‚СЂС‹ РµСЃР»Рё РЅСѓР¶РЅРѕ
+              // Применяем фильтры если нужно
               if (StateManager.appState.filters) {
                 ImageProcessor.applyFilters(canvas, StateManager.appState.filters);
               }
@@ -780,7 +780,7 @@
               isDrawing = false;
             }
           } catch (error) {
-            console.warn('РћС€РёР±РєР° РїСЂРё РѕС‚СЂРёСЃРѕРІРєРµ РІРёРґРµРѕ:', error);
+            console.warn('Ошибка при отрисовке видео:', error);
             isDrawing = false;
           }
         };
@@ -823,7 +823,7 @@
       }
     };
 
-    // ========== РњР•РўР РРљР Р РњРћРќРРўРћР РРќР“ ==========
+    // ========== МЕТРИКИ И МОНИТОРИНГ ==========
     const Metrics = {
       startTime: Date.now(),
       interactions: 0,
@@ -855,9 +855,9 @@
       }
     };
 
-    // ========== РР›Р•РњР•РќРўР« DOM ==========
+    // ========== ЭЛЕМЕНТЫ DOM ==========
     const elements = {
-      // РћСЃРЅРѕРІРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹
+      // Основные элементы
       sel: document.getElementById('screenSelect'),
       inFile: document.getElementById('uploadInput'),
       cont: document.getElementById('screenContainer'),
@@ -866,7 +866,7 @@
       canvas: document.getElementById('previewCanvas'),
       ctx: document.getElementById('previewCanvas').getContext('2d'),
       
-      // РР»РµРјРµРЅС‚С‹ СѓРїСЂР°РІР»РµРЅРёСЏ
+      // Элементы управления
       scaleSlider: document.getElementById('scaleSlider'),
       scaleValue: document.getElementById('scaleValue'),
       autoFitBtn: document.getElementById('autoFitBtn'),
@@ -877,7 +877,7 @@
       colorPreview: document.getElementById('colorPreview'),
       displayMode: document.getElementById('displayMode'),
       
-      // РРЅС„РѕСЂРјР°С†РёРѕРЅРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹
+      // Информационные элементы
       loadingIndicator: document.getElementById('loadingIndicator'),
       placeholderMessage: document.getElementById('placeholderMessage'),
       uploadError: document.getElementById('uploadError'),
@@ -889,11 +889,11 @@
       contentInfo: document.getElementById('contentInfo'),
       rotationInfo: document.getElementById('rotationInfo'),
       
-      // РљРѕРЅС‚РµР№РЅРµСЂС‹
+      // Контейнеры
       previewContainer: document.getElementById('previewContainer'),
       controlPanel: document.getElementById('controlPanel'),
       
-      // РљРЅРѕРїРєРё Рё РїРµСЂРµРєР»СЋС‡Р°С‚РµР»Рё
+      // Кнопки и переключатели
       panelToggle: document.getElementById('panelToggle'),
       resetBtn: document.getElementById('resetBtn'),
       screenshotBtn: document.getElementById('screenshotBtn'),
@@ -905,7 +905,7 @@
       rotateBtn: document.getElementById('rotateBtn'),
       toggleGridBtn: document.getElementById('toggleGridBtn'),
       
-      // Р¤РёР»СЊС‚СЂС‹
+      // Фильтры
       brightnessSlider: document.getElementById('brightnessSlider'),
       brightnessValue: document.getElementById('brightnessValue'),
       contrastSlider: document.getElementById('contrastSlider'),
@@ -915,7 +915,7 @@
       resetFiltersBtn: document.getElementById('resetFiltersBtn')
     };
 
-    // ========== Р“Р›РћР‘РђР›Р¬РќР«Р• РџР•Р Р•РњР•РќРќР«Р• ==========
+    // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
     let currentScreenType = elements.sel.value;
     let isPortrait = window.innerHeight > window.innerWidth;
     let currentDisplayMode = displayModes.CONTAIN;
@@ -924,7 +924,7 @@
     let fps = 60;
     let currentRotation = 0;
 
-    // ========== РЈРўРР›РРўР« ==========
+    // ========== УТИЛИТЫ ==========
     function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
 
     function calculateAspectRatio(width, height) {
@@ -963,20 +963,25 @@
       }
     }
 
-    // ========== Р‘Р•Р—РћРџРђРЎРќРћРЎРўР¬ Р Р’РђР›РР”РђР¦РРЇ ==========
+    // ========== БЕЗОПАСНОСТЬ И ВАЛИДАЦИЯ ==========
     function validateFile(file) {
       const maxSize = 1000 * 1024 * 1024; // 1000MB
       const allowedTypes = [
         'image/jpeg', 'image/png', 'image/gif', 'image/webp',
-        'video/mp4', 'video/webm', 'video/ogg'
+        'video/mp4', 'video/webm', 'video/ogg', 'video/quicktime',
+        'video/x-m4v', 'video/avi'
       ];
       
+      // Проверка расширения .mov
+      const fileName = file.name.toLowerCase();
+      const isMovFile = fileName.endsWith('.mov');
+      
       if (file.size > maxSize) {
-        throw new Error('Р¤Р°Р№Р» СЃР»РёС€РєРѕРј Р±РѕР»СЊС€РѕР№ (РјР°РєСЃРёРјСѓРј 1000MB)');
+        throw new Error('Файл слишком большой (максимум 1000MB)');
       }
       
-      if (!allowedTypes.includes(file.type)) {
-        throw new Error('РќРµРїРѕРґРґРµСЂР¶РёРІР°РµРјС‹Р№ С„РѕСЂРјР°С‚ С„Р°Р№Р»Р°');
+      if (!allowedTypes.includes(file.type) && !isMovFile) {
+        throw new Error('Неподдерживаемый формат файла');
       }
       
       return true;
@@ -986,16 +991,16 @@
       return Object.keys(screens).includes(type);
     }
 
-    // ========== РЈРџР РђР’Р›Р•РќРР• РџРђРњРЇРўР¬Р® ==========
+    // ========== УПРАВЛЕНИЕ ПАМЯТЬЮ ==========
     function cleanupMemory() {
-      // РћС‡РёСЃС‚РєР° РєСЌС€Р° РёР·РѕР±СЂР°Р¶РµРЅРёР№
+      // Очистка кэша изображений
       Object.keys(imageCache).forEach(key => {
         if (key !== screens[elements.sel.value]?.src) {
           delete imageCache[key];
         }
       });
       
-      // РћС‡РёСЃС‚РєР° URL РѕР±СЉРµРєС‚РѕРІ
+      // Очистка URL объектов
       if (elements.vid.src) {
         URL.revokeObjectURL(elements.vid.src);
         elements.vid.src = '';
@@ -1009,11 +1014,11 @@
       VideoManager.cleanup();
     }
 
-    // ========== UX РЈР›РЈР§РЁР•РќРРЇ ==========
+    // ========== UX УЛУЧШЕНИЯ ==========
     function showFileLoading(file) {
       const progress = document.createElement('div');
       progress.className = 'file-loading';
-      progress.innerHTML = `Р—Р°РіСЂСѓР·РєР°: ${file.name}...`;
+      progress.innerHTML = `Загрузка: ${file.name}...`;
       elements.previewContainer.appendChild(progress);
       return progress;
     }
@@ -1023,7 +1028,7 @@
       preloader.className = 'preloader';
       preloader.innerHTML = `
         <div class="spinner"></div>
-        <p>Р—Р°РіСЂСѓР·РєР° РєРѕРЅС‚РµРЅС‚Р°</p>
+        <p>Загрузка контента</p>
       `;
       elements.previewContainer.appendChild(preloader);
       return preloader;
@@ -1039,7 +1044,7 @@
       }, 3000);
     }
 
-    // ========== РћРЎРќРћР’РќР«Р• Р¤РЈРќРљР¦РР ==========
+    // ========== ОСНОВНЫЕ ФУНКЦИИ ==========
     function applyContainerSize(scr) {
       if (scr.w > 2000 || scr.h > 2000) {
         const maxWidth = elements.previewContainer.clientWidth * 0.9;
@@ -1079,7 +1084,7 @@
     function rotateScreen() {
       currentRotation = (currentRotation + 90) % 360;
       elements.cont.style.transform = `scale(${elements.scaleSlider.value / 100}) rotate(${currentRotation}deg)`;
-      elements.rotationInfo.textContent = `${currentRotation}В°`;
+      elements.rotationInfo.textContent = `${currentRotation}°`;
       Metrics.trackInteraction('rotate');
     }
 
@@ -1153,7 +1158,7 @@
       elements.contrastValue.textContent = `${filters.contrast}%`;
       elements.saturationValue.textContent = `${filters.saturation}%`;
       
-      // РџСЂРёРјРµРЅСЏРµРј С„РёР»СЊС‚СЂС‹ Рє С‚РµРєСѓС‰РµРјСѓ РёР·РѕР±СЂР°Р¶РµРЅРёСЋ
+      // Применяем фильтры к текущему изображению
       if (elements.canvas.style.display !== 'none') {
         const tempCanvas = document.createElement('canvas');
         const tempCtx = tempCanvas.getContext('2d');
@@ -1185,7 +1190,7 @@
         elements.contentInfo.textContent = `${file.type.split('/')[1].toUpperCase()} | ${size} MB`;
         StateManager.appState.content = file.name;
       } else {
-        elements.contentInfo.textContent = 'РќРµС‚';
+        elements.contentInfo.textContent = 'Нет';
         StateManager.appState.content = null;
       }
     }
@@ -1209,9 +1214,9 @@
       fctx.fillStyle = '#3498db';
       fctx.font = '16px Arial';
       fctx.textAlign = 'center';
-      fctx.fillText(`РРєСЂР°РЅ: ${elements.sel.value}`, scr.w / 2, scr.h / 2 - 10);
-      fctx.fillText(`${scr.w} Г— ${scr.h} РїРёРєСЃРµР»РµР№`, scr.w / 2, scr.h / 2 + 10);
-      fctx.fillText(`РЎРѕРѕС‚РЅРѕС€РµРЅРёРµ: ${scr.ratio}`, scr.w / 2, scr.h / 2 + 30);
+      fctx.fillText(`Экран: ${elements.sel.value}`, scr.w / 2, scr.h / 2 - 10);
+      fctx.fillText(`${scr.w} × ${scr.h} пикселей`, scr.w / 2, scr.h / 2 + 10);
+      fctx.fillText(`Соотношение: ${scr.ratio}`, scr.w / 2, scr.h / 2 + 30);
 
       fallbackCanvas.style.position = 'absolute';
       fallbackCanvas.style.inset = '0';
@@ -1249,7 +1254,7 @@
       elements.inFile.value = '';
 
       elements.currentScreen.textContent = elements.sel.options[elements.sel.selectedIndex].text;
-      elements.screenResolution.textContent = `${scr.w} Г— ${scr.h}`;
+      elements.screenResolution.textContent = `${scr.w} × ${scr.h}`;
       elements.aspectRatio.textContent = scr.ratio;
       updateContentInfo();
 
@@ -1283,11 +1288,11 @@
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
         elements.previewContainer.requestFullscreen().catch(() => {});
-        elements.fullscreenBtn.textContent = 'Р’С‹Р№С‚Рё РёР· РїРѕР»РЅРѕСЌРєСЂР°РЅРЅРѕРіРѕ СЂРµР¶РёРјР°';
+        elements.fullscreenBtn.textContent = 'Выйти из полноэкранного режима';
       } else {
         if (document.exitFullscreen) {
           document.exitFullscreen();
-          elements.fullscreenBtn.textContent = 'РџРѕР»РЅС‹Р№ СЌРєСЂР°РЅ (Ctrl+F)';
+          elements.fullscreenBtn.textContent = 'Полный экран (Ctrl+F)';
         }
       }
       Metrics.trackInteraction('fullscreen_toggle');
@@ -1302,7 +1307,7 @@
       canvas.width = scr.w;
       canvas.height = scr.h;
       
-      // Р РёСЃСѓРµРј С‚РµРєСѓС‰РёР№ РєРѕРЅС‚РµРЅС‚
+      // Рисуем текущий контент
       if (elements.vid.style.display !== 'none') {
         ctx.drawImage(elements.vid, 0, 0, scr.w, scr.h);
       } else if (elements.canvas.style.display !== 'none') {
@@ -1314,7 +1319,7 @@
       link.href = canvas.toDataURL();
       link.click();
       
-      showMessage('РЎРєСЂРёРЅС€РѕС‚ СЃРѕС…СЂР°РЅРµРЅ', 'success');
+      showMessage('Скриншот сохранен', 'success');
       Metrics.trackInteraction('screenshot');
     }
 
@@ -1352,11 +1357,11 @@
     function resetSettings() {
       StateManager.resetState();
       applyState(StateManager.appState);
-      showMessage('РќР°СЃС‚СЂРѕР№РєРё СЃР±СЂРѕС€РµРЅС‹', 'success');
+      showMessage('Настройки сброшены', 'success');
       Metrics.trackInteraction('reset_settings');
     }
 
-    // ========== Preload Рё Р·Р°РіСЂСѓР·РєР° ==========
+    // ========== Preload и загрузка ==========
     function preloadMasks() {
       Object.values(screens).forEach(screen => {
         const img = new Image();
@@ -1378,7 +1383,7 @@
               loadImageWithRetry(src, retries - 1, delay).then(resolve).catch(reject);
             }, delay);
           } else {
-            reject(new Error(`РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ: ${src}`));
+            reject(new Error(`Не удалось загрузить: ${src}`));
           }
         };
         
@@ -1386,7 +1391,7 @@
       });
     }
 
-    // ========== FPS Рё РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ ==========
+    // ========== FPS и производительность ==========
     function updateFPS() {
       frameCount++;
       const currentTime = performance.now();
@@ -1399,7 +1404,7 @@
       requestAnimationFrame(updateFPS);
     }
 
-    // ========== Р–Р•РЎРўР« Р”Р›РЇ РњРћР‘РР›Р¬РќР«РҐ ==========
+    // ========== ЖЕСТЫ ДЛЯ МОБИЛЬНЫХ ==========
     function setupTouchGestures() {
       let initialDistance = 0;
       let initialScale = 1;
@@ -1430,16 +1435,16 @@
       });
     }
 
-    // ========== РћР‘Р РђР‘РћРўР§РРљР РЎРћР‘Р«РўРР™ ==========
+    // ========== ОБРАБОТЧИКИ СОБЫТИЙ ==========
     function setupEventListeners() {
-      // Р“Р»РѕР±Р°Р»СЊРЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР° РѕС€РёР±РѕРє
+      // Глобальная обработка ошибок
       window.addEventListener('error', (e) => {
         console.error('Global error:', e.error);
         Metrics.trackError(e.error);
-        showMessage('РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРёР»РѕР¶РµРЅРёСЏ', 'error');
+        showMessage('Произошла ошибка приложения', 'error');
       });
 
-      // РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ
+      // Панель управления
       elements.panelToggle.addEventListener('click', () => {
         elements.controlPanel.classList.toggle('active');
         Metrics.trackInteraction('panel_toggle');
@@ -1454,7 +1459,7 @@
         }
       });
 
-      // РћСЃРЅРѕРІРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹
+      // Основные элементы
       elements.sel.addEventListener('change', safeUpdateScreen);
       elements.scaleSlider.addEventListener('input', updateScale);
       elements.autoFitBtn.addEventListener('click', autoFit);
@@ -1470,7 +1475,7 @@
       elements.undoBtn.addEventListener('click', undoAction);
       elements.toggleGridBtn.addEventListener('change', toggleGrid);
       
-      // Р¤РёР»СЊС‚СЂС‹
+      // Фильтры
       elements.brightnessSlider.addEventListener('input', updateFilters);
       elements.contrastSlider.addEventListener('input', updateFilters);
       elements.saturationSlider.addEventListener('input', updateFilters);
@@ -1480,7 +1485,7 @@
         elements.fpsCounter.style.display = e.target.checked ? 'block' : 'none';
       });
 
-      // Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»РѕРІ
+      // Загрузка файлов
       elements.inFile.addEventListener('change', e => {
         const file = e.target.files[0];
         if (!file) return;
@@ -1500,7 +1505,7 @@
         }
 
         if (!validateScreenType(elements.sel.value)) {
-          showMessage('РќРµРІРµСЂРЅС‹Р№ С‚РёРї СЌРєСЂР°РЅР°');
+          showMessage('Неверный тип экрана');
           progress.remove();
           return;
         }
@@ -1530,7 +1535,7 @@
                 break;
                 
               case displayModes.STRETCH:
-                // РСЃРїРѕР»СЊР·СѓРµРј РїРѕР»РЅС‹Р№ СЂР°Р·РјРµСЂ canvas
+                // Используем полный размер canvas
                 break;
                 
               case displayModes.ORIGINAL:
@@ -1550,19 +1555,19 @@
             
             elements.ctx.drawImage(img, x, y, width, height);
             
-            // РџСЂРёРјРµРЅСЏРµРј С„РёР»СЊС‚СЂС‹ РµСЃР»Рё РЅСѓР¶РЅРѕ
+            // Применяем фильтры если нужно
             if (StateManager.appState.filters) {
               updateFilters();
             }
             
             updateContentInfo(file);
-            showMessage('РР·РѕР±СЂР°Р¶РµРЅРёРµ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅРѕ', 'success');
+            showMessage('Изображение успешно загружено', 'success');
             progress.remove();
             Metrics.trackFileLoad('image', file.size);
           };
           
           img.onerror = () => {
-            showMessage('РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РёР·РѕР±СЂР°Р¶РµРЅРёСЏ');
+            showMessage('Ошибка загрузки изображения');
             elements.placeholderMessage.style.display = 'block';
             progress.remove();
             Metrics.trackError(new Error('Image load error'));
@@ -1572,16 +1577,16 @@
           elements.canvas._imageUrl = img.src;
           elements.canvas.style.opacity = elements.opacitySlider.value / 100;
           
-        } else if (file.type.startsWith('video/')) {
+        } else if (file.type.startsWith('video/') || file.name.toLowerCase().endsWith('.mov')) {
           elements.canvas.style.display = 'none';
           elements.vid.style.display = 'block';
           
-          // РћСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїСЂРµРґС‹РґСѓС‰РµРµ РІРёРґРµРѕ Рё РѕС‡РёС‰Р°РµРј
+          // Останавливаем предыдущее видео и очищаем
           elements.vid.pause();
           URL.revokeObjectURL(elements.vid.src);
           
           elements.vid.onerror = () => {
-            showMessage('РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РІРёРґРµРѕ');
+            showMessage('Ошибка загрузки видео');
             elements.placeholderMessage.style.display = 'block';
             progress.remove();
             Metrics.trackError(new Error('Video load error'));
@@ -1589,32 +1594,32 @@
           
           elements.vid.onloadeddata = () => {
             updateContentInfo(file);
-            showMessage('Р’РёРґРµРѕ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅРѕ', 'success');
+            showMessage('Видео успешно загружено', 'success');
             progress.remove();
             Metrics.trackFileLoad('video', file.size);
             
-            // РђРІС‚РѕРІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёРµ СЃ РѕР±СЂР°Р±РѕС‚РєРѕР№ РѕС€РёР±РѕРє
+            // Автовоспроизведение с обработкой ошибок
             elements.vid.play().catch(error => {
-              console.warn('РђРІС‚РѕРІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёРµ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРѕ:', error);
-              // РџРѕРєР°Р·С‹РІР°РµРј СЃРѕРѕР±С‰РµРЅРёРµ, С‡С‚Рѕ РЅСѓР¶РЅРѕ Р·Р°РїСѓСЃС‚РёС‚СЊ РІРёРґРµРѕ РІСЂСѓС‡РЅСѓСЋ
-              showMessage('РќР°Р¶РјРёС‚Рµ play РґР»СЏ РІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёСЏ РІРёРґРµРѕ', 'success');
+              console.warn('Автовоспроизведение заблокировано:', error);
+              // Показываем сообщение, что нужно запустить видео вручную
+              showMessage('Нажмите play для воспроизведения видео', 'success');
             });
           };
           
           elements.vid.onended = () => {
-            console.log('Р’РёРґРµРѕ Р·Р°РІРµСЂС€РµРЅРѕ');
-            // РњРѕР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РїРѕРІС‚РѕСЂРµРЅРёРµ РёР»Рё РґСЂСѓРіРёРµ РґРµР№СЃС‚РІРёСЏ
+            console.log('Видео завершено');
+            // Можно добавить автоматическое повторение или другие действия
           };
           
           elements.vid.src = URL.createObjectURL(file);
-          elements.vid.loop = true; // Р—Р°С†РёРєР»РёРІР°РЅРёРµ РІРёРґРµРѕ
+          elements.vid.loop = true; // Зацикливание видео
           elements.vid.style.opacity = elements.opacitySlider.value / 100;
         }
         
         StateManager.saveState();
       });
 
-      // Р“РѕСЂСЏС‡РёРµ РєР»Р°РІРёС€Рё
+      // Горячие клавиши
       document.addEventListener('keydown', (e) => {
         if (e.ctrlKey || e.metaKey) {
           switch(e.key.toLowerCase()) {
@@ -1642,7 +1647,7 @@
         }
       });
 
-      // РђРґР°РїС‚Р°С†РёСЏ Рє РёР·РјРµРЅРµРЅРёСЋ СЂР°Р·РјРµСЂР°
+      // Адаптация к изменению размера
       const optimizedResize = debounce(function() {
         const newIsPortrait = window.innerHeight > window.innerWidth;
         if (newIsPortrait !== isPortrait) {
@@ -1659,51 +1664,51 @@
         safeUpdateScreen();
       }, 300));
 
-      // РџРѕР»РЅРѕСЌРєСЂР°РЅРЅС‹Р№ СЂРµР¶РёРј
+      // Полноэкранный режим
       document.addEventListener('fullscreenchange', () => {
         if (!document.fullscreenElement) {
-          elements.fullscreenBtn.textContent = 'РџРѕР»РЅС‹Р№ СЌРєСЂР°РЅ (Ctrl+F)';
+          elements.fullscreenBtn.textContent = 'Полный экран (Ctrl+F)';
         }
       });
 
-      // Р–РµСЃС‚С‹ РґР»СЏ РјРѕР±РёР»СЊРЅС‹С…
+      // Жесты для мобильных
       setupTouchGestures();
     }
 
-    // ========== РРќРР¦РРђР›РР—РђР¦РРЇ ==========
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
     function init() {
       preloadMasks();
       setupEventListeners();
       
-      // Р—Р°РіСЂСѓР·РєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ
+      // Загрузка состояния
       if (StateManager.loadState()) {
         applyState(StateManager.appState);
-        showMessage('РќР°СЃС‚СЂРѕР№РєРё Р·Р°РіСЂСѓР¶РµРЅС‹', 'success');
+        showMessage('Настройки загружены', 'success');
       } else {
-        // РџРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
+        // Первоначальное состояние
         StateManager.saveState();
       }
       
       updateFPS();
       
-      // РЈСЃС‚Р°РЅРѕРІРєР° РЅР°С‡Р°Р»СЊРЅС‹С… Р·РЅР°С‡РµРЅРёР№
+      // Установка начальных значений
       updateScale();
       updateBackground();
       updateFilters();
       elements.colorPreview.style.backgroundColor = elements.bgColorPicker.value;
       
-      // РџРµСЂРёРѕРґРёС‡РµСЃРєР°СЏ РѕС‡РёСЃС‚РєР° РїР°РјСЏС‚Рё
+      // Периодическая очистка памяти
       setInterval(cleanupMemory, 30000);
       
-      // РћС‡РёСЃС‚РєР° РїСЂРё СЂР°Р·РіСЂСѓР·РєРµ СЃС‚СЂР°РЅРёС†С‹
+      // Очистка при разгрузке страницы
       window.addEventListener('beforeunload', cleanupMemory);
       
-      console.log('Screen Preview РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ');
-      console.log('РњРµС‚СЂРёРєРё:', Metrics.getStats());
+      console.log('Screen Preview инициализирован');
+      console.log('Метрики:', Metrics.getStats());
     }
 
-    // Р—Р°РїСѓСЃРє РїСЂРё Р·Р°РіСЂСѓР·РєРµ СЃС‚СЂР°РЅРёС†С‹
+    // Запуск при загрузке страницы
     window.addEventListener('load', init);
   </script>
 </body>
-</html>  РґРѕР±Р°РІСЊ РїРѕРґРґРµСЂР¶РєСѓ mov . Р±РѕР»СЊС€Рµ РІРѕРѕР±С‰Рµ РЅРёС‡РµРіРѕ РЅРµ РјРµРЅСЏР№ , РµСЃР»Рё С‚РѕР»СЊРєРѕ РЅРµ СѓРІРёРґРёС€СЊ РѕС€РёР±РєРё
+</html>
