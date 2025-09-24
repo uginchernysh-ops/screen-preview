@@ -802,7 +802,13 @@
         
         video.addEventListener('play', startDrawing);
         video.addEventListener('pause', stopDrawing);
-        video.addEventListener('ended', stopDrawing);
+        video.addEventListener('ended', () => {
+          // Автоматический перезапуск видео по кругу
+          video.currentTime = 0;
+          video.play().catch(error => {
+            console.warn('Автовоспроизведение заблокировано:', error);
+          });
+        });
         video.addEventListener('seeked', () => {
           if (!video.paused) {
             startDrawing();
@@ -1598,21 +1604,25 @@
             progress.remove();
             Metrics.trackFileLoad('video', file.size);
             
-            // Автовоспроизведение с обработкой ошибок
+            // Автовоспроизведение с зацикливанием
             elements.vid.play().catch(error => {
               console.warn('Автовоспроизведение заблокировано:', error);
-              // Показываем сообщение, что нужно запустить видео вручную
               showMessage('Нажмите play для воспроизведения видео', 'success');
             });
           };
           
-          elements.vid.onended = () => {
-            console.log('Видео завершено');
-            // Можно добавить автоматическое повторение или другие действия
-          };
+          // Настройка зацикливания видео
+          elements.vid.loop = true;
+          
+          // Дополнительная обработка для гарантии зацикливания
+          elements.vid.addEventListener('ended', () => {
+            elements.vid.currentTime = 0;
+            elements.vid.play().catch(error => {
+              console.log('Автоперезапуск видео');
+            });
+          });
           
           elements.vid.src = URL.createObjectURL(file);
-          elements.vid.loop = true; // Зацикливание видео
           elements.vid.style.opacity = elements.opacitySlider.value / 100;
         }
         
